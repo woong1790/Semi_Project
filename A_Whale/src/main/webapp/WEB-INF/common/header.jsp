@@ -259,7 +259,7 @@
                   </li>
                   <li><a href="#" id="menu">product</a>
                     <ul id="sub-menu">
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
+                      <li><a href="<%=request.getContextPath()%>/product/productlist.do" aria-label="subemnu">All-Products</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>

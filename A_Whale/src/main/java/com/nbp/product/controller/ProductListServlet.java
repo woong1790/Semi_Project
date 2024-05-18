@@ -26,12 +26,9 @@ public class ProductListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-	
-	
-	
-	
-	
+		System.out.println("접속완료");
+		System.out.println(request.getContextPath());
+		request.getRequestDispatcher("/WEB-INF/views/product/ProductList.jsp").forward(request, response);
 	
 	}
 
