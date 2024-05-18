@@ -10,9 +10,6 @@
 <meta charset="UTF-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
-<link href="https://webfontworld.github.io/gmarket/GmarketSans.css" rel="stylesheet">
-<link href="https://webfontworld.github.io/kopus/KoPubWorldBatang.css" rel="stylesheet">
 <link href="./src/main/webapp/WEB-INF/style/mainPage.css" rel="stylesheet" type="text/css">
 
 <title>A-Whale</title>
@@ -96,12 +93,7 @@
         overflow: hidden;
         border-radius: 10px;
     }
-    body{
-        font-family: "Nanum Pen Script", cursive;
-        font-weight: 400;
-        font-style: normal;
-        background-image: url(https://images.unsplash.com/photo-1629196911514-cfd8d628ba26?q=80&w=1998&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
-    }
+
      .child{
         block-size: 50%;
         /* border: 1px solid black; */
