@@ -9,9 +9,11 @@
         body{
           background-image: url("https://images.unsplash.com/photo-1629196911514-cfd8d628ba26?q=80&w=1998&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
           background-size: 100%;
-          overflow: hidden;
-
+         
         }
+        a{
+    		text-decoration: none;
+    	}
 
         .shadow{
           box-shadow: 3px 3px 3px 3px #555555
@@ -138,6 +140,7 @@
 	    .header-icon:hover{
 	      opacity: 0.5;
 	    }
+	    
 	</style>    
 </head>
 <body>

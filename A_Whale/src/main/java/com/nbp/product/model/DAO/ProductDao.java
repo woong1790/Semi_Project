@@ -1,6 +1,6 @@
 package com.nbp.product.model.DAO;
 
-import java.io.FileReader;
+import java.io.FileReader;	
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,22 +19,22 @@ public class ProductDao {
 	private Properties sql = new Properties();
 	
 	{
-		String path = ProductDao.class.getResource("/driver.properties").getPath();
+		String path = ProductDao.class.getResource("/sql/product/product.properties").getPath();
 		try(FileReader fr = new FileReader(path)){
 			sql.load(fr);
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
-	//상품 리스트에 상품전체 출력 >> 페이징 처리예정
-	public List<Product> selectProductAll(Connection conn, int cPage, int numPerpage){
+	//상품 리스트에 상품전체 출력 >> 더보기 페이징 처리예정
+	public List<Product> selectProductAll(Connection conn, int firstNo, int lastNo){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Product> result = new ArrayList<>();
 		try {
 		pstmt=conn.prepareStatement(sql.getProperty("selectProductAll"));
-		pstmt.setInt(1, (cPage-1)*numPerpage+1);
-		pstmt.setInt(2, cPage*numPerpage);
+		pstmt.setInt(1, firstNo);
+		pstmt.setInt(2, lastNo);
 		rs=pstmt.executeQuery();
 		while(rs.next()) {
 			result.add(getProduct(rs));
@@ -46,7 +46,24 @@ public class ProductDao {
 			close(rs);
 		}
 		return result;
+	}
+	
+	public int selectProductAllCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result =0;
+		try {
+		pstmt=conn.prepareStatement(sql.getProperty("selectProductAllCount"));
+		rs=pstmt.executeQuery();
+		if(rs.next()) result=rs.getInt(1);
 		
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		return result;
 	}
 	
 	
@@ -67,6 +84,7 @@ public class ProductDao {
 				.productDeleteYn(rs.getDate("product_delete_yn"))
 				.memberId(rs.getString("member_id"))
 				.categoryNo(rs.getInt("category_no"))
+				.productImg(rs.getString("product_img"))
 				.build();
 	}
 }

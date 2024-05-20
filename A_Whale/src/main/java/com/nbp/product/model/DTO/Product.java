@@ -27,4 +27,5 @@ public class Product {
 	private Date productDeleteYn;
 	private String memberId;
 	private int categoryNo;
+	private String productImg; 
 }

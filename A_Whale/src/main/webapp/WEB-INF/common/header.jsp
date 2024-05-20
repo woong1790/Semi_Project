@@ -259,7 +259,7 @@
                   </li>
                   <li><a href="#" id="menu">product</a>
                     <ul id="sub-menu">
-                      <li><a href="<%=request.getContextPath()%>/product/productlist.do" aria-label="subemnu">All-Products</a></li>
+                      <li><a href="<%=request.getContextPath()%>/product/pagebar.do" aria-label="subemnu">All-Products</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
@@ -372,23 +372,23 @@
     document.querySelector("#id_input01").addEventListener("focus",e=>{
       const div01=document.getElementById("inputs01");
       div01.style.opacity="1";
-      div01.style.border="3px solid rgb(66, 114, 227)";
+      div01.style.outline="3px solid rgb(66, 114, 227)";
     });
     document.querySelector("#id_input01").addEventListener("blur",e=>{
       const div01=document.getElementById("inputs01");
       div01.style.opacity="0.5";
-      div01.style.border="0px";
+      div01.style.outline="0px";
     });
 
     document.querySelector("#id_input02").addEventListener("focus",e=>{
       const div01=document.getElementById("inputs02");
       div01.style.opacity="1";
-      div01.style.border="3px solid rgb(66, 114, 227)";
+      div01.style.outline="3px solid rgb(66, 114, 227)";
     });
     document.querySelector("#id_input02").addEventListener("blur",e=>{
       const div01=document.getElementById("inputs02");
       div01.style.opacity="0.5";
-      div01.style.border="0px";
+      div01.style.outline="0px";
     });
 
     
