@@ -1,8 +1,25 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ include file="/WEB-INF/style/mainPage.css" %> 
-	<%@ include file="/WEB-INF/style/header.css" %> 
+<%@ page import="com.nbp.model.DTO.Member" %>    
+<%
+	Member loginMember=(Member)session.getAttribute("loginMember");
+	//Cookie값 가져오기
+	Cookie[] cookies=request.getCookies();
+	String saveId=null;
+	if(cookies!=null){
+		for(Cookie c : cookies){
+			if(c.getName().equals("saveId")){
+				saveId=c.getValue();
+				break;
+			}
+		}
+	}
+%>
+	
+	
+<%@ include file="/WEB-INF/style/mainPage.css" %> 
+<%@ include file="/WEB-INF/style/header.css" %> 
 <!DOCTYPE html>
 <html>
 <header>
@@ -189,6 +206,84 @@
 		</div>
 	</div>
 	<div class="menu7"></div>
+	 <!-- 아이디 입력 박스 -->
+    <div id="login">
+      <div id="login-close" style="width: 40px; height: 40px;"><img src="https://i.imgur.com/B3yWAxM.png" width="25px"></div>
+      <div style="border: 1px solid red;">
+        <!-- 아이디 -->
+        <div id="inputs01" class="inputs" style="display: flex; justify-content:center; align-items:center; width:350px; height: 55px;">
+          <img src="https://i.imgur.com/jiAGWQk.png" width="20px" style="margin-left: 20px;margin-right: 10px;">
+          <label for="id_input01">
+            <input type="text" id="id_input01" placeholder="아이디">
+          </label>
+        </div>
+        <br>
+        <!-- 비밀번호 -->
+        <div id="inputs02" class="inputs" style="display: flex; justify-content:center; align-items:center; width:350px; height: 55px;">
+          <img src="https://i.imgur.com/sPvVjJ2.png" width="20px" style="margin-left: 20px; margin-right: 10px;">
+          <label for="id_input02">
+            <input type="password" id="id_input02" placeholder="비밀번호">
+          </label>
+        </div>
+        
+        <!-- 아이디 저장 체크박스 -->
+        <div style="margin-top: 20px;">
+            <input type="checkbox">아이디 저장
+            <!-- 로그인 버튼 -->
+            <br>
+            <button>로그인</button>
+        </div>
+        <!-- 비밀번호 찾기, 아이디 찾기, 회원가입 버튼 -->
+        <div id="find" style="margin-top: 20px;">
+          <a href="#">비밀번호 찾기</a>
+          <a href="#">아이디 찾기</a>
+          <a href="#" style="border-right:0px">회원가입</a>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  <script>
+    // 로그인 창 띄우기
+    document.getElementById("mypage").addEventListener("click",e=>{
+      const login = document.getElementById("login");
+      if(login.style.display="none"){
+        login.style.display="block";
+      }
+    });
+
+    //로그인 창 닫기
+    document.getElementById("login-close").addEventListener("click",e=>{
+      const login = document.getElementById("login");
+      if(login.style.display="block"){
+        login.style.display="none";
+      }
+    });
+
+    document.querySelector("#id_input01").addEventListener("focus",e=>{
+      const div01=document.getElementById("inputs01");
+      div01.style.opacity="1";
+      div01.style.border="3px solid rgb(66, 114, 227)";
+    });
+    document.querySelector("#id_input01").addEventListener("blur",e=>{
+      const div01=document.getElementById("inputs01");
+      div01.style.opacity="0.5";
+      div01.style.border="0px";
+    });
+
+    document.querySelector("#id_input02").addEventListener("focus",e=>{
+      const div01=document.getElementById("inputs02");
+      div01.style.opacity="1";
+      div01.style.border="3px solid rgb(66, 114, 227)";
+    });
+    document.querySelector("#id_input02").addEventListener("blur",e=>{
+      const div01=document.getElementById("inputs02");
+      div01.style.opacity="0.5";
+      div01.style.border="0px";
+    });
+
+    
+  </script>
 
 
 
