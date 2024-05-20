@@ -1,8 +1,8 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	<!--<%@ include file="/WEB-INF/style/mainPage.css" %>--> 
-	<%@ include file="/WEB-INF/common/header.jsp" %> 
+   pageEncoding="UTF-8"%>
+   <!--<%@ include file="/WEB-INF/style/mainPage.css" %>--> 
+   <%@ include file="/WEB-INF/common/header.jsp" %> 
 <!DOCTYPE html>
 <html>
 
@@ -15,80 +15,80 @@
 <title>A-Whale</title>
 </head>
 <body>
-	<div class="menu1">
-		<img src="https://i.pinimg.com/564x/d0/aa/aa/d0aaaa675b2aa1158492d4e698b28655.jpg" alt="동그라미~"> 
-			<img class="lettering" src="./image/awhale.png" alt="레터링">
+   <div class="menu1">
+      <img src="https://i.pinimg.com/564x/d0/aa/aa/d0aaaa675b2aa1158492d4e698b28655.jpg" alt="동그라미~"> 
+         <img class="lettering" src="./image/awhale.png" alt="레터링">
 
-	</div>
-	<div class="menu2">
-		<div class="menu2-1">
-			<a style="text-decoration-line: none;" href="">A-Whale</a> 
-			<a style="text-decoration-line: none;" href="">A-Whale</a> 
-			<a style="text-decoration-line: none;" href="">A-Whale</a>
-		</div>
-	</div>
-	<div class="menu3">
-		<a href="">A-Whale</a>
-	</div>
-	<div class="menu4">
-		<div class="left">
-			<div class="left-child">
-				<img style="width: 100%; height: 100%;" src="http://www.koreanewstoday.co.kr/news/photo/202203/66962_46979_3934.jpg" alt="zz">
-				<!-- div안에 넣기전에 div에 overflow: hidden 주고 이미지에 height,width 각 100%씩 -->
-			</div>
-			<div class="left-child">
-				<img style="width: 100%; height: 100%; margin-top: 5px; border-radius: 10px;" src="https://dimg.donga.com/ugc/CDB/WEEKLY/Article/5d/bb/ba/e1/5dbbbae119c7d2738de6.jpg" alt="">
-			</div>
-		</div>
-		<div class="center imagehidden">
-			<img style="width: 100%; height: 100%;" src="https://contents.sixshop.com/thumbnails/uploadedFiles/135637/default/image_1674201956171_1000.jpg" alt="zz">
-		</div>
-		<div class="right imagehidden">
-			<img style="width: 100%; height: 100%;" src="https://dewberry9.github.io/assets/images/daily/bombay-sapphire/04.jpg" alt="zz">
-		</div>
-	</div>
-	<div class="menu5">
-		<div class="left2 imagehidden">
-			<img style="width: 100%; height: 100%;" src="https://images.khan.co.kr/article/2024/01/25/news-p.v1.20240125.3f5fc2c0c3724e8995fb7a365b3c77a7_P1.jpeg" alt="zz">
-		</div>
-		<div class="center2 imagehidden">
-			<img style="width: 100%; height: 100%;" src="https://www.esquirekorea.co.kr/resources_old/online/org_online_image/eq/3e274de4-1b3a-4f88-825f-d47f690c8945.jpg" alt="zz">
-		</div>
-		<div class="right2 imagehidden">
-			<img style="width: 100%; height: 100%;" src="https://ae01.alicdn.com/kf/Sf2b708307afb4923af70ea64bbcc2bd7y.jpg_640x640Q90.jpg_.webp" alt="zz">
-		</div>
-	</div>
-	<div class="menu6">
-		<div class="left3">
-			<div class="child imagehidden">
-				<img style="width: 100%; height: 100%;" src="https://cdn.woodkorea.co.kr/news/photo/202212/71473_81562_4716.jpg" alt="zz">
-			</div>
-			<div class="child imagehidden">
-				<p>여기는 주류 설명~</p>
-				<!-- <img style="width: 100%; height: 100%;" src="https://i.pinimg.com/736x/9a/e5/f2/9ae5f2aed5284649c009b7bea3f0b345.jpg" alt="zz"> -->
-			</div>
-		</div>
-		<div class="center3">
-			<div class="child imagehidden">
-				<img style="width: 100%; height: 100%;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvcW7zlXmfJqdyvKnT0WPQVrjk_pyQjN0zL4eBIPiZDw&s" alt="zz">
-			</div>
-			<div class="child imagehidden">
-				<p>여기는 주류 설명~</p>
-				<!-- <img style="width: 100%; height: 100%;" src="https://i.pinimg.com/736x/9a/e5/f2/9ae5f2aed5284649c009b7bea3f0b345.jpg" alt="zz"> -->
-			</div>
-		</div>
-		<div class="right3">
-			<div class="child imagehidden">
-				<img style="width: 100%; height: 100%;" src="https://biz.chosun.com/resizer/Tpbb-q42I_IhhcNHabeY6DP8Xs0=/616x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/AZA5NM7DWVF55MR4NCV2S6GPGE.jpg" alt="zz">
-			</div>
-			<div class="child imagehidden">
-				<p>여기는 주류 설명~</p>
-				<!-- <img style="width: 100%; height: 100%;" src="https://i.pinimg.com/736x/9a/e5/f2/9ae5f2aed5284649c009b7bea3f0b345.jpg" alt="zz"> -->
-			</div>
-		</div>
-	</div>
-	<div class="menu7"></div>
-	<style>
+   </div>
+   <div class="menu2">
+      <div class="menu2-1">
+         <a style="text-decoration-line: none;" href="">A-Whale</a> 
+         <a style="text-decoration-line: none;" href="">A-Whale</a> 
+         <a style="text-decoration-line: none;" href="">A-Whale</a>
+      </div>
+   </div>
+   <div class="menu3">
+      <a href="">A-Whale</a>
+   </div>
+   <div class="menu4">
+      <div class="left">
+         <div class="left-child">
+            <img style="width: 100%; height: 100%;" src="http://www.koreanewstoday.co.kr/news/photo/202203/66962_46979_3934.jpg" alt="zz">
+            <!-- div안에 넣기전에 div에 overflow: hidden 주고 이미지에 height,width 각 100%씩 -->
+         </div>
+         <div class="left-child">
+            <img style="width: 100%; height: 100%; margin-top: 5px; border-radius: 10px;" src="https://dimg.donga.com/ugc/CDB/WEEKLY/Article/5d/bb/ba/e1/5dbbbae119c7d2738de6.jpg" alt="">
+         </div>
+      </div>
+      <div class="center imagehidden">
+         <img style="width: 100%; height: 100%;" src="https://contents.sixshop.com/thumbnails/uploadedFiles/135637/default/image_1674201956171_1000.jpg" alt="zz">
+      </div>
+      <div class="right imagehidden">
+         <img style="width: 100%; height: 100%;" src="https://dewberry9.github.io/assets/images/daily/bombay-sapphire/04.jpg" alt="zz">
+      </div>
+   </div>
+   <div class="menu5">
+      <div class="left2 imagehidden">
+         <img style="width: 100%; height: 100%;" src="https://images.khan.co.kr/article/2024/01/25/news-p.v1.20240125.3f5fc2c0c3724e8995fb7a365b3c77a7_P1.jpeg" alt="zz">
+      </div>
+      <div class="center2 imagehidden">
+         <img style="width: 100%; height: 100%;" src="https://www.esquirekorea.co.kr/resources_old/online/org_online_image/eq/3e274de4-1b3a-4f88-825f-d47f690c8945.jpg" alt="zz">
+      </div>
+      <div class="right2 imagehidden">
+         <img style="width: 100%; height: 100%;" src="https://ae01.alicdn.com/kf/Sf2b708307afb4923af70ea64bbcc2bd7y.jpg_640x640Q90.jpg_.webp" alt="zz">
+      </div>
+   </div>
+   <div class="menu6">
+      <div class="left3">
+         <div class="child imagehidden">
+            <img style="width: 100%; height: 100%;" src="https://cdn.woodkorea.co.kr/news/photo/202212/71473_81562_4716.jpg" alt="zz">
+         </div>
+         <div class="child imagehidden">
+            <p>여기는 주류 설명~</p>
+            <!-- <img style="width: 100%; height: 100%;" src="https://i.pinimg.com/736x/9a/e5/f2/9ae5f2aed5284649c009b7bea3f0b345.jpg" alt="zz"> -->
+         </div>
+      </div>
+      <div class="center3">
+         <div class="child imagehidden">
+            <img style="width: 100%; height: 100%;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvcW7zlXmfJqdyvKnT0WPQVrjk_pyQjN0zL4eBIPiZDw&s" alt="zz">
+         </div>
+         <div class="child imagehidden">
+            <p>여기는 주류 설명~</p>
+            <!-- <img style="width: 100%; height: 100%;" src="https://i.pinimg.com/736x/9a/e5/f2/9ae5f2aed5284649c009b7bea3f0b345.jpg" alt="zz"> -->
+         </div>
+      </div>
+      <div class="right3">
+         <div class="child imagehidden">
+            <img style="width: 100%; height: 100%;" src="https://biz.chosun.com/resizer/Tpbb-q42I_IhhcNHabeY6DP8Xs0=/616x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/AZA5NM7DWVF55MR4NCV2S6GPGE.jpg" alt="zz">
+         </div>
+         <div class="child imagehidden">
+            <p>여기는 주류 설명~</p>
+            <!-- <img style="width: 100%; height: 100%;" src="https://i.pinimg.com/736x/9a/e5/f2/9ae5f2aed5284649c009b7bea3f0b345.jpg" alt="zz"> -->
+         </div>
+      </div>
+   </div>
+   <div class="menu7"></div>
+   <style>
     .imagehidden{
         overflow: hidden;
         border-radius: 10px;
