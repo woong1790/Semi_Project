@@ -16,13 +16,13 @@ import com.nbp.product.model.service.ProductService;
  * Servlet implementation class ProductListServlet
  */
 @WebServlet("/product/pagebar.do")
-public class ProductListPageBarServlet extends HttpServlet {
+public class ProductListMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductListPageBarServlet() {
+    public ProductListMainServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,28 +31,32 @@ public class ProductListPageBarServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("접속완료");
 		
-		int totalData = new ProductService().selectProductAllCount();
-		
-		//페이지 각 마지막 번호.
-		int lastNo = 0;
-		int firstNo = 5;
-		
-		String pageBar="";
-		if(lastNo>=totalData) {
-			lastNo=totalData;
-			pageBar="<div id='read-btn' style='display:none;><p>read-More</p></div>";
-		}else {
-			pageBar="<div id='read-btn'><p>read-More</p></div>";
-		}
-		
-		
-		
-		
-		request.setAttribute("pageBar",pageBar);
-		
-		request.getRequestDispatcher("/WEB-INF/views/product/ProductList.jsp").forward(request, response);
+				//현재페이지저장
+				int cPage=1;
+				try {
+					cPage=Integer.parseInt(request.getParameter("cPage"));
+				}catch(NumberFormatException e) {}
+				//페이지당 데이터수 저장
+				int numPerpage=6;
+				try {
+					numPerpage=Integer.parseInt(request.getParameter("numPerpage"));
+				}catch(NumberFormatException e) {}
+				//board 리스트 값들고오기
+				List<Product> products = new ProductService().selectProductAll(cPage, numPerpage);
+				//request에 값 저장 >>jsp에서 쓰기 위함
+				request.setAttribute("products1", products);
+
+				String pageBar="";
+
+					pageBar="<div id='all-read-btn' class='read-btn'><p>read-More</p></div>";
+					
+
+
+				request.setAttribute("pageBar", pageBar);
+				request.getRequestDispatcher("/WEB-INF/views/product/ProductList.jsp").forward(request, response);
+				
+				
 	
 	}
 

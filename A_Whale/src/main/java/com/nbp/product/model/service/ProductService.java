@@ -26,4 +26,12 @@ public class ProductService {
 		return result;
 		
 	}
+	
+	public List<Product> searchProduct(String title, String subTitle, int firstNo, int lastNo){
+		Connection conn = getConnection();
+		List<Product> result = dao.searchProduct(conn, title, subTitle, firstNo, lastNo);
+		close(conn);
+		return result;
+		
+	}
 }

@@ -16,8 +16,7 @@
 </head>
 <body>
    <div class="menu1">
-      <img src="https://i.pinimg.com/564x/d0/aa/aa/d0aaaa675b2aa1158492d4e698b28655.jpg" alt="동그라미~"> 
-         <img class="lettering" src="./image/awhale.png" alt="레터링">
+
 
    </div>
    <div class="menu2">
@@ -261,11 +260,11 @@
         border-radius: 100%;
         width: 300px;
         height: 300px;
-        z-index: 1;
+        z-index: 2;
         position: relative;
     }
     .menu1 .lettering{
-        z-index: 2;
+        z-index: 3;
         /* margin-right: 50px; */
         position: absolute;
         width: 800px;

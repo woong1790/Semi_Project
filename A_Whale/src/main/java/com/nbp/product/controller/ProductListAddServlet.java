@@ -16,13 +16,13 @@ import com.nbp.product.model.service.ProductService;
  * Servlet implementation class ProductListServlet
  */
 @WebServlet("/product/productlist.do")
-public class ProductListServlet extends HttpServlet {
+public class ProductListAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductListServlet() {
+    public ProductListAddServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,13 +31,13 @@ public class ProductListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int lastNo = Integer.parseInt(request.getParameter("lastNo"));
 		int firstNo = Integer.parseInt(request.getParameter("firstNo"));
-		System.out.println(lastNo+" "+firstNo);
-		List<Product> result = new ProductService().selectProductAll(firstNo,lastNo);
-	
-	
+//		System.out.println(firstNo);
+		List<Product> result = new ProductService().selectProductAll(firstNo, (firstNo+5));
+		
+		request.setAttribute("products", result);
+		request.getRequestDispatcher("/WEB-INF/views/product/ajaxProductList.jsp").forward(request, response);
+				
 	
 	}
 

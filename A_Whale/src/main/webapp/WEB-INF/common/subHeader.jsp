@@ -4,8 +4,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>A.Whale Products</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
+    	header{
+    		background-image:url("https://images.unsplash.com/photo-1629196911514-cfd8d628ba26?q=80&w=1998&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    		border-bottom:2px solid rgb(17, 17, 68); 
+    		height:120px;
+    		position: fixed;
+    		top:0;
+    		left:0;
+    		right:0;
+    		z-index:1000;
+    	}
+    	
+    	#header-sub{
+    	    background-image:url("https://images.unsplash.com/photo-1629196911514-cfd8d628ba26?q=80&w=1998&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    	    height:120px;
+    	    
+    	
+    	}
+    
         body{
           background-image: url("https://images.unsplash.com/photo-1629196911514-cfd8d628ba26?q=80&w=1998&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
           background-size: 100%;
@@ -58,7 +77,7 @@
 	    }
 	
 	    #main-menu > li > a {
-	      font-size: 25px;
+	      font-size: 22px;
 	      color: rgb(57, 56, 68);
 	      font-weight: bolder;
 	      text-align: center;
@@ -66,7 +85,7 @@
 	      letter-spacing: 0.05em;
 	      display: block;
 	      padding: 14px 36px;
-	      border-right: 2px solid rgba(0, 0, 175, 0.45);
+	      border-right: 2px solid gray;
 	      text-shadow: 1px 1px 1px rgba(18, 14, 87, 0.5);
 	
 	    }
@@ -83,14 +102,15 @@
 	    }
 	
 	    #sub-menu > li {
-	      padding: 16px 28px;
+	      padding: 15px 35px;
+	      
 	
 	    }
 	
 	    #sub-menu > li >  a {
 	      color: rgb(255, 255, 255);
 	      text-decoration: none;
-	      font-size: 25px;
+	      font-size: 20px;
 	      font-weight: lighter;
 	    }
 	
@@ -115,6 +135,7 @@
 	
 	    #main-menu a {
 	      display: inline-block; 
+	      
 	      opacity: 1;
 	      transition: all 0.35s ease-in;
 	    }
@@ -122,14 +143,14 @@
 	    #main-menu a:hover{
 	      opacity: 0.5;
 	      text-decoration: underline;
-	
+	      
 	    }
 	
 	    #main{
 	        display: flex;
 	        margin-top: 20px;
 	        margin-left: 20px;
-	        height: 50px;
+	        height: 20px;
 	    }
 	
 	    .header-icon{
@@ -146,7 +167,7 @@
 <body>
  <header>
         <div id="main">
-            <div class="logo border" style="width: 150px; height: 120px;"><img src="https://postfiles.pstatic.net/MjAyNDA1MTZfNjcg/MDAxNzE1ODUwMjgwOTY5.Jv6Kv_HtWZpWqwM47oHMsFPkdaNbnGuLxQcWEOivE3og.C6hmrMJVaBa-vZpvbdWJ47MpvixWDoZYUjALOHNn1ssg.PNG/logo1.png?type=w773" alt="" width="100px" height="80px"></div>
+            <div class="logo border" style="width: 80px; height: 100px; margin-left:30px"><img src="https://postfiles.pstatic.net/MjAyNDA1MTZfNjcg/MDAxNzE1ODUwMjgwOTY5.Jv6Kv_HtWZpWqwM47oHMsFPkdaNbnGuLxQcWEOivE3og.C6hmrMJVaBa-vZpvbdWJ47MpvixWDoZYUjALOHNn1ssg.PNG/logo1.png?type=w773" alt="" width="100px" height="80px"></div>
             <div id="category" style="min-width: 1100px;margin-top: 20px;">
               <nav role="navigation">
                 <ul id="main-menu">
@@ -212,6 +233,7 @@
           </div>
         </div>
     </header>
+    <div id="header-sub"></div>
 
 </body>
 </html>

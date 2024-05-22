@@ -24,8 +24,8 @@ public class Product {
 	private int productAge;
 	private String productBrand;
 	private Date productEnrollDate;
-	private Date productDeleteYn;
+	private int productDeleteYn;
 	private String memberId;
-	private int categoryNo;
 	private String productImg; 
+	private String categoryName;
 }

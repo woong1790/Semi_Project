@@ -6,7 +6,8 @@
 <meta charset="UTF-8">
 <link href="https://webfontworld.github.io/gmarket/GmarketSans.css" rel="stylesheet">
 <link href="https://webfontworld.github.io/kopus/KoPubWorldDotum.css" rel="stylesheet">
-<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<title>A.Whale</title>
 </head>
 <body>
 	    <style>
@@ -79,7 +80,7 @@
     #main-menu > li {
       float: left;
       position: relative;
-      margin: 0px 40px;
+      margin: 0px 25px;
 
     }
 
@@ -91,7 +92,7 @@
       text-decoration: none;
       letter-spacing: 0.05em;
       display: block;
-      padding: 14px 36px;
+      padding: 14px 15px;
       text-shadow: 1px 1px 1px rgba(18, 14, 87, 0.5);
 
     }
@@ -99,7 +100,7 @@
 
     #sub-menu {
       position: absolute;
-      margin-top: 20px;
+
       opacity: 0;
       visibility: hidden;
       transition: all 0.35s ease-in;
@@ -109,7 +110,7 @@
     }
 
     #sub-menu > li {
-      padding: 16px 28px;
+    	padding: 10px 28px;
 
     }
 
@@ -117,7 +118,7 @@
       color: white;
       text-decoration: none;
       font-weight: lighter;
-      font-size: 25px;
+      font-size: 20px;
     }
 
     #main-menu > li:hover #sub-menu {
@@ -126,7 +127,7 @@
     }
 
 
-        #main-menu {
+   #main-menu {
       text-align: center;
     }
 
@@ -229,10 +230,12 @@
         justify-content: center;
         width: 400px;
       }
+      
+
         
 
     </style>
-    <header>
+    <header style="min-width: 1200px;" >
         <div id="headmain" style="min-width: 1000px;">
             <div id="logo">
                 <div class="logo border" style="width: 300px; height: 120px;">
@@ -265,7 +268,7 @@
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
                     </ul>
                   </li>
-                  <li><a href="#" id="menu">event</a>
+                  <li><a href="#" id="menu"> event</a>
                     <ul id="sub-menu">
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
@@ -314,9 +317,9 @@
             
            
 
-
     <!-- 아이디 입력 박스 -->
     <div id="login">
+
       <div id="login-close" style="width: 40px; height: 40px;"><img src="https://i.imgur.com/B3yWAxM.png" width="25px"></div>
       <div style="border: 1px solid red;">
         <!-- 아이디 -->

@@ -27,14 +27,14 @@ public class ProductDao {
 		}
 	}
 	//상품 리스트에 상품전체 출력 >> 더보기 페이징 처리예정
-	public List<Product> selectProductAll(Connection conn, int firstNo, int lastNo){
+	public List<Product> selectProductAll(Connection conn, int cPage, int numPerpage){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Product> result = new ArrayList<>();
 		try {
 		pstmt=conn.prepareStatement(sql.getProperty("selectProductAll"));
-		pstmt.setInt(1, firstNo);
-		pstmt.setInt(2, lastNo);
+		pstmt.setInt(1, cPage);
+		pstmt.setInt(2, numPerpage);
 		rs=pstmt.executeQuery();
 		while(rs.next()) {
 			result.add(getProduct(rs));
@@ -66,6 +66,29 @@ public class ProductDao {
 		return result;
 	}
 	
+	public List<Product> searchProduct(Connection conn, String title, String subTitle, int firstNo, int lastNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Product> result = new ArrayList<>();
+		try {
+			String sql=this.sql.getProperty("searchProduct");
+			sql=sql.replace("#COL", title);
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, subTitle);
+			pstmt.setInt(2, firstNo);
+			pstmt.setInt(3, lastNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				result.add(getProduct(rs));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		return result;
+	}
 	
 	static public Product getProduct(ResultSet rs) throws SQLException {
 		return Product.builder()
@@ -80,11 +103,11 @@ public class ProductDao {
 				.productVolume(rs.getInt("product_volume"))
 				.productAge(rs.getInt("product_age"))
 				.productBrand(rs.getString("product_brand"))
-				.productEnrollDate(rs.getDate("product_enrolldate"))
-				.productDeleteYn(rs.getDate("product_delete_yn"))
+				.productEnrollDate(rs.getDate("product_enroll_date"))
+				.productDeleteYn(rs.getInt("product_delete_yn"))
 				.memberId(rs.getString("member_id"))
-				.categoryNo(rs.getInt("category_no"))
 				.productImg(rs.getString("product_img"))
+				.categoryName(rs.getString("category_name"))
 				.build();
 	}
 }
