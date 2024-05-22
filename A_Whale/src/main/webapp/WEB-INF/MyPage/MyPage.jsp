@@ -4,6 +4,9 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<%@ include file="/WEB-INF/common/subHeader.jsp" %> 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -37,6 +40,7 @@
             justify-content: center;
             align-items: center;
             justify-content: space-evenly;
+         
             
         }
         .aside>nav>ul{
@@ -64,9 +68,12 @@
             display: flex;
             flex-wrap: wrap;
             margin: 0;
+            
+
         }
         .section{
             display: flex;
+            margin-top: 100px;
 
         }
         .aside a{
@@ -78,25 +85,24 @@
             display: flex;
             justify-content: center;
         }
+        #content{
+        	border: 1px solid black;
+        	display: flex;
+        	align-items: center;
+        	justify-content: center;
+        }
 </style>
 
 
-<header>
-    <div id="top">
-        <a href="header.html">
-            <img src="" alt="브랜드로고" style="border-radius: 100%;"><h1 id="brandlogo">브랜드로고</h1>
-        </a>
-</div>
-<h3 id="mypage">마이페이지</h3>
-</header>
+
 <body>
     <section class="section">
         <aside class="aside">
             <nav>
                 <ul>
                     <li>*내정보 확인하기</li>
-                    <li><a href="회원정보수정.html">-회원정보 수정</a></li>
-                    <li><a href="회원탈퇴.html">-회원탈퇴</a></li>
+                    <li><a id="editProfileLink">-회원정보 수정</a></li>
+                    <li><a id="deleteProfileLink">-회원탈퇴</a></li>
                     <li><a href="">*주문내역조회</a></li>
                     <li><a href="">*최근 본 상품</a></li>
                     <li>*문의내역</li>
@@ -106,49 +112,28 @@
                 </ul>
             </nav>
         </aside>
-        <article class="article">
-            <div class="product">
-                <img src="./images/다운로드 (1).jfif" alt="" width="80" height="80">
-                <h4>제품명: 돼지머리</h4>
-                <h5>맛있는 돼지..</h5>
-            </div>
-            <div class="product">
-                <img src="./images/다운로드 (1).jfif" alt="" width="80" height="80">
-                <h4>제품명: 돼지머리</h4>
-                <h5>제사용 돼지..</h5>
-            </div>
-            <div class="product">
-                <img src="./images/다운로드 (1).jfif" alt="" width="80" height="80">
-                <h4>제품명: 돼지머리</h4>
-                <h5>끝내주는 돼지..</h5>
-            </div>
-            <div class="product">
-                <img src="./images/다운로드 (1).jfif" alt="" width="80" height="80">
-                <h4>제품명: 돼지머리</h4>
-                <h5>먹어봐 내 돼지..</h5>
-            </div>
-            <div class="product">
-                <img src="./images/다운로드 (1).jfif" alt="" width="80" height="80">
-                <h4>제품명: 돼지머리</h4>
-                <h5>비싼 돼지..</h5>
-            </div>
-            <div class="product">
-                <img src="./images/다운로드 (1).jfif" alt="" width="80" height="80">
-                <h4>제품명: 돼지머리</h4>
-                <h5>그냥 돼지..</h5>
-            </div>
-            <div class="product">
-                <img src="./images/다운로드 (1).jfif" alt="" width="80" height="80">
-                <h4>제품명: 돼지</h4>
-                <h5>근사한 돼지..</h5>
-            </div>
-            <div class="product">
-                <img src="./images/다운로드 (1).jfif" alt="" width="80" height="80">
-                <h4>제품명: 돼지</h4>
-                <h5>근사한 돼지..</h5>
-            </div>
+        <article id="article">
+           <div id="content" style="width: 1420px; height: 800px; margin-left:20px;">
+           	
+           </div>
         </article>
     </section>
+    <script type="text/javascript">
+      $("#editProfileLink").click(e=>{
+    	  $.get("<%=request.getContextPath()%>/MyPage/memberupdate.do")
+    	  .done(data=>{
+    		  $("#content").html(data);
+    	  })
+      });
+      </script>
+      <script type="text/javascript">
+      $("#deleteProfileLink").click(e=>{
+    	  $.get("<%=request.getContextPath()%>/MyPage/memberdelete.do")
+    	  .done(data=>{
+    		  $("#content").html(data);
+    	  })
+      });
+    </script>
 </body>
 <footer>
 

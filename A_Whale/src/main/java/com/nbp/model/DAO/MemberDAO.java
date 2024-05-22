@@ -16,7 +16,7 @@ public class MemberDAO {
 	private Properties sql=new Properties();
 	{
 		String path=MemberDAO.class
-				.getResource("/sql/member/sql_member.properties").getPath();
+				.getResource("/member/member.properties").getPath();
 		try(FileReader fr=new FileReader(path)){
 			sql.load(fr);
 		}catch(IOException e) {
@@ -31,11 +31,42 @@ public class MemberDAO {
 			pstmt.setString(1, m.getMemberId());
 			pstmt.setString(2, m.getMemberNickname());
 			pstmt.setString(3, m.getMemberPw());
-			pstmt.setString(4,m.getMemberName());
+			pstmt.setString(4, m.getMemberName());
 			pstmt.setString(5, m.getMemberPhone());
 			pstmt.setString(6, m.getMemberEmail());
 			pstmt.setString(7, m.getMemberAdr());
 			pstmt.setString(8, m.getMemberIdNum());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	public int updateMember(Connection conn, String pw, String em, String adr, String ph, String id) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("updateMember"));
+			pstmt.setString(1, pw);
+			pstmt.setString(2, em);
+			pstmt.setString(3, adr);
+			pstmt.setString(4, ph);
+			pstmt.setString(5, id);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
+	public int deleteMember(Connection conn, String memberId) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteMember"));
+			pstmt.setString(1, memberId);
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -61,7 +92,7 @@ public class MemberDAO {
 		}return m;	
 	}
 	public static Member getMember(ResultSet rs) throws SQLException{
-		Date enrollDate=rs.getDate("enrolldate");
+		Date enrollDate=rs.getDate("member_enroll_date");
 //		String email, phone;
 //		try {
 //			email=AESEncryptor.decryptData(rs.getString("email"));

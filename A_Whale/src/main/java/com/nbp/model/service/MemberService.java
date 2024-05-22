@@ -30,4 +30,20 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	public int updateMember(String pw, String em, String adr, String ph, String id) {
+		Connection conn=getConnection();
+		int result=dao.updateMember(conn, pw, em, adr, ph, id);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	public int deleteMember(String memberId) {
+		Connection conn=getConnection();
+		int result=dao.deleteMember(conn,memberId);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 }
