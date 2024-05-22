@@ -27,6 +27,13 @@ public class ProductService {
 		
 	}
 	
+	public Product selectProductInfo(String title) {
+		Connection conn = getConnection();
+		Product result = dao.selectProductInfo(conn,title);
+		close(conn);
+		return result;
+	}
+	
 	public List<Product> searchProduct(String title, String subTitle, int firstNo, int lastNo){
 		Connection conn = getConnection();
 		List<Product> result = dao.searchProduct(conn, title, subTitle, firstNo, lastNo);

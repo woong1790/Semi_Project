@@ -358,8 +358,8 @@ List<Product> products1=(List<Product>)request.getAttribute("products1");
 		
 		
 		/* 제품 클릭시 상세페이지로 이동 */
-		$(".product-info").click(e=>{
-			const productName = $(e.target).closest('.product').find('#product-name').text());
+		$(document).on('click', '.product-info', function(e) {
+			const productName = $(e.target).closest('.product').find('#product-name').text();
 			location.assign("<%=request.getContextPath()%>/product/productInfo.do?productName="+productName);
 		});
 		

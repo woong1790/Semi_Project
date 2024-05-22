@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ page import="java.util.List, com.nbp.product.model.DTO.Product" %>
+<%
+	Product p = (Product)request.getAttribute("productInfo");
+%>
 <%@ include file="/WEB-INF/common/subHeader.jsp" %> 
 <!DOCTYPE html>
 <html>
@@ -14,7 +17,7 @@
     justify-content: space-between;
     align-items: center;
     background-image: url("https://i.imgur.com/t1HFAVE.jpeg");
-    background-size: 100% 100%;
+	background-size:100% 100%;
     background-position: center;
     transition: all 0.35s ease-in;
    } 
@@ -117,7 +120,7 @@
     font-weight: bolder; 
     color: rgb(3, 1, 57); 
     background-color: white;
-    width: 145px;
+    width: 240px;
     height: 50px;
     border-radius: 10px;
     display: flex;
@@ -134,13 +137,13 @@
   }
 
   #cart>p{
-    margin-bottom: 5px;
+    margin-bottom: 7px;
   }
 
   #wish-img{
     font-size: 30px; 
     font-weight: bolder; 
-    width: 145px;
+    width: 50px;
     height: 50px;
     display: flex;
     justify-content: center;
@@ -157,65 +160,125 @@
   }
 
 
-     .border{
+    /*  .border{
         border: 1px solid red;
-    } 
+    }  */
 
-    select, #total {
-            margin-top: 10px;
-            display: block;
-        }
-        select {
-            padding: 5px;
-            font-size: 16px;
-        }
-        #total {
-            margin-top: 15px;
-            font-weight: bold;
-        }
+   #product {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      background:lightgray;
+      border: 1px solid #ccc;
+      box-shadow: 2px 2px 8px rgba(255, 255, 255, 0.5);
+      outline: none;
+      transition: box-shadow 0.3s ease-in-out;
+      margin-left:20px;
+      font-weight:bolder;
+   }
+   
+   #product>option {
+   	  font-family:GmarketSans;
+   }
+   
+   #product:hover {
+        box-shadow: 2px 2px 8px rgba(255, 255, 255, 0.9), 0 0 15px rgba(0, 0, 0, 0.3);
+   }
+   
+   #order-list{
+   		color:white;
+   		font-size:17px;
+   }
+   
+   .product-container{
+   		height:60px;
+   		/* outline:1px solid white; */
+   		margin : 10px 0;
+   		width:100%;
+   		display: flex;
+    	justify-content: center;
+    	justify-content: space-evenly;
+    	align-items: center;
+   }
+   
+   .product-container>table{
+   		text-align:center;
+   		width:100%;
+   		padding-right:25px;
+   }
+   
+   .total-price{
+   		color:white;
+   		font-size:30px;
+   		/* float:right; */
+   }
 
     </style>
 
 </head>
 <body>
  <section>
-        <div id="product-main" class="border" style="margin-top: 100px; height: 800px; min-width: 1400px;">
+        <div id="product-main" class="border" style=" height: 800px; min-width: 1400px;">
             <div class="border" style="height: 800px; width: 500px; margin-right: 20px;">
     
             </div>
             <!-- 오른쪽 상품 상세 메뉴들 -->
-            <div id="product-sub-main" class="border" style="height: 800px; width: 500px; margin-left: 20px; margin-right: 60px;">
-                <p class="product-title"><br>A.Whale 시그니처 와인.<br> wine.</p>
-                <p class="product-sub-title">Experience the magic of our spirits</p> <br><br><br>
+            <div id="product-sub-main" class="border" style="height: 800px; width: 400px; margin-left: 20px; margin-right: 60px;">
+                <p class="product-title"><br><br><%=p.getProductName()%></p>
+                <p class="product-sub-title"><%=p.getProductSubname()%></p> <br><br>
                 <!-- 가격, 카운트 업,다운 버튼 -->
                 <div class="price-menu border">
                   <div>
-                    <span style="color: white; font-size: 35px;">\ </span><span id="price" style="color: white; font-size: 40px;">79000</span><br>
+                    <span style="color: white; font-size: 35px;">\ </span><span id="price" style="color: white; font-size: 40px;"><%=p.getProductPrice()%></span><br>
                   </div>
                     <div class="border detail" style="display: flex;">
-                    <div id="minus"><img src="./images/down.png" alt="" width="20px" height="15px"></div>
+                    <div id="minus"><img src="https://i.imgur.com/RnOgrKc.png" alt="" width="25px" height="15px"></div>
                     <div id="product-count">1</div>
-                    <div id="plus"><img src="./images/up.png" alt="" width="20px" height="15px"></div>
+                    <div id="plus"><img src="https://i.imgur.com/tWmQbwu.png" alt="" width="25px" height="15px"></div>
                   </div>
                 </div>
+                <br>
                 <!-- 추가 구매상품 선택 리스트 -->
-                <label for="product">제품 선택:</label>
                 <select id="product" onchange="updateTotal()">
                     <option value="0">선택하세요</option>
-                    <option value="5000">얼음틀 : 5,000원</option>
-                    <option value="25000">잔 : 25,000원</option>
-                    <option value="1500">선물포장 : 1,500원</option>
+                    <option value="얼음틀:5000">얼음틀:5,000원</option>
+                    <option value="잔:25000">잔:25,000원</option>
+                    <option value="선물포장:1500">선물포장:1,500원</option>
                 </select>
                 <!-- 구매, 장바구니, 위시리스트 버튼 -->
               <div id="parchase">
-                <p style="font-size: 30px; font-weight: bolder; padding-bottom: 3px;">PARCHASE</p>
+                <p style="font-size: 25px; font-weight: bolder; padding-bottom: 3px;">Parchase</p>
               </div>
-              <div style="display: flex; flex-direction: row; justify-content: center; justify-content: space-between; align-items: center; width: 310px; margin-top: 10px;">
+              <div style="display: flex; flex-direction: row; justify-content: center; justify-content: space-between; align-items: center; width: 300px; margin-top: 10px;">
                 <div id="cart"><p>cart</p></div>
-                <div id="wish-img"><img src="./images/heart01.png" width="40px"></div>
+                <div id="wish-img"><img src="https://i.imgur.com/VqIZAb3.png" width="30px"></div>
               </div>
-              <!-- 상품 설명 -->
-              <div style="color: white; width: 400px; margin-top: 50px; border-top: 3px solid rgb(255, 255, 255);"> <br>Whiskey, also spelled whisky in some regions, is a distilled alcoholic beverage made from fermented grain mash. The grains used in whiskey production can include barley, corn, rye, and wheat. The production process typically involves mashing the grains, fermenting the mash, distilling the liquid, and aging it in wooden barrels.<br> </div>
+              <!-- 구매 상품 리스트 -->
+              <div id="order-list" style="color: white; min-height:20px; width: 320px; margin-top: 20px; border-top: 2px solid rgb(255, 255, 255);border-bottom: 2px solid rgb(255, 255, 255);">
+              		<div class="product-container">
+              			<%-- <div> <p><%=p.getProductName()%></p> </div>
+              			<div>(1)</div>
+              			<div id="under-product-price"> <p>\<%=p.getProductPrice()%></p></div>
+              			<div>1234</div> --%>
+              			
+              			<table>
+              				<tr>
+              					<th>제품명</th>
+              					<th>수량</th>
+              					<th>가격</th>
+              					<th></th>
+              				</tr>
+              				<tr>
+              					<td><%=p.getProductName()%></td>
+              					<td class="list-count">(1)</td>
+              					<td class="list-price"><%=p.getProductPrice()%>원</td>
+              					<td><img class="list-delete-btn" src="https://i.imgur.com/U1LZh3O.png" width=15px style="padding-top:10px"></td>
+              				</tr>
+              				
+              			</table>
+              		</div>
+              </div>
+              			<div class="total-price">total : </div>
             </div>
         </div>
     
@@ -225,12 +288,12 @@
       const down = document.getElementById("minus");
       let price = document.getElementById("price");
       const count = document.getElementById("product-count");
-      let priceCount=79000;
+      let priceCount=<%=p.getProductPrice()%>;
       let countResult=1;
       plus.addEventListener("click",e=>{
-          if(priceCount>=79000 || countResult>=1){
+          if(priceCount>=<%=p.getProductPrice()%> || countResult>=1){
             countResult+=1;
-            priceCount+=79000;
+            priceCount+=<%=p.getProductPrice()%>;
           count.innerHTML=countResult;
           price.innerHTML=priceCount;
           console.log(priceCount);
@@ -238,14 +301,37 @@
       });
 
       down.addEventListener("click",e=>{
-        if(priceCount>79000 || countResult!=1){
+        if(priceCount><%=p.getProductPrice()%> || countResult!=1){
           countResult-=1;
-          priceCount-=79000;
+          priceCount-=<%=p.getProductPrice()%>;
         count.innerHTML=countResult;
         price.innerHTML=priceCount;
         down.style.opacity=1;
         }
       });
+      
+      
+      /* 선택항목 선택시 하단 table에 선택한 물품 생성 출력 */
+      const updateTotal=()=>{
+    	  const select = document.getElementById("product");
+    	 const tableResult = select.value.split(':');
+    	 console.log(tableResult[0]);
+    	 
+    	 const sub-product = "<tr>
+			<td>"+tableResult[0]+"</td>
+			<td class="list-count">(1)</td>
+			<td class="list-price">"+tableResult[1]+"</td>
+			<td><img class="list-delete-btn" src='https://i.imgur.com/U1LZh3O.png' width=15px style='padding-top:10px'></td>
+			</tr>";
+		
+		
+    	 
+    	 
+    	 
+      }
+      
+      
+      
     </script>
     <div class="border" style="height: 15px; margin-top: 20px; border-bottom: 8px solid rgb(9, 9, 71);border-top: 3px solid rgb(9, 9, 71); min-width: 1400px;"></div>
     <div id="product-detail-main" class="border">상품 설명, 리뷰, Q&A

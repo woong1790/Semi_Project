@@ -90,6 +90,27 @@ public class ProductDao {
 		return result;
 	}
 	
+	public Product selectProductInfo(Connection conn, String title) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Product result = null;
+		try {
+		pstmt = conn.prepareStatement(sql.getProperty("selectProductInfo"));
+		pstmt.setString(1, title);
+		rs=pstmt.executeQuery();
+		if(rs.next()) {
+			result=getProduct(rs);
+		}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		return result;
+		
+	}
+	
 	static public Product getProduct(ResultSet rs) throws SQLException {
 		return Product.builder()
 				.productNo(rs.getInt("product_no"))
