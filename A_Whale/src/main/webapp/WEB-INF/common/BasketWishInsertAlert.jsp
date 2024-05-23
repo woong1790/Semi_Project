@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-장바구니에 추가 후 삭제하시겠습니까?
+위시리스트에 추가 후 삭제하시겠습니까?
 <button onclick="wishtobasketyesdelete();"> 네 </button>
 <button onclick="wishtobasketnodelete();">아니오 </button>
 <script>
@@ -24,6 +24,5 @@
 	
 	 }
 	 
-</script>
 </body>
 </html>
