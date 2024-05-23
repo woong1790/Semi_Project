@@ -2,6 +2,7 @@ package com.nbp.wishlist.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import com.nbp.model.DTO.Member;
 import com.nbp.shoppingbasket.model.dto.ShoppingBasketDto;
 import com.nbp.shoppingbasket.model.service.ShoppingbasketService;
+import com.nbp.wishlist.model.service.WishlistService;
 
 /**
  * Servlet implementation class WishToInsertBasketDelete
@@ -52,8 +54,9 @@ public class WishToInsertBasketDelete extends HttpServlet {
 			for(int i=0; i<list.length; i++) {
 				inlist[i]=Integer.parseInt(list[i]);
 			}
+		 List<Integer> deleteinlist=new ArrayList<>(); 
 		 
-		 if(cartList.size()>=5) {
+ 		 if(cartList.size()>=5) {
 			request.setAttribute("msg","저장된 장바구니 갯수가 5개를 초과하였습니다.");
 			response.sendRedirect(request.getContextPath());
 			
@@ -73,7 +76,8 @@ public class WishToInsertBasketDelete extends HttpServlet {
 						 .build();
 				
 				 new ShoppingbasketService().insertCart(s);
-				 System.out.println("성공");
+				 deleteinlist.add(inlist[i]);
+				 System.out.println("성공+삭제성공");
 				 }else {
 					 for (ShoppingBasketDto s: cartList) {
 						 if(s.getProductId()==inlist[i]) {
@@ -85,8 +89,33 @@ public class WishToInsertBasketDelete extends HttpServlet {
 				
 				 
 			 }
+			 if(!deleteinlist.isEmpty()) {
+			 int[] deleteinlist2= deleteinlist.stream()
+		                .mapToInt(i -> i)
+		                .toArray();
+			 System.out.println(Arrays.toString(deleteinlist2)+"인트배열 변환 성공?");
+			 String path="";
+				for(int i=0; i<deleteinlist2.length; i++) {
+					if(i==0&&deleteinlist2.length==1) {
+						path+="(?)";
+					}else if(i==0) {
+						path+="(?, ";
+					}
+					else if(i!=(deleteinlist2.length)-1){
+						path+="?, ";
+					}else if(i==(deleteinlist2.length)-1) {
+						path+="?)";
+					}
+				}
+				 System.out.println(path);
+			 int result=new WishlistService().deleteWish2(deleteinlist2, path);
+			 if(result>0) {
+				System.out.println("웨안됨");
+			 }
+			 }
 			 
 			 if(!errorduplication.isEmpty()) {
+			 
 			 request.setAttribute("errorduplication", errorduplication);
 			 response.sendRedirect(request.getContextPath());
 			 }else {

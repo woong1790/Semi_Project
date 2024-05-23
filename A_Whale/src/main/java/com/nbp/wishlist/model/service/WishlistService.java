@@ -48,7 +48,19 @@ public class WishlistService {
 		
 	}
 	
-	
+	public int deleteWish2(int[] arr, String path) {
+		Connection conn=getConnection();
+		int result=new WishlistDao().deleteWish2(conn, arr, path);
+		if(result>0) {
+			commit(conn);
+			close(conn);
+		}else {
+			rollback(conn);
+			close(conn);
+		}
+		return result;
+		
+	}
 	
 	
 	

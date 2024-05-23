@@ -103,6 +103,37 @@ public class WishlistDao {
 		
 	}
 	
+	public int deleteWish2(Connection conn, int[] arr, String path) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		
+		try {
+			
+			String semisql=this.sql.getProperty("deleteWish2");
+			semisql=semisql.replace("#ARR", path);
+			
+			pstmt=conn.prepareStatement(semisql);
+			System.out.println(arr.length);
+			for (int i=1; i<arr.length+1; i++) {
+				pstmt.setInt(i, arr[i-1]);
+				System.out.println(i);
+				System.out.println(arr[i-1]);
+				
+				
+			}
+			result=pstmt.executeUpdate();
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			
+		}
+		return result;
+		
+		
+	}
+	
 	
 	
 	
