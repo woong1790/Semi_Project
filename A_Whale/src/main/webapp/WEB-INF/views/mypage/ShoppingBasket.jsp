@@ -452,7 +452,7 @@
 		    	  }
 		       }
 	       		console.log(result2);
-	       	location.assign('<%=request.getContextPath()%>/shoppingbasket/baskettowish.do?insertCartArr='+result+'&insertProductArr='+result2);  
+	       	location.assign('<%=request.getContextPath()%>/shoppingbasket/baskettowishenter.do?insertCartArr='+result+'&insertProductArr='+result2);  
 		
 	}
 	</script>

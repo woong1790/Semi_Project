@@ -12,17 +12,19 @@
 <button onclick="wishtobasketnodelete();">아니오 </button>
 <script>
 	const wishtobasketyesdelete=()=>{
-		let result="<%=request.getAttribute("baskets")%>";
-		location.assign('<%=request.getContextPath()%>/wishlist/insertbasketdelete.do?baskets='+result);
+		let result="<%=request.getAttribute("insertCartArr")%>";
+		let result2="<%=request.getAttribute("insertProductArr")%>"
+		location.assign('<%=request.getContextPath()%>/shoppingbasket/baskettowishdelete.do?insertCartArr='+result+'&insertProductArr='+result2);
 	
 	}
 
 	 const wishtobasketnodelete=()=>{
-		console.log("sss");
-		let result="<%=request.getAttribute("baskets")%>";
-		location.assign('<%=request.getContextPath()%>/wishlist/insertbaskets.do?baskets='+result);
+		
+		let result="<%=request.getAttribute("insertCartArr")%>";
+		let result2="<%=request.getAttribute("insertProductArr")%>"
+		location.assign('<%=request.getContextPath()%>/shoppingbasket/baskettowish.do?insertCartArr='+result+'&insertProductArr='+result2);
 	
 	 }
-	 
+	 </script> 
 </body>
 </html>
