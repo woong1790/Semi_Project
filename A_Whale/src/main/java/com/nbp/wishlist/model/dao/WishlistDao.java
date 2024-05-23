@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.nbp.shoppingbasket.model.dto.ShoppingBasketDto;
+import com.nbp.product.model.DTO.Product;
 import com.nbp.wishlist.model.dto.WishlistDto;
 
 public class WishlistDao {
@@ -180,9 +180,52 @@ public class WishlistDao {
 		
 	}
 	
+	public List<Product> basketProductAll(Connection conn, int cPage, int numPerpage){
+		
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Product> list=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchAllWish2"));
+			
+			pstmt.setInt(1,(cPage-1)*numPerpage+1);
+			pstmt.setInt(2, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(getProduct(rs));
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		return list;
+		
+	} 
 	
 	
-
+	static public Product getProduct(ResultSet rs) throws SQLException {
+		return Product.builder()
+				.productNo(rs.getInt("product_no"))
+				.productName(rs.getString("product_name"))
+				.productSubname(rs.getString("product_subname"))
+				.productDetail(rs.getString("product_detail"))
+				.productPrice(rs.getInt("product_price"))
+				.productStock(rs.getInt("product_stock"))
+				.productAlcoholLv(rs.getInt("product_alcohol_lv"))
+				.productOrigin(rs.getString("product_origin"))
+				.productVolume(rs.getInt("product_volume"))
+				.productAge(rs.getInt("product_age"))
+				.productBrand(rs.getString("product_brand"))
+				.productEnrollDate(rs.getDate("product_enroll_date"))
+				.productDeleteYn(rs.getInt("product_delete_yn"))
+				.memberId(rs.getString("member_id"))
+				.productImg(rs.getString("product_img"))
+				.categoryName(rs.getString("category_name"))
+				.build();
+	}
 	
 	
 	public static WishlistDto getWishlist(ResultSet rs) throws SQLException {

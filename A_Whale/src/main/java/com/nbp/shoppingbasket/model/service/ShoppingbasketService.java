@@ -8,8 +8,10 @@ import static com.nbp.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.List;
 
+import com.nbp.product.model.DTO.Product;
 import com.nbp.shoppingbasket.model.dao.ShoppingbasketDao;
 import com.nbp.shoppingbasket.model.dto.ShoppingBasketDto;
+import com.nbp.wishlist.model.dao.WishlistDao;
 
 public class ShoppingbasketService {
 	
@@ -70,4 +72,16 @@ public class ShoppingbasketService {
 		return result;
 		
 	}
+	
+	public List<Product> basketProductAll(int a, int b){
+		Connection conn=getConnection();
+		List<Product> list=new WishlistDao().basketProductAll(conn, a, b);
+		commit(conn);
+		close(conn);
+		return list;	
+		
+		
+	}
+	
+	
 }
