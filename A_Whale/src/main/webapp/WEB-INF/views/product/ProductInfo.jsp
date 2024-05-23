@@ -28,12 +28,12 @@
     justify-content: space-between;
     align-items: center;
     background-image: url("https://i.imgur.com/t1HFAVE.jpeg");
-	background-size:100% 100%;
+	background-size:cover;
     background-position: center;
     transition: all 0.35s ease-in;
    } 
    #product-main:hover{
-    background-size: 108% 108%;
+    background-size: 110%;
    }     
 
 
@@ -470,10 +470,8 @@
           }
       });
     </script>
-    <div class="border" style="height: 15px; margin-top: 20px; border-bottom: 8px solid rgb(9, 9, 71);border-top: 3px solid rgb(9, 9, 71); min-width: 1400px;"></div>
-    <div id="product-detail-main" class="border">상품 설명, 리뷰, Q&A
-
-    </div>
+    
 	
 </body>
 </html>
+<%@ include file="/WEB-INF/views/product/ProductInfoDetail.jsp"%> 
