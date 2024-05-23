@@ -5,6 +5,17 @@
 	Product p = (Product)request.getAttribute("productInfo");
 %>
 <%@ include file="/WEB-INF/common/subHeader.jsp" %> 
+<%
+	int productPrice = 0;
+	String delivery="";
+	if(p.getProductPrice()<50000){
+		productPrice=p.getProductPrice()+3500;
+		delivery="(배송비 포함 : 3,500원)";
+	}else{
+		delivery="";
+	}
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,12 +28,12 @@
     justify-content: space-between;
     align-items: center;
     background-image: url("https://i.imgur.com/t1HFAVE.jpeg");
-	background-size:100% 100%;
+	background-size:cover;
     background-position: center;
     transition: all 0.35s ease-in;
    } 
    #product-main:hover{
-    background-size: 108% 108%;
+    background-size: 110%;
    }     
 
 
@@ -191,6 +202,9 @@
    }
    
    .product-container{
+   		display: flex;
+        flex-direction: column;
+        overflow:visible;
    		height:60px;
    		/* outline:1px solid white; */
    		margin : 10px 0;
@@ -205,13 +219,36 @@
    		text-align:center;
    		width:100%;
    		padding-right:25px;
+   		border-top: 2px solid rgb(255, 255, 255);
+   		border-bottom: 2px solid rgb(255, 255, 255);
    }
+   
    
    .total-price{
    		color:white;
    		font-size:30px;
    		/* float:right; */
    }
+   
+   .delivery-memo{
+	   display:none;
+	   text-align:center;
+       position: absolute;
+       background-color: lightgray;
+       font-weight:bolder;
+       width:170px;
+       height:40px;
+       color: rgb(3, 1, 57);
+       padding: 5px;
+       border-radius: 3px;
+       z-index: 1000;
+       outline:2px solid rgb(3, 1, 57);
+   }
+   
+   .list-delete-btn{
+   	cursor:pointer;
+   }
+   
 
     </style>
 
@@ -229,7 +266,7 @@
                 <!-- 가격, 카운트 업,다운 버튼 -->
                 <div class="price-menu border">
                   <div>
-                    <span style="color: white; font-size: 35px;">\ </span><span id="price" style="color: white; font-size: 40px;"><%=p.getProductPrice()%></span><br>
+                    <span id="price" style="color: white; font-size: 40px;"><%=String.format("%,d",p.getProductPrice())%></span><span style="color: white; font-size: 35px;">원</span><br>
                   </div>
                     <div class="border detail" style="display: flex;">
                     <div id="minus"><img src="https://i.imgur.com/RnOgrKc.png" alt="" width="25px" height="15px"></div>
@@ -239,27 +276,25 @@
                 </div>
                 <br>
                 <!-- 추가 구매상품 선택 리스트 -->
-                <select id="product" onchange="updateTotal()">
-                    <option value="0">선택하세요</option>
-                    <option value="얼음틀:5000">얼음틀:5,000원</option>
-                    <option value="잔:25000">잔:25,000원</option>
-                    <option value="선물포장:1500">선물포장:1,500원</option>
+                <select id="product"> <!-- onchange="updateTotal()" -->
+                    <option  value="0">선택하세요 (선택사항)</option>
+                    <option id="ice" value="얼음틀:5000">얼음틀 : 5,000원</option>
+                    <option id="glass" value="잔:25000">잔 : 25,000원</option>
+                    <option id="pack" value="선물포장:1500">선물포장 : 1,500원</option>
                 </select>
                 <!-- 구매, 장바구니, 위시리스트 버튼 -->
               <div id="parchase">
-                <p style="font-size: 25px; font-weight: bolder; padding-bottom: 3px;">Parchase</p>
+                <p id="totalPrice" style="font-size: 25px; font-weight: bolder; padding-bottom: 3px;">total : <%=String.format("%,d",productPrice)%>원</p>
               </div>
+                <span id="delivery" style="color:white; font-weight:bolder; margin-top:5px;"><%=delivery%></span>
+                <div id="delivery-memo" class="delivery-memo">구매금액 50,000원<br> 이상시 무료배송</div>
               <div style="display: flex; flex-direction: row; justify-content: center; justify-content: space-between; align-items: center; width: 300px; margin-top: 10px;">
                 <div id="cart"><p>cart</p></div>
                 <div id="wish-img"><img src="https://i.imgur.com/VqIZAb3.png" width="30px"></div>
               </div>
               <!-- 구매 상품 리스트 -->
-              <div id="order-list" style="color: white; min-height:20px; width: 320px; margin-top: 20px; border-top: 2px solid rgb(255, 255, 255);border-bottom: 2px solid rgb(255, 255, 255);">
+              <div id="order-list" style="color: white; min-height:20px; width: 340px; margin-top: 20px;">
               		<div class="product-container">
-              			<%-- <div> <p><%=p.getProductName()%></p> </div>
-              			<div>(1)</div>
-              			<div id="under-product-price"> <p>\<%=p.getProductPrice()%></p></div>
-              			<div>1234</div> --%>
               			
               			<table>
               				<tr>
@@ -270,20 +305,36 @@
               				</tr>
               				<tr>
               					<td><%=p.getProductName()%></td>
-              					<td class="list-count">(1)</td>
-              					<td class="list-price"><%=p.getProductPrice()%>원</td>
-              					<td><img class="list-delete-btn" src="https://i.imgur.com/U1LZh3O.png" width=15px style="padding-top:10px"></td>
+              					<td id="list-count" class="list-count">(1)</td>
+              					<td id="list-price"><%=String.format("%,d",p.getProductPrice())%></td>
+              					<td><img src="https://i.imgur.com/U1LZh3O.png" width=15px style="padding-top:10px; opacity:0;"></td>
               				</tr>
               				
               			</table>
+              			
               		</div>
               </div>
-              			<div class="total-price">total : </div>
             </div>
         </div>
     
     </section>
     <script>
+    	/* 배송비 포함 호버시 배송 안내문 표시 */
+    	$('#delivery').hover(
+                function(e) {
+
+                	$("#delivery-memo").css({
+                        display: 'block',
+                        top: e.pageY + 10 + 'px',
+                        left: e.pageX + 10 + 'px' 
+                    });
+                },
+                function() {
+                	$("#delivery-memo").css('display', 'none');
+                }
+            );
+    	
+    /* 가격 밑 플러스 마이너스 버튼 */
       const plus = document.getElementById("plus");
       const down = document.getElementById("minus");
       let price = document.getElementById("price");
@@ -295,48 +346,132 @@
             countResult+=1;
             priceCount+=<%=p.getProductPrice()%>;
           count.innerHTML=countResult;
-          price.innerHTML=priceCount;
-          console.log(priceCount);
+          price.innerHTML=priceCount.toLocaleString('ko-KR');
+          $("#list-count").text("("+countResult+")");
+          $("#list-price").text((countResult*<%=p.getProductPrice()%>).toLocaleString('ko-KR'));
+          }
+          /* 전체 금액 조회해서 total에 출력 */
+          let totalPrice = document.getElementsByClassName("list-price");
+          let totalpriceResult = 0;
+          for(const p of totalPrice){
+        	  totalpriceResult+=parseFloat(p.innerText.replace(/,/g, ''));
+          }
+          productPrice = $("#price").text().replace(/,/g, '');
+          totalpriceResult = parseFloat(productPrice)+totalpriceResult;
+          if(totalpriceResult<50000){
+        	  totalpriceResult = totalpriceResult+3500;
+          $("#totalPrice").text("total : "+(totalpriceResult).toLocaleString('ko-KR')+"원");
+          $("#delivery").text("(배송비 포함 : 3,500원)");
+          }else{
+          $("#totalPrice").text("total : "+(totalpriceResult).toLocaleString('ko-KR')+"원");
+          $("#delivery").text("");
           }
       });
+      
+      
 
       down.addEventListener("click",e=>{
         if(priceCount><%=p.getProductPrice()%> || countResult!=1){
           countResult-=1;
           priceCount-=<%=p.getProductPrice()%>;
         count.innerHTML=countResult;
-        price.innerHTML=priceCount;
+        price.innerHTML=priceCount.toLocaleString('ko-KR');
         down.style.opacity=1;
+        $("#list-count").text("("+countResult+")");
+        $("#list-price").text((countResult*<%=p.getProductPrice()%>).toLocaleString('ko-KR'));
+        }
+        /* 전체 금액 조회해서 total에 출력 */
+        let totalPrice = document.getElementsByClassName("list-price");
+        let totalpriceResult = 0;
+        for(const p of totalPrice){
+        	totalpriceResult+=parseFloat(p.innerText.replace(/,/g, ''));
+        }
+        productPrice = $("#price").text().replace(/,/g, '');
+        totalpriceResult = parseFloat(productPrice)+totalpriceResult;
+        if(totalpriceResult<50000){
+      	  totalpriceResult = totalpriceResult+3500;
+        $("#totalPrice").text("total : "+(totalpriceResult).toLocaleString('ko-KR')+"원");
+        $("#delivery").text("(배송비 포함 : 3,500원)");
+        }else{
+        $("#totalPrice").text("total : "+(totalpriceResult).toLocaleString('ko-KR')+"원");
+        $("#delivery").text("");
         }
       });
-      
-      
-      /* 선택항목 선택시 하단 table에 선택한 물품 생성 출력 */
-      const updateTotal=()=>{
-    	  const select = document.getElementById("product");
-    	 const tableResult = select.value.split(':');
-    	 console.log(tableResult[0]);
-    	 
-    	 const sub-product = "<tr>
-			<td>"+tableResult[0]+"</td>
-			<td class="list-count">(1)</td>
-			<td class="list-price">"+tableResult[1]+"</td>
-			<td><img class="list-delete-btn" src='https://i.imgur.com/U1LZh3O.png' width=15px style='padding-top:10px'></td>
-			</tr>";
-		
-		
-    	 
-    	 
-    	 
-      }
-      
-      
-      
-    </script>
-    <div class="border" style="height: 15px; margin-top: 20px; border-bottom: 8px solid rgb(9, 9, 71);border-top: 3px solid rgb(9, 9, 71); min-width: 1400px;"></div>
-    <div id="product-detail-main" class="border">상품 설명, 리뷰, Q&A
+     
+     
+      /* 셀렉션 1번 선택하면 다시 선택 못하게 설정 최대 1회가능 */
 
-    </div>
+      document.addEventListener('DOMContentLoaded', (event) => {
+    	    const selectElement = document.getElementById('product');
+
+    	    selectElement.addEventListener('change', function() {
+
+    	    	const select = document.getElementById("product");
+    	    	 const tableResult = select.value.split(':');
+    	    	 console.log(tableResult[0]);
+
+    	    	 const subProduct = "<tr><td>"+tableResult[0]+"</td><td class='list-count'>(1)</td><td class='list-price'>"+Number(tableResult[1]).toLocaleString('ko-KR')+"</td><td><img class='list-delete-btn' src='https://i.imgur.com/U1LZh3O.png' width=15px style='padding-top:10px'></td></tr>";
+    				$(".product-container>table").append(subProduct); 
+    	    	
+    	    	const selectedOption = this.options[this.selectedIndex];
+    	        selectedOption.disabled = true;
+    	        this.selectedIndex = 0;
+    	        
+    	        /* 전체 금액 조회해서 total에 출력 */
+    	          let totalPrice = document.getElementsByClassName("list-price");
+    	          let totalpriceResult = 0;
+    	          for(const p of totalPrice){
+    	        	  totalpriceResult+=parseFloat(p.innerText.replace(/,/g, ''));
+    	          }
+    	          productPrice = $("#price").text().replace(/,/g, '');
+    	          console.log(productPrice);
+    	          totalpriceResult = parseFloat(productPrice)+totalpriceResult;
+    	          if(totalpriceResult<50000){
+    	        	  totalpriceResult = totalpriceResult+3500;
+    	          $("#totalPrice").text("total : "+(totalpriceResult).toLocaleString('ko-KR')+"원");
+    	          $("#delivery").text("(배송비 포함 : 3,500원)");
+    	          }else{
+    	          $("#totalPrice").text("total : "+(totalpriceResult).toLocaleString('ko-KR')+"원");
+    	          $("#delivery").text("");
+    	          }
+    	    });
+    	});
+      
+      /* x이미지 클릭시 해당 제품 삭제 */
+      $(document).on('click', '.list-delete-btn', function(e) {
+    	  let result = $(e.target).parent().parent().children().first().text();
+    	  console.log(result);
+    	  $(e.target).parent().parent().remove();
+   	  /* x버튼 클릭시 상단에 비활성화된 input을 다시 활성화시키는 로직 */  
+    	  switch(result){
+    	  case "얼음틀" : const ice = document.getElementById('ice');
+          				ice.disabled = false;break;
+    	  case "잔" : const glass = document.getElementById('glass');
+						glass.disabled = false;break;
+    	  case "선물포장" : const pack = document.getElementById('pack');
+							pack.disabled = false;break;
+    	  }
+   	  
+    	  /* 전체 금액 조회해서 total에 출력 */
+          let totalPrice = document.getElementsByClassName("list-price");
+          let totalpriceResult = 0;
+          for(const p of totalPrice){
+        	  totalpriceResult+=parseFloat(p.innerText.replace(/,/g, ''));
+          }
+          productPrice = $("#price").text().replace(/,/g, '');
+          totalpriceResult = parseFloat(productPrice)+totalpriceResult;
+          if(totalpriceResult<50000){
+        	  totalpriceResult = totalpriceResult+3500;
+          $("#totalPrice").text("total : "+(totalpriceResult).toLocaleString('ko-KR')+"원");
+          $("#delivery").text("(배송비 포함 : 3,500원)");
+          }else{
+          $("#totalPrice").text("total : "+(totalpriceResult).toLocaleString('ko-KR')+"원");
+          $("#delivery").text("");
+          }
+      });
+    </script>
+    
 	
 </body>
 </html>
+<%@ include file="/WEB-INF/views/product/ProductInfoDetail.jsp"%> 
