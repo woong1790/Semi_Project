@@ -1,21 +1,25 @@
+<%@page import="com.nbp.product.model.DTO.Product"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/common/header.jsp" %>
 <%@ page import="com.nbp.shoppingbasket.model.dto.ShoppingBasketDto,java.util.List"%>    
 <%List<ShoppingBasketDto> list=(List<ShoppingBasketDto>)request.getAttribute("shoppingbasketlist");%>
+<%List<Product> productlist=(List<Product>)request.getAttribute("productlist");%>
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
 <style>
       .main {
         margin: 0;
         padding-top: 50px;
-        
+        width: 1600px;
       }
       
       .main * {
         box-sizing: border-box;
+        
       }
       
       .main p,span {
@@ -229,11 +233,12 @@
       }
       .bestitem{
         padding-top: 50px;
-        height: 550px;
+        height: 700px;
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap; 
         justify-content: space-evenly;
+       	width: 1220px;
       }
       .bestitem_pbox>p:first-child{
         font-weight: bold;
@@ -276,6 +281,111 @@
       .all_check{
       	margin-right: 5px;
       	margin-bottom: 20px;
+      }
+      .itemcart_head{
+      	display: flex;
+      	  flex-direction: row;
+        flex-wrap: nowrap; 
+        justify-content: space-between;
+      }
+      
+      
+          /* 캐러셀 전체 구조  */
+.carousel_main {
+    width: 1250px; /* 이미지 크기 설정  */
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    user-select: none;
+    height: 500px;
+}
+
+.carousel_wrapper {
+    display: flex;
+    transition: transform 1s;
+}
+
+.carousel_slide {
+    flex: 0 0 1220px; /* 이미지 크기 설정  */
+    position: relative;
+    display: flex;
+        flex-direction: row;
+        flex-wrap: wrap; 
+        justify-content: space-evenly;
+
+}
+
+
+
+/* 캐러셀 사이드 버튼 */
+.carousel_button_container {
+  
+  
+  
+    display: flex;
+    justify-content: space-between; 
+    width: 90px;
+}
+
+.carousel_button {
+    width: 50px;
+    height: 50px;
+    color: #fff;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.carousel_prev {
+    background-color: rgba(0, 0, 0, 0.15);
+    border: 0px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.carousel_next {
+    background-color: rgba(0, 0, 0, 0.15);
+    border: 0px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 20px;
+}
+/* 캐러셀 중앙 버튼 */
+.carousel_pagination {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+}
+
+.carousel_circle {
+    width: 10px;
+    height: 10px;
+    background-color: #aaa;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.carousel_circle.active {
+    background-color: #333;
+}
+.aaa111{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap; 
+        justify-content: space-evenly;
+
       }
 </style>      
 
@@ -372,60 +482,78 @@
             <button class="cart__bigorderbtn right">주문하기</button>
         </div>
         <div class="itemcart">
-          <div class="itemcart_head" style="padding-top: 30px;">
-            <h4>BEST ITEM</h4>
-            <div>
-
-            </div>
+      	<div class="itemcart_head" style="padding-top: 30px;">
+            <div><h4>BEST ITEM</h4></div>
+            
+				 <div class="carousel_button_container">
+	              <button type="button" class="carousel_prev">
+	                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+	                      <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+	                      <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+	                  </svg>
+	              </button>
+	              <button type="button" class="carousel_next">
+	                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+	                      <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+	                      <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+	                  </svg>
+	              </button>
+	          </div>
+            
           </div>
           <div class="bestitem">
+	          <div class="carousel_main">
+	          <div class="carousel_wrapper">
+	              
+	                 <%if(!productlist.isEmpty()){ %>
+	                 <%for(int i=0; i<productlist.size(); i++) {%>
+	                 	<% if(i==0){%>
+	                 		<div class="carousel_slide">
+	                 	<%}else if(i==5){%>
+	                 		</div>
+	                 		<div class="carousel_slide">
+						<%}else if(i==10){ %>
+							</div>
+	                 		<div class="carousel_slide">
+						<%} %>	                 	
+	                 	<div>
+	                 		<img class="bestitem_img" src="<%=productlist.get(i).getProductImg()%>">
+	                 		  <div class="bestitem_pbox">
+		                          <p><%=productlist.get(i).getProductBrand() %></p>
+		                          <p><%=productlist.get(i).getProductName()%></p>
+		                          <p><%=productlist.get(i).getProductPrice() %></p>
+	                          </div>	
+	                 	</div>
+	                 	<%if(i==14){%>
+	                 	</div>
+	                 	<%} %>
+	                 <%}
+	                 }%>
+	              
+	          </div>
+	         
+	          <div class="carousel_pagination">
+	              <div class="carousel_circle"></div>
+	              <div class="carousel_circle"></div>
+	              <div class="carousel_circle"></div>
+	            
+	          </div>
+	      </div>
           
-            <div>
-              <img class="bestitem_img" src="https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/eoYh/image/bZQ42hIFwPtrlna5zaQxFkxOK78.jpg">
-              <div class="bestitem_pbox">
-              <p>Heineken</p>
-              <p>pale ale</p>
-              <p>12,000</p>
-              </div>
-            </div>
-            <div>
-              <img class="bestitem_img" src="https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/eoYh/image/bZQ42hIFwPtrlna5zaQxFkxOK78.jpg">
-              <div class="bestitem_pbox">
-              <p>Johnny Walker</p>
-              <p>Blue label</p>
-              <p>122,000</p>
-            </div>
-            </div>
-            <div>
-              <img class="bestitem_img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSayy9EulgV8JLupWcXyYNA5k1rlgvKJcJKSA&s">
-              <div class="bestitem_pbox">
-                <p>Ballenteine</p>
-                <p>발렌타인 17년</p>
-                <p>110,000</p>
-              </div>
-            </div>
-            <div>
-              <img class="bestitem_img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzZXqFvcP28MNx8VBaLwAY47IEvgdNwgeNWw&s">
-              <div class="bestitem_pbox">
-                <p>Royal Salute</p>
-                <p>Royal Chalut 21</p>
-                <p>323,000</p>
-              </div>
-            </div>
-            <div>
-              <img class="bestitem_img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSayy9EulgV8JLupWcXyYNA5k1rlgvKJcJKSA&s">
-              <div class="bestitem_pbox">
-                <p>Dewar's White Label</p>
-                <p>듀어스 12</p>
-                <p>220,000</p>
-              </div>
-            </div>
-          
+            
+          </div>
           </div>
     
-        </div>
+       
     </section>
   </section> 
+  
+  
+  
+  
+  
+  
+  
 	<script>
 	const deleteBasket=()=>{
         let checkdeletecheck=document.getElementsByName("basketCheck");
@@ -455,6 +583,52 @@
 	       	location.assign('<%=request.getContextPath()%>/shoppingbasket/baskettowishenter.do?insertCartArr='+result+'&insertProductArr='+result2);  
 		
 	}
+	
+
+    const swiper = document.querySelector('.carousel_wrapper');
+    const prevButtons = document.querySelectorAll('.carousel_prev');
+    const nextButtons = document.querySelectorAll('.carousel_next');
+    const bullets = document.querySelectorAll('.carousel_circle');
+    
+    let currentSlide = 0;
+    
+    function showSlide(slideIndex) {
+        swiper.style.transform = `translateX(-\${slideIndex * 1220}px)`;
+        currentSlide = slideIndex;
+    
+        bullets.forEach((bullet, index) => {
+            if (index === currentSlide) {
+                bullet.classList.add('active');
+            } else {
+                bullet.classList.remove('active');
+            }
+        });
+    }
+    
+    prevButtons.forEach((prevButton) => {
+        prevButton.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        });
+    });
+    
+    nextButtons.forEach((nextButton) => {
+        nextButton.addEventListener('click', () => {
+            if (currentSlide < 2) {
+                showSlide(currentSlide + 1);
+            }
+        });
+    });
+    
+    bullets.forEach((bullet, index) => {
+        bullet.addEventListener('click', () => {
+            showSlide(index);
+        });
+    });
+    
+    showSlide(0);
+    
 	</script>
 </body>
 </html>
