@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "java.util.List,com.nbp.product.model.DTO.Product, com.nbp.order.model.dto.Order" %>
+<%@ page import = "java.util.List,com.nbp.product.model.DTO.Product,com.nbp.order.model.dto.Order, com.nbp.model.DTO.Member,java.text.SimpleDateFormat, com.nbp.notice.model.dto.Notice" %>
 <%
 	List<Order> orders=(List<Order>)request.getAttribute("orders");
 	List<Product> products=(List<Product>)request.getAttribute("products");
+	List<Notice> notices=(List<Notice>)request.getAttribute("notices");
+	Member loginMember =(Member) (Member)session.getAttribute("loginMember");
 %>
 
 <!DOCTYPE html>
@@ -149,6 +151,13 @@
         width: 10%; 
         text-align: center;
     }
+    
+    
+
+    .form-container {
+        display: none; /* 처음에는 form이 보이지 않도록 설정 */
+    }
+ 
 </style>
 <body>
     
@@ -165,9 +174,9 @@
                 </li>
                 <li class="divider">사이트 관리</li>
                 <li>
-                    <a href="#">상품 관리</a>
+                    <a href="#" >상품 관리</a>
                     <ul class="side-dropdown">
-                        <li><a href="#">상품 조회</a></li>
+                        <li><a href="#" id="productBoard" data-target="orderSection">상품 조회</a></li>
                         <li><a href="#">상품 수정</a></li>
                         <li><a href="#">상품 등록</a></li>
                         
@@ -186,7 +195,7 @@
                 <li>
                     <a href="#">주문 관리 </a>
                     <ul class="side-dropdown">
-                        <li><a href="#" id="orderBoard">주문 관리</a></li>
+                        <li><a href="#" id="orderBoard" data-target="orderSection">주문 관리</a></li>
                     </ul>
                 </li>
                 <li>
@@ -200,14 +209,14 @@
                 <li>
                     <a href="#">게시판 관리</a>
                     <ul class="side-dropdown">
-                        <li ><a href="#" id="noticeBoard">공지사항 관리</a></li>
+                        <li ><a href="#" id="noticeBoard" data-target="noticeSection">공지사항 관리</a></li>
                     </ul>
                 </li>
             </ul>
         </section>
         
     
-        <section id="Container">
+        <section id="Container" >
             <section id="basicSection">
                 <div>기본 섹션</div>
             </section>
@@ -234,41 +243,9 @@
                 </div>
                 <div>
                 	<h1>주문조회하기</h1>
-			    <button id="fetchOrders">Fetch Orders</button>
 			    
 			    <table id="ordersTable">
-			        <thead>
-			        <%-- <%if(orders.isEmpty()){ %>
-			        <tr> 조회된 주문이 없습니다
-			        </tr>
-			        <%
-			        }else{
-			        for (Order o:orders){%>
-			            <tr>
-			                <th>주문코드</th>
-			                <th>주문자 이름</th>
-			                <th>상품명</th>
-			                <th>수량</th>
-			                <th>가격</th>
-			                <th>주문날짜</th>
-			                <th>상태</th>
-			            </tr> --%>
-			        </thead>
-			        <tbody>
-			        <tr>
-			        <%-- 	 <th>1<%=o.getOrderId() %></th>
-			        	 <th>2<%=o.getOrderName() %></th>
-			        	 <th>3<%=o.getProductName() %></th>
-			        	 <th>4<%=o.getOrderId() %></th>
-			        	 <th>5<%=o.getOrderId() %></th>
-			        	 <th>6<%=o.getOrderId() %></th>
-			        	 <th>7<%=o.getOrderId() %></th> --%>
-			        </tr>
-			        	 
-			        	 
-			        </tbody>
-			  <%--    <%}
-              }%> --%>
+			    
 			    </table>
                 </div>
                 
@@ -280,16 +257,24 @@
                     <div>공지사항 관리</div>
                 </div>
                 <div>
-                    공지사항 조회
+                	<button class=""
+     				onclick="location.assign('<%=request.getContextPath()%>/notice/noticelist.do')">공지글 조회
+     				</button>
                 </div>
+                
+
                 <div>
-                    <form action="">
+                 	<button id="noticeButton"> 공지사항 작성</button> 
+                </div>
+                <div class="form-container" id="formContainer">
+                    <form action="<%=request.getContextPath() %>/notice/noticewriteend.do" 
+                    method="post" enctype="multipart/form-data">
                         <div class="row1" >
                             <div class="row2" >
                                 제목
                             </div>
                             <div>
-                                <input type="text" name="title" required>
+                                <input class="form-control" type="text" name="title" required>
                             </div>
                         </div>
                         <div class="row1" >
@@ -297,8 +282,7 @@
                                 작성자
                             </div>
                             <div>
-                                <input type="text" name="writer" value=""> 
-                                <!-- readOnly -->
+                                <input class="form-control" type="text" name="writer" value="<%=loginMember.getMemberId()%>" readOnly> 
 
                             </div>
                         </div>
@@ -307,7 +291,7 @@
                                 첨부파일
                             </div>
                             <div>
-                                <input type="file" name="upfile">
+                                <input class="form-control" type="file" name="upfile">
                             </div>
                         </div>
                         <div>
@@ -325,88 +309,57 @@
                 </div>
             </section>
         </section>
-        
     </div>
     
 
     <script>
         const allDropdown = document.querySelectorAll('#sidebar .side-dropdown');
-        allDropdown.forEach(item=>{
+        const sections = document.querySelectorAll('#Container > section');
+        const links = document.querySelectorAll('#sidebar .side-menu a[data-target]');
+
+        allDropdown.forEach(item => {
             const a = item.parentElement.querySelector('a:first-child');
-            // console.log(a);
-            a.addEventListener('click', function(e){
+            a.addEventListener('click', function (e) {
                 e.preventDefault();
 
-                if(!this.classList.contains('active')){
-                    allDropdown.forEach(i=>{
+                if (!this.classList.contains('active')) {
+                    allDropdown.forEach(i => {
                         const aLink = i.parentElement.querySelector('a:first-child');
-
                         aLink.classList.remove('active');
                         i.classList.remove('show');
-                    })
+                    });
                 }
 
                 this.classList.toggle('active');
                 item.classList.toggle('show');
-            })
-            
-        })
-
-        $(document).ready(function() {
-            $('#noticeBoard').on('click', function(event) {
-            event.preventDefault();
-
-            $('#basicSection').hide();
-            $('#noticeSection').show();
-            // $('section[id="noticeSection"]:not(#basicSection)').hide();
-	        });
-	    });
-        
-        
-        
-        
-        
-        $(document).ready(function() {
-            $('#orderBoard').on('click', function(event) {
-            event.preventDefault();
-
-            $('#basicSection').hide();
-            $('#orderSection').show();
-            // $('section[id="noticeSection"]:not(#basicSection)').hide();
-	        });
-	    });
-
-        /* 가져오기 */
-        document.getElementById('fetchOrders').addEventListener('click', () => {
-            fetch('/api/orders')
-                .then(response => response.json())
-                .then(data => {
-                    const tableBody = document.getElementById('ordersTable').querySelector('tbody');
-                    tableBody.innerHTML = ''; // Clear existing rows
-
-                    data.forEach(order => {
-                        const row = document.createElement('tr');
-
-                        row.innerHTML = `
-                            <td>${orders.order_id}</td>
-                            <td>${orders.customer_name}</td>
-                            <td>${orders.product_name}</td>
-                            <td>${orders.quantity}</td>
-                            <td>${orders.price}</td>
-                            <td>${orders.order_date}</td>
-                            <td>${orders.status}</td>
-                        `;
-
-                        tableBody.appendChild(row);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching orders:', error);
-                });
+            });
         });
 
+        links.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('data-target');
 
+                sections.forEach(section => {
+                    section.style.display = section.id === targetId ? 'block' : 'none';
+                });
+
+                links.forEach(link => {
+                    link.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
     
+        
+        document.getElementById('noticeButton').addEventListener('click', function() {
+            var formContainer = document.getElementById('formContainer');
+            if (formContainer.style.display === 'none' || formContainer.style.display === '') {
+                formContainer.style.display = 'block';
+            } else {
+                formContainer.style.display = 'none';
+            }
+        });
   
     </script>
 

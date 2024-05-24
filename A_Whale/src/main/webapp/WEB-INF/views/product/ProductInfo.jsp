@@ -469,9 +469,8 @@
           $("#delivery").text("");
           }
       });
+      
     </script>
-    
-	
 </body>
 </html>
 <%@ include file="/WEB-INF/views/product/ProductInfoDetail.jsp"%> 

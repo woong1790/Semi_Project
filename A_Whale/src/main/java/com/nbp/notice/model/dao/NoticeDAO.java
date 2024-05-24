@@ -76,6 +76,7 @@ public class NoticeDAO {
 			if(rs.next()) {
 				n=getNotice(rs);
 			}
+			System.out.println(rs);
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -92,10 +93,10 @@ public class NoticeDAO {
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("insertNotice"));
 			pstmt.setString(1, n.getNoticeTitle());
-			pstmt.setString(2, n.getNoticeWriter());
-			pstmt.setString(3, n.getNoticeContent());
-//			pstmt.setString(4, n.getFilePath());
-			pstmt.setString(4, n.getNoticeImgUrl());
+//			pstmt.setString(2, n.getNoticeWriter());
+//			pstmt.setString(3, n.getFilePath());
+			pstmt.setString(2, n.getNoticeContent());
+			pstmt.setString(3, n.getNoticeImgUrl());
 			result= pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -117,6 +118,22 @@ public class NoticeDAO {
 				.noticeDeleteDate(rs.getDate("notice_delete_date"))
 				.noticeDeleteYn(rs.getInt("notice_delete_yn"))
 				.build();
+	}
+	
+	
+	public int deleteNotice(Connection conn, int no) {//where절에 no
+		PreparedStatement pstmt = null;
+		int result=0;
+
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteNotice"));
+			pstmt.setInt(1, no);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
 	}
 	
 }

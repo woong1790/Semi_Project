@@ -39,18 +39,19 @@
         border-bottom: 0.5px solid rgb(52, 52, 204);
         
     }
-    .notice_title div{
+    .notice_title>div{
+    	align-centent:center;
         margin: 15px 10px 15px 10px;
     }
     
     .notice_content{
         
-        display: flex;
+        /* display: flex; */
         justify-content: space-evenly;
-        border-bottom: 0.5px solid rgb(202, 202, 254);
-    }
+/*         border-bottom: 0.5px solid rgb(202, 202, 254);
+ */    }
     .notice_content div{
-        margin: 12px 10px 12px 10px;
+        margin: 8px 10px 12px 10px;
     }
     
     .notice_no{
@@ -96,7 +97,7 @@
                 <div style="width: 20%;"><strong>작성자</strong></div>
                 <div  style="width: 20%;"><strong>작성일</strong></div>
             </div>
-            <div class="notice_content">
+            <div class="notice_content" >
             <%if(notices.isEmpty()) {%>
             	<div>
             		조회된 공지사항이 없습니다
@@ -104,42 +105,36 @@
             <%
             }else{
                  for(Notice n:notices){%>
-            	
-            	<div  class="notice_no">
-            		<%=n.getNoticeNo() %>
+            	<div style="display:flex; border-bottom: 0.5px solid rgb(202, 202, 254);">
+	            	<div  class="notice_no">
+	            		<%=n.getNoticeNo() %>
+	            	</div>
+	                <div class="notice_name">
+	                	<a href="<%=request.getContextPath()%>/notice/noticeview.do?no=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle() %></a>
+	                </div>
+	
+	                <div class="notice_writer">
+	                	<%=n.getNoticeWriter() %> 
+	                </div>
+	                <div class="notice_date">
+	                	<%=new SimpleDateFormat("yyyy-MM-dd").format(n.getNoticeEnrollDate()) %>
+	                </div>
             	</div>
-                <div class="notice_name">
-                	<a href="<%=request.getContextPath()%>/notice/noticeview.do?no=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle() %></a>
-                </div>
-                <%-- <div><%if(i.getFilePath()!=null){%>
-                	<img src="<%=request.getContextPath() %>/images/file.png" width="25"">
-                	<%}else{ %>
-                	없음
-                	<%} %>
-                </div> --%>
-                <div class="notice_writer">
-                	<%=n.getNoticeWriter() %>
-                </div>
-                <div class="notice_date">
-                	<%=new SimpleDateFormat("yyyy-MM-dd").format(n.getNoticeEnrollDate()) %>
-                </div>
-           	
+
                 <%}
               }%>
             </div>
         </div>
-        <!-- 관리자 페이지에서 쓸수 있게 하기 -->
-<%--         <button class="" onclick="location.assign('<%=request.getContextPath()%>/inform/informwrite.do')">글쓰기</button>
- --%>
-
+        
         <div class="pagebar" >
         	<div>
         		<%=request.getAttribute("pageBar") %>
         	</div>
-        	
         </div>
-
-
+        <%-- <button class="btn btn-outline-primary"
+     		onclick="location.assign('<%=request.getContextPath()%>/notice/noticewrite.do')">공지글쓰기
+     	</button> --%>
+     	
     </section>
 </body>
 </html>
