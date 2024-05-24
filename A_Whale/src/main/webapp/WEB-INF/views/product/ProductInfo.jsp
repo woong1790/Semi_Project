@@ -24,16 +24,16 @@
 <style>
  #product-main{
     display: flex;
+    position: relative;
     justify-content: center;
     justify-content: space-between;
     align-items: center;
-    background-image: url("https://i.imgur.com/t1HFAVE.jpeg");
+    background: url("https://i.imgur.com/t1HFAVE.jpeg") no-repeat center center;
 	background-size:cover;
-    background-position: center;
-    transition: all 0.35s ease-in;
+    transition: background-size 0.5s ease-in-out;;
    } 
    #product-main:hover{
-    background-size: 110%;
+    background-size:110%;
    }     
 
 
@@ -165,10 +165,10 @@
   }
   
 
-  #product-detail-main{
+/*   #product-detail-main{
     height: 1000px;
     min-width: 1400px;
-  }
+  } */
 
 
     /*  .border{
