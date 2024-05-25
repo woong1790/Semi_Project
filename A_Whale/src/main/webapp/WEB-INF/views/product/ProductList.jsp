@@ -264,6 +264,7 @@ List<Product> products1=(List<Product>)request.getAttribute("products1");
 		        <div id="product-all" >
 		        	<%for(Product p : products1){%>
 		        	<div id="product-result" class="product">
+		        	<div id="productNo" style="display:none"><%=p.getProductNo() %></div>
 		        	<div class="product-info" style="overflow:hidden"><a href="#"><img src="<%=p.getProductImg()%>" style="width:400px; height:420px; "></a></div>
 		        	<div><p id="product-name"><%=p.getProductName()%></p></div>
 		        	<div><p id="product-price">$<%=p.getProductPrice()%></p></div>
@@ -311,7 +312,6 @@ List<Product> products1=(List<Product>)request.getAttribute("products1");
    			
    			$.get("<%=request.getContextPath()%>/product/searchproduct.do?title="+mainResultText[1]+"&subtitle="+result)
    				.done(data=>{
-   					/* console.log(data); */
    					document.getElementById("product-container").innerHTML=data;
    					document.getElementById("pageBar").innerHTML="<div id='search-read-btn' class='read-btn' style='bolder:1px solid red'><p>read-More</p></div>";
    				});      	
@@ -360,7 +360,9 @@ List<Product> products1=(List<Product>)request.getAttribute("products1");
 		/* 제품 클릭시 상세페이지로 이동 */
 		$(document).on('click', '.product-info', function(e) {
 			const productName = $(e.target).closest('.product').find('#product-name').text();
-			location.assign("<%=request.getContextPath()%>/product/productInfo.do?productName="+productName);
+			const productNo = $(e.target).closest('.product').find('#productNo').text();
+			alert(productName+" "+productNo);
+			location.assign("<%=request.getContextPath()%>/product/productInfo.do?productName="+productName+"&productNo="+productNo);
 		});
 		
 	       

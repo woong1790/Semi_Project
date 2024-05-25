@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List,com.nbp.product.review.model.DTO.Review" %>
+<%
+	String pageBar=(String)request.getAttribute("pageBar");
+	List<Review> reviews = (List<Review>)request.getAttribute("reviews");
+	
+%>
 
    <style>
      body{
@@ -23,7 +29,7 @@
       margin-top: 30px;
       position: sticky; 
       top: 120px; 
-      z-index: 1000;
+      z-index: 500;
   
     }
   
@@ -124,17 +130,19 @@
 		.review-table {
 		  width: 100%;
 		  border-collapse: collapse;
-		  background-color: #fff;
+		  border-left: none;
+		  border-right: none;
+		 
 		}
 		
 		.review-table th, .review-table td {
 		  padding: 12px 15px;
-		  text-align: left;
+		  text-align: center; /* 텍스트 중간 정렬 */
 		  border: 1px solid #ddd; /* 테두리 스타일 */
 		}
 		
 		.review-table th {
-		  background-color: #f4f4f4; /* 헤더 배경색 */
+		  border-bottom:1.5px solid rgb(10, 10, 169); /* 헤더 배경색 */
 		  font-weight: bold;
 		}
 		
@@ -151,14 +159,33 @@
 		.review-table tbody tr:hover {
 		  background-color: #f1f1f1; /* 마우스 오버 시 배경색 */
 		}
-		
-		.review-content{
-			cursor:pointer;
+
+		.review-table tbody tr:hover {
+		    background-color: rgba(163, 163, 182, 0.326); /* 연한 회색 배경색 */
+		    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 		}
-		
-		.review-detail{
-			
-		}
+		/* ----------------- 페이지 바 스타일 ----------- */
+		 #pagebar>*{
+    margin:0 10px;
+
+  }
+  #pagebar>div{
+    font-weight: bolder;
+    font-size: 20px;
+  }
+
+  #pagebar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+  }
+
+  #pagebar>div>a{
+    text-decoration: none;
+    color: black;
+    margin-bottom:3px;
+  }
 
 
   
@@ -211,9 +238,9 @@
      <!-- 리뷰 테이블 생성 -->
      <div id="product-review">
       <div id="review-title">review</div>
-      <div style="display: flex; align-items: center; width: 60%;">
-        <table width="100%">
-          <thead>
+      <div id="reviewResult" style="display: flex; flex-direction:column; align-items: center; width: 60%;">
+        <table class='review-table' width="100%">
+          <thead style="border-bottom:1px solid blue;">
               <tr>
                   <th>번호</th>
                   <th>이미지</th>
@@ -222,56 +249,98 @@
                   <th>작성일</th>
               </tr>
           </thead>
-          <tbody class="table-group-divider">
+          <tbody id="ajaxReviewTbody" class="table-group-divider">
+          
+          	<%if(!reviews.isEmpty()){ 
+          		for(Review r:reviews){%>
               <tr class="review-detail">
-                  <td>1</td>
+                  <td><%=r.getReviewNo() %></td>
                   <td>  <img src="https://i.imgur.com/spsVERs.png" alt="Review Image 1" width="50"></td>
-                  <td>안녕하세요</td>
-                  <td>user01</td>
-                  <td>2024.05.24</td>
+                  <td><%=r.getReviewTitle() %></td>
+                  <td><%=r.getMemberId() %></td>
+                  <td><%=r.getReviewEnrollDate() %></td>
               </tr>
               <tr class="review-content">
-                  <td colspan='3' style="padding:30px;">
-                      <img src="https://i.imgur.com/spsVERs.png" alt="Review Image 1" width="200">
-                      <img src="https://i.imgur.com/spsVERs.png" alt="Review Image 1" width="200">
-                      <td colspan='2' style="padding:30px;">
-                      리뷰 내용 들어갈 예정
-                  </td>
-                  </td>
-              </tr>
-              <tr class="review-detail">
-                <tr class="review-detail">
-                  <td>2</td>
-                  <td>  <img src="https://i.imgur.com/spsVERs.png" alt="Review Image 1" width="50"></td>
-                  <td>안녕하세요....</td>
-                  <td>user02</td>
-                  <td>2024.05.24</td>
-              </tr>
-              </tr>
-              <tr class="review-content">
-                  <td colspan='3' style="padding:30px;">
-                      <img src="https://i.imgur.com/spsVERs.png" alt="Review Image 2" width="200">
-                      <img src="https://i.imgur.com/spsVERs.png" alt="Review Image 2" width="200">
-                  </td>
                   <td colspan='2' style="padding:30px;">
-                      리뷰 내용 들어갈 예정
+                      <img src="https://i.imgur.com/spsVERs.png" alt="Review Image 1" width="200">
+                      <img src="https://i.imgur.com/spsVERs.png" alt="Review Image 1" width="200">
+                  </td>
+                      <td colspan='3' style="padding:30px;">
+                      <%=r.getReviewContent() %>
                   </td>
               </tr>
+           <%}
+           }%>
           </tbody>
       </table>
+    		<%=pageBar%>
+    		</div>
+      
+ <!-- 페이지 바 -->
         
       <script>
+      
+        
+        /* ajax 페이지 번호 클릭시 리뷰페이지 변환 */
+        $(document).on('click', '.cPage', function() {
+        	let cPage = $(this).text();
+        	let productNo = $("#review-productNo").text();
+        	console.log(cPage);
+        	console.log(productNo);
+        	$.get("<%=request.getContextPath()%>/product/reviewall.do?ajaxcPage="+cPage+"&ajaxProductNo="+productNo)
+        	.done(data=>{
+        		document.getElementById("reviewResult").innerHTML=data;
+                $('.review-content').hide();
+        	});
+        	
+        })
+        /* 리뷰 페이지 다음 버튼 구현 */
+        let productNo = "";
+        $(document).on('click', '#reviewPageNext', function() {
+        	let cPage = $("#cPageNext").text();
+        	
+        	let productNo = $("#review-productNo").text();
+        	
+        	let nextcPage = Math.floor((Number(cPage) - 1) / 3 + 1) * 3 + 1;
+        	
+        	$.get("<%=request.getContextPath()%>/product/reviewall.do?ajaxcPage="+nextcPage+"&ajaxProductNo="+productNo)
+        	.done(data=>{
+        		document.getElementById("reviewResult").innerHTML=data;
+                $('.review-content').hide();
+        	});
+        });
+        
+        /* 리뷰 페이지 이전 버튼 구현 */
+      	    $(document).on('click', '#reviewPagePrev', function() {
+        	 let cPage = $("#cPageNext").text();
+         	
+         	let productNo = $("#review-productNo").text();
+         	
+         	let prevcPage = (Math.floor((Number(cPage) - 1) / 3) - 1) * 3 + 1;;
+         	
+         	$.get("<%=request.getContextPath()%>/product/reviewall.do?ajaxcPage="+prevcPage+"&ajaxProductNo="+productNo)
+         	.done(data=>{
+         		document.getElementById("reviewResult").innerHTML=data;
+                 $('.review-content').hide();
+         	});
+         });
+         
+         
+        
+        /* 리뷰 게시판 클릭시 하단에 내용 나오는 로직 구현 */
         $(document).ready(function() {
             $('.review-content').hide();
-        });
-        $(document).ready(function() {
-            $('.review-detail').on('click', function() {
-              var contentRow = $(this).next('.review-content');
+            
+            $(document).on('click', '.review-detail', function() {
+              let contentRow = $(this).next('.review-content');
               $('.review-content').not(contentRow).slideUp(1);
                 contentRow.slideToggle(1);
             });
         });
     </script>
+    
+    
+    
       </div>
      </div>
     </div>

@@ -261,6 +261,7 @@
             </div>
             <!-- 오른쪽 상품 상세 메뉴들 -->
             <div id="product-sub-main" class="border" style="height: 800px; width: 400px; margin-left: 20px; margin-right: 60px;">
+            	<div id="review-productNo" style="display:none"><%=p.getProductNo() %></div>
                 <p class="product-title"><br><br><%=p.getProductName()%></p>
                 <p class="product-sub-title"><%=p.getProductSubname()%></p> <br><br>
                 <!-- 가격, 카운트 업,다운 버튼 -->
