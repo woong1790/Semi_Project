@@ -27,13 +27,15 @@
     position: relative;
     justify-content: center;
     justify-content: space-between;
+    overflow:hidden;
     align-items: center;
     background: url("https://i.imgur.com/t1HFAVE.jpeg") no-repeat center center;
-	background-size:cover;
-    transition: background-size 0.5s ease-in-out;;
+	/* background-size:cover; */
+	background-size: 110% 100%;
+    transition: background-size 1s ease;
    } 
    #product-main:hover{
-    background-size:110%;
+    background-size:130% 120%;
    }     
 
 

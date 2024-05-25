@@ -23,13 +23,10 @@
    </div> -->
 	<div class="menu2">
 		<div class="menu2-1">
-			<a style="text-decoration-line: none;" href="">A-Whale</a> <a
-				style="text-decoration-line: none;" href="">A-Whale</a> <a
-				style="text-decoration-line: none;" href="">A-Whale</a>
 		</div>
 	</div>
 	<div class="menu3">
-		<a href="">A-Whale</a>
+
 	</div>
 	<div class="menu4">
 		<div class="left">
@@ -259,9 +256,8 @@
 
 .menu2 {
 	/* border: 1px solid black; */
-	border-bottom: 8px black solid;
 	box-shadow: 0px 0px 0px 0px grey;
-	border-style: double;
+
 	border-top: 0;
 	border-left: 0;
 	border-right: 0;

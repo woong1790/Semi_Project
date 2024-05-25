@@ -45,7 +45,12 @@
         }
 
         #headmain{
-            height: 220px;
+        	background-image: url("https://images.unsplash.com/photo-1629196911514-cfd8d628ba26?q=80&w=1998&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+            height: 215px;
+            width:100%;
+            position:fixed;
+            top:0;
+            z-index:1000;
         }
 
         #logo{
@@ -102,12 +107,12 @@
     #main-menu > li {
       float: left;
       position: relative;
-      margin: 0px 40px;
+      margin: 0px 20px;
 
     }
 
     #main-menu > li > a {
-      font-size: 30px;
+      font-size: 25px;
       color: rgb(57, 56, 68);
       font-weight: bolder;
       text-align: center;
@@ -122,7 +127,6 @@
 
     #sub-menu {
       position: absolute;
-      margin-top: 20px;
       opacity: 0;
       visibility: hidden;
       transition: all 0.35s ease-in;
@@ -140,7 +144,7 @@
       color: white;
       text-decoration: none;
       font-weight: lighter;
-      font-size: 25px;
+      font-size: 20px;
     }
 
     #main-menu > li:hover #sub-menu {
@@ -256,19 +260,20 @@
 
     </style>
     <header>
-        <div id="headmain" style="min-width: 1000px;">
+		<div style="height:215px;"></div>
+        <div id="headmain" style="min-width: 1500px;">
             <div id="logo">
                 <div class="logo border" style="width: 300px; height: 120px;">
-                    <div><h3 style="margin-left: 30px; margin-top: 20px; font-family: KoPubWorldBatang;">Experience a new flavor! <br><br> Our spirits offer a journey of pure delight.</h3></div>
+                    <div><h3 style="margin-left: 30px; margin-top: 20px; font-size:15px;">semi project. A.Whale.</h3></div>
                 </div>
-                <div class="logo border" style="width: 600px; height: 120px;"><img src="https://postfiles.pstatic.net/MjAyNDA1MTZfNjcg/MDAxNzE1ODUwMjgwOTY5.Jv6Kv_HtWZpWqwM47oHMsFPkdaNbnGuLxQcWEOivE3og.C6hmrMJVaBa-vZpvbdWJ47MpvixWDoZYUjALOHNn1ssg.PNG/logo1.png?type=w773" alt="" width="150px" height="110px"></div>
+                <div class="logo border" ><img src="https://postfiles.pstatic.net/MjAyNDA1MTZfNjcg/MDAxNzE1ODUwMjgwOTY5.Jv6Kv_HtWZpWqwM47oHMsFPkdaNbnGuLxQcWEOivE3og.C6hmrMJVaBa-vZpvbdWJ47MpvixWDoZYUjALOHNn1ssg.PNG/logo1.png?type=w773" alt="" width="120px" height="90px"></div>
                 <div  class="logo evencenter" style="width: 300px; height: 120px; "> 
                
                     <img src="https://postfiles.pstatic.net/MjAyNDA1MTZfMjU4/MDAxNzE1ODUwMjgwOTU4.Tk8o-0wr5yOJqHcZe2qSyd6Sw5htuKotfTvqpzw3ffsg.m5BvckFSblkDLbIXmjnPS2PwN5ajZOzkXWxbG2S4fkgg.PNG/cart.png?type=w773" id="cartgo" width="50px" height="50px">
                     <img src="https://postfiles.pstatic.net/MjAyNDA1MTZfMTY0/MDAxNzE1ODUwMjgwOTU2.uF-0pUqfz5kh9OZ-pV5bnC3W0BfZl04LzzoOjbKmAiUg.fn20oNtHI4PZjHPE9-DQ54fmBRjZ7gEQVfdQRCjDn8Eg.PNG/heart.png?type=w773" id="wishlistgo" width="50px" height="50px">
                     <img id="mypage" src="https://postfiles.pstatic.net/MjAyNDA1MTZfNCAg/MDAxNzE1ODUwMjgxMDgw.TxIrC-5XuT4c-JczAuIocVq_gKcq-TIyIwjUNXLJbIwg.FAvOJXG7cNFKR2QCVGGy8eRzhOJLcAndZXbysBJl1YMg.PNG/person.png?type=w773"  width="50px" height="50px">
                 <%if(loginMember!=null) {%>
-                   <h4><%=loginMember.getMemberId() %>님 어서오세요!</h4><br>
+                   <div><h4><%=loginMember.getMemberId() %>님 어서오세요!</h4>
                     <script>
                     document.getElementById("wishlistgo").addEventListener("click",function(){
                   		location.assign('<%=request.getContextPath()%>/wishlist/WishListEnterSer.do?memberid=<%=loginMember.getMemberId()%>');
@@ -280,16 +285,14 @@
                    
               	 </script>
                 <%} %>
-                
-                
-                
-                </div>
                 <%if(loginMember!=null) {%>
                    <br><input type="button" value="로그아웃"
                         onclick="location.replace('<%=request.getContextPath()%>/login/loginout.do')">
                    <%} %>
+                   </div>
+                </div>
             </div>
-            <div id="category" style="min-width: 1000px;margin-top: 20px;">
+            <div id="category" style="min-width: 1000px;">
               <nav role="navigation">
                 <ul id="main-menu">
                   <li><a href="#" id="menu">home</a>
@@ -397,10 +400,9 @@
           <a href="javascript:kakaoLogin()"><img style="width: 150px" src="./images/kakao_login_medium_narrow.png"></a>
       </div>
       <%} %>
-      </div>
-        </div>
+
         
-        
+            
         <!-- 비밀번호 찾기, 아이디 찾기, 회원가입 버튼 -->
         <div id="find" style="margin-top: 20px;">
           <a href="#">비밀번호 찾기</a>
@@ -408,9 +410,8 @@
           <a href="#" style="border-right:0px">회원가입</a>
         </div>
        
-    <!-- </div>
-    
-  </div>-->
+      </div>
+
 
   <script>
     // 로그인 창 띄우기
