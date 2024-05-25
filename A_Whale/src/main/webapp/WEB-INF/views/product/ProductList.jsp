@@ -361,7 +361,6 @@ List<Product> products1=(List<Product>)request.getAttribute("products1");
 		$(document).on('click', '.product-info', function(e) {
 			const productName = $(e.target).closest('.product').find('#product-name').text();
 			const productNo = $(e.target).closest('.product').find('#productNo').text();
-			alert(productName+" "+productNo);
 			location.assign("<%=request.getContextPath()%>/product/productInfo.do?productName="+productName+"&productNo="+productNo);
 		});
 		
