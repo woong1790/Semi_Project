@@ -13,14 +13,15 @@ import lombok.NoArgsConstructor;
 public class Notice {
 	private int noticeNo;
 	private String noticeTitle;
-	private String noticeWriter;
 	private String noticeContent;
-//	private String filePath;
 	private String noticeImgUrl;
 	private Date noticeEnrollDate;
 	private Date noticeUpdateDate;
 	private Date noticeDeleteDate;
 	private int noticeDeleteYn;
-//	private String status;
+	private String filePath;
+	private String noticeWriter;
+
+	//	private String status;
 	
 }

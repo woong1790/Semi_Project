@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.nbp.notice.model.dto.Notice;
 import com.nbp.notice.model.service.NoticeService;
 import com.nbp.order.model.dto.Order;
 import com.nbp.order.model.service.OrderService;
+import com.nbp.product.model.DTO.Product;
+import com.nbp.product.model.service.ProductService;
 
 /**
  * Servlet implementation class OrderServlet
@@ -33,6 +34,26 @@ public class OrderServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		String productName =request.getParameter("productName");
+//		int productCount= Integer.parseInt(request.getParameter("productCount"));
+//		int totalPrice= Integer.parseInt(request.getParameter("totalPrice"));
+//		String optionName= request.getParameter("optionName");
+//		int optionPrice= Integer.parseInt(request.getParameter("optionPrice"));
+//
+//		System.out.println(productName);
+//		System.out.println(productCount);
+//		System.out.println(totalPrice);
+//		System.out.println(optionName);
+//		System.out.println(optionPrice);
+//		System.out.println();
+		
+		
+		
+		
+		
+		
+		
+		
 		int cPage=1;
 
 		try {
@@ -47,6 +68,9 @@ public class OrderServlet extends HttpServlet {
 		
 		List<Order> orders=new OrderService().selectOrderAll(cPage,numPerpage);
 		request.setAttribute("orders",orders);
+		
+		List<Product> products = new ProductService().selectProductAll(cPage,numPerpage);
+		request.setAttribute("products", products);
 		
 		
 		int totalData=new NoticeService().selectNoticeCount();

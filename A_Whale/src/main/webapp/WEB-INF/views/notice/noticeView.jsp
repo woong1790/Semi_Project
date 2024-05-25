@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "java.util.List,com.nbp.notice.model.dto.Notice, java.text.SimpleDateFormat" %>
+<%@ page import = "java.util.List,com.nbp.notice.model.dto.Notice,com.nbp.model.DTO.Member, java.text.SimpleDateFormat" %>
 <%@ include file="/WEB-INF/common/subHeader.jsp" %>
 <%
+	Member loginMember=(Member)session.getAttribute("loginMember");
+	
 	Notice n = (Notice)request.getAttribute("notice");
 %>
 <!DOCTYPE html>
@@ -109,6 +111,11 @@
             <div class="notice_list" >
                 <a href="<%=request.getContextPath()%>/notice/noticelist.do"><button >목록</button></a>
             </div>
+            <%if(loginMember!=null &&loginMember.getMemberId().equals("ADMIN")){ %>
+                <button class="" onclick="location.assign('<%=request.getContextPath()%>/notice/noticedelete.do')">공지글삭제
+     		</button>
+             <%} %>
+            
         </div>
     </section>
 </body>

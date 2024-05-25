@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%@ page import = "java.util.List,com.nbp.product.model.DTO.Product, com.nbp.order.model.dto.Order" %>
 <%
-	Product p = (Product)request.getAttribute("products");
+	List<Product> p = (List<Product>)request.getAttribute("products");
 %>
 <!DOCTYPE html>
 <html>
@@ -11,6 +11,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <body>
 <style>
      *{
@@ -158,13 +160,13 @@
                     </div>
                     <div class="product"style="display: flex; margin: 20px 0px 0px 0px; font-size: 12px; border-bottom: 0.5px solid black;">
                         <div style="margin: 10px ; width: 10%;">
-                            <img src="<%=p.getProductImg() %>" alt="와인" width="100%" height="100%">
+                            <img src="  " alt="와인" width="100%" height="100%">
                         </div>
                         <div style="margin: 10px; width: 50%; font-size: 12px;">
                             <div style="margin-top: 5%;">
                                 <ul style="list-style: none; ">
-                                    <li>상품명 : <span><%=p.getProductName() %></span></li><br>
-                                    <li>수량 : <span><%=p.getProductImg() %></span></li><br>
+                                    <li>상품명 : <span>  </span></li><br>
+                                    <li>수량 : <span>  </span></li><br>
                                     <li>옵션 : <span>도수 10도</span></li>
                                 </ul>
                             </div>
@@ -231,18 +233,17 @@
                                 <span><img width="5" height="5" src="https://img.icons8.com/ios-filled/50/starburst-shape.png" alt="starburst-shape"/></span>
                             </th>
                             <td class="address-2" >
-                                <ul style="list-style: none;">
-                                    <li>
-                                        <input type="text" name="searchaddress" placeholder="우편번호" maxlength="15" readonly style=" width: 180px; margin:20px 0 5px 15px;"> &nbsp;&nbsp; 
-                                        <button>주소검색</button>
-                                    </li>
-                                    <li>
-                                        <input type="text" name="basicaddress" placeholder="기본주소" maxlength="100" readonly style="margin:10px auto 5px 15px;">
-                                    </li>
-                                    <li>
-                                        <input type="text" name="restaddress" placeholder="상세주소" maxlength="250" size="60" style="margin:10px auto 20px 15px;">
-                                    </li>
-                                </ul>
+                            	<div style="margin:10px">
+                            	<input type="text" id="sample4_postcode" class="d_form mini" placeholder="우편번호">
+						        <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" class="d_btn"><br>
+						        <input type="text" id="sample4_roadAddress" class="d_form std" placeholder="도로명주소">
+						        <input type="text" id="sample4_jibunAddress" class="d_form std" placeholder="지번주소">
+						        <span id="guide" style="color:#999;display:none"></span>
+						        <input type="text" id="sample4_detailAddress" class="d_form" placeholder="상세주소">
+        
+                            	</div>
+                          
+                                
                             </td>
                         </tr>
                         <tr>
@@ -471,13 +472,11 @@
           <div>
               <br>
           </div>
-          <button onclick="pay();" style="background-color: blue;  width: 100%; height: 80px; font-size: larger;">
-              <!-- <a href="#" style="color: white;"><span style="background-color: rgb(19, 19, 252) ">35000</span>원<span>&nbsp;결제하기</span></a> -->
-          		결제하기
-          </button>
+          <form action="<%=request.getContextPath() %>/pay/payment.do" method="post">
+        	<button type="submit">카카오톡 결제</button>
+   		</form>
       </div>
 
-    </div>
     <div style="height: 120px;">
         푸터
     </div>
@@ -565,7 +564,7 @@
 	});
 	
 	/* 결제하기버튼  */
-	const pay=()=>{
+	<%-- const pay=()=>{
 		const data = {
                 cid: "TC0ONETIME",
                 partner_order_id: "order_id",
@@ -593,8 +592,62 @@
                 window.open('https://online-pay.kakao.com/mockup/v1/b05143eeeb1cd5537e8a6287bfc4878ee10f86795141d31f10b3c84ba1de873b/info');
             })
             .catch(error => console.error('Error:', error));
-	}
+	} --%>
+	//주소찾기
+	function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 추가 정보 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample4_postcode').value = data.zonecode;
+                document.getElementById("sample4_roadAddress").value = roadAddr;
+                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+                
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if(roadAddr !== ''){
+                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("sample4_extraAddress").value = '';
+                }
+
+                var guideTextBox = document.getElementById("guide");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+            }
+        }).open();
+    }
     </script>
 </body>
 </html>

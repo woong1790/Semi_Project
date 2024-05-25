@@ -1,9 +1,10 @@
 package com.nbp.notice.model.service;
 
-import static com.nbp.common.JDBCTemplate.close;
+import static com.nbp.common.JDBCTemplate.close; 
 import static com.nbp.common.JDBCTemplate.commit;
 import static com.nbp.common.JDBCTemplate.getConnection;
 import static com.nbp.common.JDBCTemplate.rollback;
+
 
 import java.sql.Connection;
 import java.util.List;
@@ -40,6 +41,14 @@ public class NoticeService {
 	public int insertNotice(Notice n) {
 		Connection conn= getConnection();
 		int result = dao.insertNotice(conn,n);
+		if(result>0)commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	public int deleteNotice(int no) {
+		Connection conn = getConnection();
+		int result =dao.deleteNotice(conn,no);
 		if(result>0)commit(conn);
 		else rollback(conn);
 		close(conn);
