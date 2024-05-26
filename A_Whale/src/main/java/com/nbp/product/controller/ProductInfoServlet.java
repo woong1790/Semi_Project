@@ -96,7 +96,12 @@ public class ProductInfoServlet extends HttpServlet {
 		
 		pageBar+="</div>";
 		
-		request.setAttribute("pageBar", pageBar);		
+		request.setAttribute("pageBar", pageBar);	
+		
+		
+		
+		//상품 qna 자료, 페이지 바 처리
+		
 		
 		
 		request.getRequestDispatcher("/WEB-INF/views/product/ProductInfo.jsp").forward(request, response);
