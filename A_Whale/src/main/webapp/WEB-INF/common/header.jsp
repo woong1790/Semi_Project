@@ -45,12 +45,7 @@
         }
 
         #headmain{
-        	background-image: url("https://images.unsplash.com/photo-1629196911514-cfd8d628ba26?q=80&w=1998&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-            height: 215px;
-            width:100%;
-            position:fixed;
-            top:0;
-            z-index:1000;
+            height: 220px;
         }
 
         #logo{
@@ -107,12 +102,12 @@
     #main-menu > li {
       float: left;
       position: relative;
-      margin: 0px 20px;
+      margin: 0px 40px;
 
     }
 
     #main-menu > li > a {
-      font-size: 25px;
+      font-size: 30px;
       color: rgb(57, 56, 68);
       font-weight: bolder;
       text-align: center;
@@ -127,6 +122,7 @@
 
     #sub-menu {
       position: absolute;
+      margin-top: 20px;
       opacity: 0;
       visibility: hidden;
       transition: all 0.35s ease-in;
@@ -144,7 +140,7 @@
       color: white;
       text-decoration: none;
       font-weight: lighter;
-      font-size: 20px;
+      font-size: 25px;
     }
 
     #main-menu > li:hover #sub-menu {
@@ -260,39 +256,26 @@
 
     </style>
     <header>
-		<div style="height:215px;"></div>
-        <div id="headmain" style="min-width: 1500px;">
+        <div id="headmain" style="min-width: 1000px;">
             <div id="logo">
                 <div class="logo border" style="width: 300px; height: 120px;">
-                    <div><h3 style="margin-left: 30px; margin-top: 20px; font-size:15px;">semi project. A.Whale.</h3></div>
+                    <div><h3 style="margin-left: 30px; margin-top: 20px; font-family: KoPubWorldBatang;">Experience a new flavor! <br><br> Our spirits offer a journey of pure delight.</h3></div>
                 </div>
-                <div class="logo border" ><img src="https://postfiles.pstatic.net/MjAyNDA1MTZfNjcg/MDAxNzE1ODUwMjgwOTY5.Jv6Kv_HtWZpWqwM47oHMsFPkdaNbnGuLxQcWEOivE3og.C6hmrMJVaBa-vZpvbdWJ47MpvixWDoZYUjALOHNn1ssg.PNG/logo1.png?type=w773" alt="" width="120px" height="90px"></div>
+                <div class="logo border" style="width: 600px; height: 120px;"><img src="https://postfiles.pstatic.net/MjAyNDA1MTZfNjcg/MDAxNzE1ODUwMjgwOTY5.Jv6Kv_HtWZpWqwM47oHMsFPkdaNbnGuLxQcWEOivE3og.C6hmrMJVaBa-vZpvbdWJ47MpvixWDoZYUjALOHNn1ssg.PNG/logo1.png?type=w773" alt="" width="150px" height="110px"></div>
                 <div  class="logo evencenter" style="width: 300px; height: 120px; "> 
-               
-                    <img src="https://postfiles.pstatic.net/MjAyNDA1MTZfMjU4/MDAxNzE1ODUwMjgwOTU4.Tk8o-0wr5yOJqHcZe2qSyd6Sw5htuKotfTvqpzw3ffsg.m5BvckFSblkDLbIXmjnPS2PwN5ajZOzkXWxbG2S4fkgg.PNG/cart.png?type=w773" id="cartgo" width="50px" height="50px">
-                    <img src="https://postfiles.pstatic.net/MjAyNDA1MTZfMTY0/MDAxNzE1ODUwMjgwOTU2.uF-0pUqfz5kh9OZ-pV5bnC3W0BfZl04LzzoOjbKmAiUg.fn20oNtHI4PZjHPE9-DQ54fmBRjZ7gEQVfdQRCjDn8Eg.PNG/heart.png?type=w773" id="wishlistgo" width="50px" height="50px">
-                    <img id="mypage" src="https://postfiles.pstatic.net/MjAyNDA1MTZfNCAg/MDAxNzE1ODUwMjgxMDgw.TxIrC-5XuT4c-JczAuIocVq_gKcq-TIyIwjUNXLJbIwg.FAvOJXG7cNFKR2QCVGGy8eRzhOJLcAndZXbysBJl1YMg.PNG/person.png?type=w773"  width="50px" height="50px">
                 <%if(loginMember!=null) {%>
-                   <div><h4><%=loginMember.getMemberId() %>님 어서오세요!</h4>
-                    <script>
-                    document.getElementById("wishlistgo").addEventListener("click",function(){
-                  		location.assign('<%=request.getContextPath()%>/wishlist/WishListEnterSer.do?memberid=<%=loginMember.getMemberId()%>');
-                     }); 
-                         
-                    document.getElementById("cartgo").addEventListener("click",function(){
-                    	location.assign('<%=request.getContextPath()%>/shoppingbasket/ShoppingBasket.do');
-                  });
-                   
-              	 </script>
-                <%} %>
+                   <h4><%=loginMember.getMemberId() %>님 어서오세요!</h4><br>
+                   <%} %>
+                    <img src="https://postfiles.pstatic.net/MjAyNDA1MTZfMjU4/MDAxNzE1ODUwMjgwOTU4.Tk8o-0wr5yOJqHcZe2qSyd6Sw5htuKotfTvqpzw3ffsg.m5BvckFSblkDLbIXmjnPS2PwN5ajZOzkXWxbG2S4fkgg.PNG/cart.png?type=w773" width="50px" height="50px">
+                    <img src="https://postfiles.pstatic.net/MjAyNDA1MTZfMTY0/MDAxNzE1ODUwMjgwOTU2.uF-0pUqfz5kh9OZ-pV5bnC3W0BfZl04LzzoOjbKmAiUg.fn20oNtHI4PZjHPE9-DQ54fmBRjZ7gEQVfdQRCjDn8Eg.PNG/heart.png?type=w773" width="50px" height="50px">
+                    <img id="mypage" src="https://postfiles.pstatic.net/MjAyNDA1MTZfNCAg/MDAxNzE1ODUwMjgxMDgw.TxIrC-5XuT4c-JczAuIocVq_gKcq-TIyIwjUNXLJbIwg.FAvOJXG7cNFKR2QCVGGy8eRzhOJLcAndZXbysBJl1YMg.PNG/person.png?type=w773" width="50px" height="50px">
+                </div>
                 <%if(loginMember!=null) {%>
                    <br><input type="button" value="로그아웃"
                         onclick="location.replace('<%=request.getContextPath()%>/login/loginout.do')">
                    <%} %>
-                   </div>
-                </div>
             </div>
-            <div id="category" style="min-width: 1000px;">
+            <div id="category" style="min-width: 1000px;margin-top: 20px;">
               <nav role="navigation">
                 <ul id="main-menu">
                   <li><a href="#" id="menu">home</a>
@@ -331,8 +314,8 @@
                   </li>
                   <li><a href="#" id="menu">community</a>
                     <ul id="sub-menu">
-                      <li><a href="<%=request.getContextPath()%>/notice/noticelist.do" aria-label="subemnu">Notice</a></li>
-                      <li><a href="<%=request.getContextPath()%>/order/orderpage.do" aria-label="subemnu">결제하기</a></li>
+                      <li><a href="#" aria-label="subemnu">submenu</a></li>
+                      <li><a href="#" aria-label="subemnu">submenu</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
@@ -340,9 +323,7 @@
                   </li>
                   <li><a href="#" id="menu">service</a>
                     <ul id="sub-menu">
-                     <%if(loginMember!=null &&loginMember.getMemberId().equals("ADMIN")){ %>
-                         <li><a href="<%=request.getContextPath()%>/admin/adminpage.do" aria-label="subemnu">AdminPage</a></li>
-                      <%} %>
+                      <li><a href="#" aria-label="subemnu">submenu</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
@@ -368,7 +349,7 @@
     <!-- 아이디 입력 박스 -->
     <div id="login">
        <%if(loginMember==null){ %>
-         <form id="form" action="<%=request.getContextPath()%>/login/login.do" method="post">
+         <form id="form" action="<%=request.getContextPath() %>/login/login.do" method="post">
       <div id="login-close" style="width: 40px; height: 40px;"><img src="https://i.imgur.com/B3yWAxM.png" width="25px"></div>
       <div style="border: 1px solid red;">
         <!-- 아이디 -->
@@ -396,25 +377,44 @@
             <input type="submit" value="로그인">
             </form>
             
-        <div>
-          <a href="javascript:kakaoLogin()"><img style="width: 150px" src="./images/kakao_login_medium_narrow.png"></a>
-      </div>
+        <ul>
+	<li onclick="kakaoLogin();">
+      <a href="javascript:void(0)">
+          <span>카카오 회원가입</span>
+      </a>
+	</li>
+	<!--  <li onclick="kakaoLogout();">
+      <a href="javascript:void(0)">
+          <span>카카오 로그아웃</span>
+      </a>
+	</li>-->
+</ul>
       <%} %>
-
+      </div>
+        </div>
         
-            
+        
         <!-- 비밀번호 찾기, 아이디 찾기, 회원가입 버튼 -->
         <div id="find" style="margin-top: 20px;">
-          <a href="#">비밀번호 찾기</a>
-          <a href="#">아이디 찾기</a>
-          <a href="#" style="border-right:0px">회원가입</a>
+        <!--	<a id="findId" href="<%=request.getContextPath() %>/common/FindID.do">아이디 찾기</a>-->
+        	<a id="findId" href="#">아이디 찾기</a>
+        	<a id="findPw" href="#">비밀번호 찾기</a>
+			<a href="<%=request.getContextPath() %>/common/MemberEnroll.do" style="border-right:0px">회원가입</a>
         </div>
        
-      </div>
 
 
   <script>
-    // 로그인 창 띄우기
+  		//아이디 찾기
+	  document.getElementById("findId").addEventListener("click", e => {
+		  open("<%=request.getContextPath()%>/common/findId.do","_blank","width=600,height=500");
+	  });
+	  	//비밀번호 찾기
+	  document.getElementById("findPw").addEventListener("click", e => {
+		  open("<%=request.getContextPath()%>/common/FindPW.do","_blank","width=600,height=500");
+	  });
+  
+	 // 로그인 창 띄우기
     document.getElementById("mypage").addEventListener("click",e=>{
       const login = document.getElementById("login");
       if(login.style.display="none"){
@@ -454,28 +454,62 @@
 
     
   </script>
-  <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script type="text/javascript">
-    Kakao.init('b94934910f5d3388dded25ccb1ba4ffa');
-    function kakaoLogin() {
-        Kakao.Auth.login({
-            success: function (response) {
-                Kakao.API.request({
-                    url: '/v2/user/me',
-                    success: function (response) {
-                        alert(JSON.stringify(response))
-                    },
-                    fail: function (error) {
-                        alert(JSON.stringify(error))
-                    },
-                })
-            },
-            fail: function (error) {
-                alert(JSON.stringify(error))
-            },
+
+  
+<!-- 카카오 스크립트 -->
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+<script>
+Kakao.init('b94934910f5d3388dded25ccb1ba4ffa'); //발급받은 키 중 javascript키
+console.log(Kakao.isInitialized()); // sdk초기화여부판단
+//카카오로그인
+function kakaoLogin() {
+    Kakao.Auth.login({
+      success: function (response) {
+        Kakao.API.request({
+          url: '/v2/user/me',
+          success: function (response) {
+        	  const account=response.kakao_account;
+        	  const kakaoEmail=account.email;
+        	  const kakaoNickname=account.profile.nickname;        	  
+        	  console.log(account);
+        	  console.log(kakaoEmail);
+        	  console.log(kakaoNickname);
+        	  if(kakaoEmail!=null||kakaoNickname!=null){
+        		  if(confirm("회원가입을 위해 추가 정보입력이 필요합니다. 회원가입페이지로 이동하시겠습니까?")){
+        			  location.assign("<%=request.getContextPath()%>/common/KakaoMemberEnroll.do?kakaoEmail=" + kakaoEmail + "&kakaoNickname=" + kakaoNickname); //여기 카카오로그인 서블릿으로 새로파서 연결
+        		  }
+        	  }
+          },
+          fail: function (error) {
+            console.log(error)
+          },
         })
-    }
+      },
+      fail: function (error) {
+        console.log(error)
+      },
+    })
+  }
+//카카오로그아웃  
+//function kakaoLogout() {
+  //  if (Kakao.Auth.getAccessToken()) {
+    //  Kakao.API.request({
+      //  url: '/v1/user/unlink',
+        //success: function (response) {
+        	//console.log(response)
+        //},
+        //fail: function (error) {
+         // console.log(error)
+        //},
+      //})
+     // Kakao.Auth.setAccessToken(undefined)
+    //}
+  //};
+
+  
 </script>
+
     
   </header> 
 </body>

@@ -12,16 +12,16 @@ import com.nbp.model.DTO.Member;
 import com.nbp.model.service.MemberService;
 
 /**
- * Servlet implementation class IDDuplicateServlet
+ * Servlet implementation class FindIDEndServlet
  */
-@WebServlet("/idduplicate.do")
-public class IDDuplicateServlet extends HttpServlet {
+@WebServlet("/common/PasswordFinder.do")
+public class FindPWEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IDDuplicateServlet() {
+    public FindPWEndServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,15 +30,25 @@ public class IDDuplicateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//String request.getParameter("findemail");
+		MemberService sr=new MemberService();
+		String newPw=request.getParameter("newPw");
 		String userId=request.getParameter("userId");
-		//System.out.println(userId);
-		Member m=new MemberService().selectMemberById(userId);
-		
-		request.setAttribute("result", m==null);
+		String email=request.getParameter("email");
+		int Pwresult=sr.updateMemberByEmail(newPw, userId, email);
+		String msg=""; String loc="";
+		if(Pwresult>1) {
+			msg="비밀번호가 변경되었습니다.";
+			loc="/";
+		}else {
+			msg="비밀번호 변경 실패하였습니다.";
+			loc="/";
+		}
 
-//		request.setAttribute("userId", userId);
-		
-		request.getRequestDispatcher("WEB-INF/member/idDuplicate.jsp").forward(request, response);
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+
+		response.getWriter().write("비밀번호가 변경되었습니다.");
 	}
 
 	/**

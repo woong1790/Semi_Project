@@ -16,6 +16,12 @@ public class MemberService {
 		close(conn);
 		return m;
 	}
+	public Member selectMemberByEmail(String memberEmail) {
+		Connection conn=getConnection();
+		Member m=dao.selectMemberByEmail(conn, memberEmail);
+		close(conn);
+		return m;
+	}
 	public Member selectMemberById(String memberId) {
 		Connection conn=getConnection();
 		Member m=dao.selectMemberById(conn, memberId);
@@ -33,6 +39,14 @@ public class MemberService {
 	public int updateMember(String pw, String em, String adr, String ph, String id) {
 		Connection conn=getConnection();
 		int result=dao.updateMember(conn, pw, em, adr, ph, id);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	public int updateMemberByEmail(String newPw, String em, String id) {
+		Connection conn=getConnection();
+		int result=dao.updateMemberByEmail(conn, newPw, em, id);
 		if(result>0) commit(conn);
 		else rollback(conn);
 		close(conn);
