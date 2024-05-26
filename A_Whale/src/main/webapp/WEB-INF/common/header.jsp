@@ -256,12 +256,13 @@
 
     </style>
     <header>
-        <div id="headmain" style="min-width: 1000px;">
+        <div style="height:215px;"></div>
+        <div id="headmain" style="min-width: 1500px;">
             <div id="logo">
                 <div class="logo border" style="width: 300px; height: 120px;">
-                    <div><h3 style="margin-left: 30px; margin-top: 20px; font-family: KoPubWorldBatang;">Experience a new flavor! <br><br> Our spirits offer a journey of pure delight.</h3></div>
+                    <div><h3 style="margin-left: 30px; margin-top: 20px; font-size:15px;">semi project. A.Whale.</h3></div>
                 </div>
-                <div class="logo border" style="width: 600px; height: 120px;"><img src="https://postfiles.pstatic.net/MjAyNDA1MTZfNjcg/MDAxNzE1ODUwMjgwOTY5.Jv6Kv_HtWZpWqwM47oHMsFPkdaNbnGuLxQcWEOivE3og.C6hmrMJVaBa-vZpvbdWJ47MpvixWDoZYUjALOHNn1ssg.PNG/logo1.png?type=w773" alt="" width="150px" height="110px"></div>
+                <div class="logo border" ><img src="https://postfiles.pstatic.net/MjAyNDA1MTZfNjcg/MDAxNzE1ODUwMjgwOTY5.Jv6Kv_HtWZpWqwM47oHMsFPkdaNbnGuLxQcWEOivE3og.C6hmrMJVaBa-vZpvbdWJ47MpvixWDoZYUjALOHNn1ssg.PNG/logo1.png?type=w773" alt="" width="120px" height="90px"></div>
                 <div  class="logo evencenter" style="width: 300px; height: 120px; "> 
                 <%if(loginMember!=null) {%>
                    <h4><%=loginMember.getMemberId() %>님 어서오세요!</h4><br>
@@ -314,8 +315,8 @@
                   </li>
                   <li><a href="#" id="menu">community</a>
                     <ul id="sub-menu">
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
+                      <li><a href="<%=request.getContextPath()%>/notice/noticelist.do" aria-label="subemnu">Notice</a></li>
+                      <li><a href="<%=request.getContextPath()%>/order/orderpage.do" aria-label="subemnu">결제하기</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
@@ -323,7 +324,9 @@
                   </li>
                   <li><a href="#" id="menu">service</a>
                     <ul id="sub-menu">
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
+                      <%if(loginMember!=null &&loginMember.getMemberId().equals("ADMIN")){ %>
+                         <li><a href="<%=request.getContextPath()%>/admin/adminpage.do" aria-label="subemnu">AdminPage</a></li>
+                      <%} %>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
