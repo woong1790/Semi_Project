@@ -9,6 +9,7 @@
 	int productPrice = 0;
 	String delivery="";
 	if(p.getProductPrice()<50000){
+		
 		productPrice=p.getProductPrice()+3500;
 		delivery="(배송비 포함 : 3,500원)";
 	}else{
