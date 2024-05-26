@@ -50,12 +50,13 @@ public class ProductReviewDao {
 		return result;
 	}
 	
-	public int selectProductReviewAllCount(Connection conn) {
+	public int selectProductReviewAllCount(Connection conn, int productNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int result = 0;
 		try {
 		pstmt= conn.prepareStatement(sql.getProperty("selectProductReviewAllCount"));
+		pstmt.setInt(1, productNo);
 		rs=pstmt.executeQuery();
 		if(rs.next()) result = rs.getInt(1);
 		}catch(SQLException e) {

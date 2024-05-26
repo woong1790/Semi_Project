@@ -18,9 +18,9 @@ public class ProductReviewService {
 		return result;
 	}
 	
-	public int selectProductReviewAllCount() {
+	public int selectProductReviewAllCount(int productNo) {
 		Connection conn = getConnection();
-		int result = dao.selectProductReviewAllCount(conn);
+		int result = dao.selectProductReviewAllCount(conn,productNo);
 		return result;
 	}
 }

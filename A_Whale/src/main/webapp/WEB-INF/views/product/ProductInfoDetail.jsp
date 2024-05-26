@@ -210,6 +210,19 @@ body {
 	margin: 40px 0;
 }
 
+		.review-table th:nth-child(1),
+	  .review-table td:nth-child(1) {
+	      width: 7%;
+	  }
+	  .review-table th:nth-child(3),
+	  .review-table td:nth-child(3) {
+	      width: 5%;
+	  }
+	  .review-table th:nth-child(4),
+	  .review-table td:nth-child(4) {
+	      width: 12%;
+	  }
+
 </style>
 
 
@@ -276,7 +289,6 @@ body {
 				<thead style="border-bottom: 1px solid blue;">
 					<tr>
 						<th>번호</th>
-						<th>이미지</th>
 						<th>리뷰 제목</th>
 						<th>작성자</th>
 						<th>작성일</th>
@@ -290,8 +302,6 @@ body {
 					%>
 					<tr class="review-detail">
 						<td><%=r.getReviewNo()%></td>
-						<td><img src="https://i.imgur.com/spsVERs.png"
-							alt="Review Image 1" width="50"></td>
 						<td><%=r.getReviewTitle()%></td>
 						<td><%=r.getMemberId()%></td>
 						<td><%=r.getReviewEnrollDate()%></td>
@@ -304,10 +314,8 @@ body {
 						<td colspan='3' style="padding: 30px;"><%=r.getReviewContent()%>
 						</td>
 					</tr>
-					<%
-					}
-					}
-					%>
+					<%}
+					}%>
 				</tbody>
 			</table>
 			<!-- 페이지 바 -->
@@ -390,37 +398,28 @@ body {
 					<tr>
 						<th>번호</th>
 						<th>제목</th>
-						<th>내용</th>
 						<th>작성자</th>
 						<th>작성일</th>
 					</tr>
 				</thead>
 				<tbody id="ajaxReviewTbody" class="table-group-divider">
 
-					<%
-					if (!reviews.isEmpty()) {
-						for (Review r : reviews) {
-					%>
 					<tr class="review-detail">
-						<td><%=r.getReviewNo()%></td>
-						<td><img src="https://i.imgur.com/spsVERs.png"
-							alt="Review Image 1" width="50"></td>
-						<td><%=r.getReviewTitle()%></td>
-						<td><%=r.getMemberId()%></td>
-						<td><%=r.getReviewEnrollDate()%></td>
+						<td>1</td>
+						<td>제품 문의드립니다.</td>
+
+						<td>user01</td>
+						<td>24.05.26</td>
 					</tr>
 					<tr class="review-content">
-						<td colspan='2' style="padding: 30px;"><img
-							src="https://i.imgur.com/spsVERs.png" alt="Review Image 1"
-							width="200"> <img src="https://i.imgur.com/spsVERs.png"
-							alt="Review Image 1" width="200"></td>
-						<td colspan='3' style="padding: 30px;"><%=r.getReviewContent()%>
+						<td colspan='5' style="padding: 30px;">
+							 <span style="float:left;">상품 언제쯤 재입고될까요?</span>
+							 <br><br><hr><br>
+							<span style="float:left;">상품답변중입니다.</span>
 						</td>
 					</tr>
-					<%
-					}
-					}
-					%>
+
+
 				</tbody>
 			</table>
 			<!-- 페이지 바 -->

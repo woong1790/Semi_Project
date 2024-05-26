@@ -53,7 +53,7 @@ public class AjaxProductInfoServlet extends HttpServlet {
 				
 				
 				//전체 데이터 수 
-				int totalData = new ProductReviewService().selectProductReviewAllCount();
+				int totalData = new ProductReviewService().selectProductReviewAllCount(productNo);
 				//전체 페이지 수
 				int totalPage = (int)Math.ceil((double)totalData/numPerpage);
 				//페이지 바 길이 설정

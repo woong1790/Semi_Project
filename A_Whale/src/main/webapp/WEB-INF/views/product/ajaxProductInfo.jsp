@@ -10,7 +10,6 @@
           <thead>
               <tr>
                   <th>번호</th>
-                  <th>이미지</th>
                   <th>리뷰 제목</th>
                   <th>작성자</th>
                   <th>작성일</th>
@@ -22,8 +21,7 @@
           		for(Review r:reviews){%>
               <tr class="review-detail">
                   <td><%=r.getReviewNo() %></td>
-                  <td>  <img src="https://i.imgur.com/spsVERs.png" alt="Review Image 1" width="50"></td>
-                  <td><%=r.getReviewTitle() %></td>
+                  <td><%=r.getReviewTitle()%></td>
                   <td><%=r.getMemberId() %></td>
                   <td><%=r.getReviewEnrollDate() %></td>
               </tr>

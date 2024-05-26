@@ -128,7 +128,7 @@ List<Product> products1=(List<Product>)request.getAttribute("products1");
     	justify-content:center;
     	align-items:center;
     	grid-template-columns: repeat(3,280px);
-    	grid-template-rows: repeat(1,580px);
+    	grid-template-rows: repeat(1,480px);
     	gap:90px;
     	/* border:1px solid red; */
     	min-width: 1400px; 
@@ -205,7 +205,7 @@ List<Product> products1=(List<Product>)request.getAttribute("products1");
 </head>
 <body>
 <section>
-		<div id="product-title"  style="min-width: 1400px; margin-right:60px"> <br><br>
+		<div id="product-title"  style="min-width: 1400px; margin-right:60px;"> <br><br>
 			<h2 style="text-align:center;">All Products.</h2>
 			<p style="font-size:17px; text-align:center; margin-top:3px; color:white;">"Find your perfect moment of relaxation with A.Whale."</p>
 		</div>
