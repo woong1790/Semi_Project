@@ -264,17 +264,29 @@
                 </div>
                 <div class="logo border" ><img src="https://postfiles.pstatic.net/MjAyNDA1MTZfNjcg/MDAxNzE1ODUwMjgwOTY5.Jv6Kv_HtWZpWqwM47oHMsFPkdaNbnGuLxQcWEOivE3og.C6hmrMJVaBa-vZpvbdWJ47MpvixWDoZYUjALOHNn1ssg.PNG/logo1.png?type=w773" alt="" width="120px" height="90px"></div>
                 <div  class="logo evencenter" style="width: 300px; height: 120px; "> 
+	                <img src="https://postfiles.pstatic.net/MjAyNDA1MTZfMjU4/MDAxNzE1ODUwMjgwOTU4.Tk8o-0wr5yOJqHcZe2qSyd6Sw5htuKotfTvqpzw3ffsg.m5BvckFSblkDLbIXmjnPS2PwN5ajZOzkXWxbG2S4fkgg.PNG/cart.png?type=w773" id="cartgo" width="50px" height="50px">
+	                <img src="https://postfiles.pstatic.net/MjAyNDA1MTZfMTY0/MDAxNzE1ODUwMjgwOTU2.uF-0pUqfz5kh9OZ-pV5bnC3W0BfZl04LzzoOjbKmAiUg.fn20oNtHI4PZjHPE9-DQ54fmBRjZ7gEQVfdQRCjDn8Eg.PNG/heart.png?type=w773" id="wishlistgo" width="50px" height="50px">
+	                <img id="mypage" src="https://postfiles.pstatic.net/MjAyNDA1MTZfNCAg/MDAxNzE1ODUwMjgxMDgw.TxIrC-5XuT4c-JczAuIocVq_gKcq-TIyIwjUNXLJbIwg.FAvOJXG7cNFKR2QCVGGy8eRzhOJLcAndZXbysBJl1YMg.PNG/person.png?type=w773"  width="50px" height="50px">
+                
                 <%if(loginMember!=null) {%>
-                   <h4><%=loginMember.getMemberId() %>님 어서오세요!</h4><br>
+                   <h4><%=loginMember.getMemberId() %>님 어서오세요!</h4>
+                   <script>
+                    document.getElementById("wishlistgo").addEventListener("click",function(){
+                        location.assign('<%=request.getContextPath()%>/wishlist/WishListEnterSer.do?memberid=<%=loginMember.getMemberId()%>');
+                     }); 
+                         
+                    document.getElementById("cartgo").addEventListener("click",function(){
+                       location.assign('<%=request.getContextPath()%>/shoppingbasket/ShoppingBasket.do');
+                  });
+                   
+                  </script>
                    <%} %>
-                    <img src="https://postfiles.pstatic.net/MjAyNDA1MTZfMjU4/MDAxNzE1ODUwMjgwOTU4.Tk8o-0wr5yOJqHcZe2qSyd6Sw5htuKotfTvqpzw3ffsg.m5BvckFSblkDLbIXmjnPS2PwN5ajZOzkXWxbG2S4fkgg.PNG/cart.png?type=w773" width="50px" height="50px">
-                    <img src="https://postfiles.pstatic.net/MjAyNDA1MTZfMTY0/MDAxNzE1ODUwMjgwOTU2.uF-0pUqfz5kh9OZ-pV5bnC3W0BfZl04LzzoOjbKmAiUg.fn20oNtHI4PZjHPE9-DQ54fmBRjZ7gEQVfdQRCjDn8Eg.PNG/heart.png?type=w773" width="50px" height="50px">
-                    <img id="mypage" src="https://postfiles.pstatic.net/MjAyNDA1MTZfNCAg/MDAxNzE1ODUwMjgxMDgw.TxIrC-5XuT4c-JczAuIocVq_gKcq-TIyIwjUNXLJbIwg.FAvOJXG7cNFKR2QCVGGy8eRzhOJLcAndZXbysBJl1YMg.PNG/person.png?type=w773" width="50px" height="50px">
-                </div>
                 <%if(loginMember!=null) {%>
                    <br><input type="button" value="로그아웃"
                         onclick="location.replace('<%=request.getContextPath()%>/login/loginout.do')">
                    <%} %>
+                   </div>
+                </div>
             </div>
             <div id="category" style="min-width: 1000px;margin-top: 20px;">
               <nav role="navigation">
