@@ -18,8 +18,8 @@ public class Qna {
 	private String qnaTitle;
 	private String qnaContent;
 	private Date qnaEnrollDate;
-	private Date updateDate;
-	private Date deleteDate;
+	private Date qnaupdateDate;
+	private Date qnadeleteDate;
 	private int qnaDeleteYn;
 	private int qnaSecretYn;
 	private String productName;

@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.nbp.product.model.DTO.Product;
 import com.nbp.product.model.service.ProductService;
+import com.nbp.product.review.model.DTO.Qna;
 import com.nbp.product.review.model.DTO.Review;
+import com.nbp.product.review.model.service.ProductQnaService;
 import com.nbp.product.review.model.service.ProductReviewService;
 
 /**
@@ -60,7 +62,7 @@ public class ProductInfoServlet extends HttpServlet {
 		
 		
 		//전체 데이터 수 
-		int totalData = new ProductReviewService().selectProductReviewAllCount();
+		int totalData = new ProductReviewService().selectProductReviewAllCount(productNo);
 		//전체 페이지 수
 		int totalPage = (int)Math.ceil((double)totalData/numPerpage);
 		//페이지 바 길이 설정
@@ -100,7 +102,73 @@ public class ProductInfoServlet extends HttpServlet {
 		
 		
 		
+		
+		
+		
 		//상품 qna 자료, 페이지 바 처리
+		
+		cPage = 1;
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		}catch(NumberFormatException e) {}
+		//페이지당 데이터 갯수 지정
+		numPerpage = 3;
+		try {
+			numPerpage = Integer.parseInt(request.getParameter("numPerpage"));
+		}catch(NumberFormatException e) {}
+		
+		String productName = request.getParameter("productName");
+
+		
+		//qna 게시판의 내용
+		List<Qna> qnas = new ProductQnaService().selectProductQnaAll(cPage, numPerpage, productName);
+		request.setAttribute("qnas", qnas);
+		
+		
+		
+		//전체 데이터 수 
+		totalData = new ProductQnaService().selectProductQnaAllCount(productName);
+		//전체 페이지 수
+		totalPage = (int)Math.ceil((double)totalData/numPerpage);
+		//페이지 바 길이 설정
+		pageBarSize = 3; 
+		//페이지 바 시작 번호 설정
+		pageNo = ((cPage-1)/pageBarSize)*pageBarSize+1;
+		//페이지 바 끝 번호 설정
+		pageEnd = pageNo+pageBarSize-1;
+		
+		
+		String qnaPageBar = "<div id='pagebar'>";
+		//이전페이지 버튼 구현
+		if(pageNo==1) {
+			qnaPageBar+="<img src='https://i.imgur.com/hV1m2Nk.png' width='10px' height='15px' style='opacity:0.5'>";
+		}else {
+			qnaPageBar+="<img id='reviewPagePrev' style='cursor:pointer;' src=\"https://i.imgur.com/9b9FgKl.png\" width=\"10px\" height=\"15px\">";
+		}
+		//페이지 숫자 버튼 구현 
+		while(!(pageNo>pageEnd||pageNo>totalPage)) {
+			if(pageNo==cPage) {
+				qnaPageBar+="<div id='cPageNext' style='font-size:20px; color:rgb(125, 125, 125);'>"+pageNo+"</div>";
+			}else {
+				qnaPageBar+="<div class='cPage' style='cursor:pointer;'>"+pageNo+"</div>";
+			}
+			pageNo++;
+		}
+		
+		if(pageNo>totalPage) {
+			qnaPageBar+="<img src=\"https://i.imgur.com/9dt5DiB.png\" width=\"10px\" height=\"15px\" style='opacity:0.5'>";
+		}else {
+			qnaPageBar+="<img id='reviewPageNext' style='cursor:pointer;' src=\"https://i.imgur.com/9dt5DiB.png\" width=\"10px\" height=\"15px\">";
+		}
+		
+		qnaPageBar+="</div>";
+		
+		request.setAttribute("qnaPageBar", qnaPageBar);
+		
+		
+		
+		
+		
 		
 		
 		
