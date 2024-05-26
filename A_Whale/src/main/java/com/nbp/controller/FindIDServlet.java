@@ -1,27 +1,23 @@
 package com.nbp.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.nbp.model.DTO.Member;
-import com.nbp.model.service.MemberService;
-
 /**
- * Servlet implementation class IDDuplicateServlet
+ * Servlet implementation class FindIDServlet
  */
-@WebServlet("/idduplicate.do")
-public class IDDuplicateServlet extends HttpServlet {
+@WebServlet("/common/findId.do")
+public class FindIDServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IDDuplicateServlet() {
+    public FindIDServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,15 +26,7 @@ public class IDDuplicateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId=request.getParameter("userId");
-		//System.out.println(userId);
-		Member m=new MemberService().selectMemberById(userId);
-		
-		request.setAttribute("result", m==null);
-
-//		request.setAttribute("userId", userId);
-		
-		request.getRequestDispatcher("WEB-INF/member/idDuplicate.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/member/FindId.jsp").forward(request, response);
 	}
 
 	/**

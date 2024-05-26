@@ -35,7 +35,8 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String memberId=request.getParameter("memberId");
 		String memberPw=request.getParameter("memberPw");
-		
+		System.out.println(memberId);
+		System.out.println(memberPw);
 		String saveId=request.getParameter("saveId");
 		System.out.println(saveId);
 		Cookie saveIdCookie=new Cookie("saveId",memberId);

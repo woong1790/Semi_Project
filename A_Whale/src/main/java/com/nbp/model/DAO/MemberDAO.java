@@ -61,6 +61,22 @@ public class MemberDAO {
 		}return result;
 	}
 	
+	public int updateMemberByEmail(Connection conn, String newPw, String em, String id) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("updateMemberByEmail"));
+			pstmt.setString(1, newPw);
+			pstmt.setString(2, em);
+			pstmt.setString(3, id);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
 	public int deleteMember(Connection conn, String memberId) {
 		PreparedStatement pstmt=null;
 		int result=0;
@@ -91,6 +107,24 @@ public class MemberDAO {
 			close(pstmt);
 		}return m;	
 	}
+	public Member selectMemberByEmail(Connection conn, String userEmail) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Member m=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectMemberByEmail"));
+			pstmt.setString(1, userEmail);
+			rs=pstmt.executeQuery();
+			if(rs.next()) m=getMember(rs);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return m;	
+	}
+	
+	
 	public static Member getMember(ResultSet rs) throws SQLException{
 		Date enrollDate=rs.getDate("member_enroll_date");
 //		String email, phone;

@@ -64,7 +64,7 @@
                     
                 패스워드 <input type="password" name="userPw" id="userPw"><br>
                     
-                이메일 <input type="email" name="userEm" id="userEm" value="<%=loginMember.getMemberEmail() %>"><br>
+                이메일 <input type="email" name="userEm" id="userEm" value="<%=loginMember.getMemberEmail() %>" readonly><span style="font-size:10px;">*변경불가 변경을 원하시면 관리자에게 문의하세요.</span><br>
                     
                 주소 <input type="text" name="userAdr" id="userAdr" value="<%=loginMember.getMemberAdr() %>"><br>
                     

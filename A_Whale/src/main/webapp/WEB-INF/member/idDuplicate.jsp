@@ -25,12 +25,12 @@
 	<%if(result){ %>
 		[<span><%=paramId %></span>]는 사용가능합니다.	
 		<br><br>
-		<button type="button" >닫기</button>
+		<button type="button" onclick="window.close()" >닫기</button>
 	<%}else{ %>
 		[<span id="duplicated"><%=paramId %></span>]는 사용중입니다.
 		<br><br>
 		<!-- 아이디 재입력창 구성 -->
-		<form action="<%=request.getContextPath()%>/member/idduplicate.do" 
+		<form action="<%=request.getContextPath()%>/idduplicate.do" 
 		method="post">
 			<input type="text" name="userId" id="userId_">
 			<input type="submit" value="중복검사" >
@@ -39,7 +39,7 @@
 	<script>
 		document.querySelector("button").addEventListener("click",
 				e=>{
-					const $userId=opener.document.querySelector("#userId_");
+					const $userId=opener.document.querySelector("#userid");
 					$userId.value="<%=paramId%>";
 					$userId.readOnly=true;
 					$userId.style.backgroundColor="lightgray";
