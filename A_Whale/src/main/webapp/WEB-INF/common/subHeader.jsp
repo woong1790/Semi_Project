@@ -171,32 +171,26 @@
             <div id="category" style="min-width: 1100px;margin-top: 20px;">
               <nav role="navigation">
                 <ul id="main-menu">
-                  <li><a href="#" id="menu">home</a>
+                  <li><a href="<%=request.getContextPath()%>" id="menu">home</a>
                     <ul id="sub-menu">
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
+                      <li><a href="#" aria-label="subemnu">첫차intro</a></li>
                     </ul>
                   </li>
-                  <li><a href="#" id="menu">product</a>
+                  <li><a href="<%=request.getContextPath()%>/product/pagebar.do" id="menu">product</a>
                     <ul id="sub-menu">
                       <li><a href="<%=request.getContextPath()%>/product/pagebar.do" aria-label="subemnu">All-product</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
+                      <li><a href="#" aria-label="subemnu">whisky</a></li>
+                      <li><a href="#" aria-label="subemnu">wine</a></li>
+                      <li><a href="#" aria-label="subemnu">brandy</a></li>
                     </ul>
                   </li>
                   <li><a href="#" id="menu">event</a>
                     <ul id="sub-menu">
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
+                      <li><a href="#" aria-label="subemnu">룰렛이벤트</a></li>
+                      <li><a href="#" aria-label="subemnu">댓글이벤트</a></li>
                     </ul>
                   </li>
-                  <li><a href="#" id="menu" >recipe</a>
+                  <!-- <li><a href="#" id="menu" >recipe</a>
                     <ul id="sub-menu">
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
@@ -204,23 +198,17 @@
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
                       <li><a href="#" aria-label="subemnu">submenu</a></li>
                     </ul>
-                  </li>
+                  </li> -->
                   <li><a href="#" id="menu">community</a>
                     <ul id="sub-menu">
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
+                      <li><a href="#" aria-label="subemnu">place recommend</a></li>
                     </ul>
                   </li>
-                  <li><a href="#" id="menu">sercvice</a>
+                  <li><a href="#" id="menu">service</a>
                     <ul id="sub-menu">
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
-                      <li><a href="#" aria-label="subemnu">submenu</a></li>
+                      <li><a href="#" aria-label="subemnu">1:1 문희</a></li>
+                      <li><a href="<%=request.getContextPath()%>/notice/noticelist.do" aria-label="subemnu">notice</a></li>
+                      <li><a href="#" aria-label="subemnu">FAQ</a></li>
                     </ul>
                   </li>
                 </ul>

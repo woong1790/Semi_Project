@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List,com.nbp.product.review.model.DTO.Review" %>
+<%@ page import="java.util.List,com.nbp.product.review.model.DTO.Review,com.nbp.product.review.model.DTO.Qna" %>
 <%
-	String pageBar=(String)request.getAttribute("pageBar");
+	String pageBar=(String)request.getAttribute("pageBar"); 
+	String qnaPageBar=(String)request.getAttribute("qnaPageBar"); 
 	List<Review> reviews = (List<Review>)request.getAttribute("reviews");
-	
+	List<Qna> qnas = (List<Qna>)request.getAttribute("qnas");
 %>
 
 <style>
@@ -154,7 +155,7 @@ body {
 }
 
 .review-table tbody tr:nth-child(even) {
-	background-color: #f9f9f9; /* 짝수 행 배경색 */
+	background-color: lightgray; /* 짝수 행 배경색 */
 }
 
 .review-table tbody tr:hover {
@@ -212,7 +213,7 @@ body {
 
 		.review-table th:nth-child(1),
 	  .review-table td:nth-child(1) {
-	      width: 7%;
+	      width: 9%;
 	  }
 	  .review-table th:nth-child(3),
 	  .review-table td:nth-child(3) {
@@ -268,7 +269,7 @@ body {
 	</div>
 
 	<script>
-        // 더보기 버튼 클릭시 이미지 나오게 하는 함수
+        // 제품 상세에서 더보기 버튼 클릭시 이미지 나오게 하는 함수
             $(document).on('click', '.information-more-btn', function() {
         $("#information-img").css('height','auto');
         document.getElementById("information-img").style.overflow='visible';
@@ -286,9 +287,9 @@ body {
 		<div id="reviewResult"
 			style="display: flex; flex-direction: column; align-items: center; width: 60%;">
 			<table class='review-table' width="100%">
-				<thead style="border-bottom: 1px solid blue;">
+				<thead>
 					<tr>
-						<th>번호</th>
+						<th>no.</th>
 						<th>리뷰 제목</th>
 						<th>작성자</th>
 						<th>작성일</th>
@@ -307,11 +308,11 @@ body {
 						<td><%=r.getReviewEnrollDate()%></td>
 					</tr>
 					<tr class="review-content">
-						<td colspan='2' style="padding: 30px;"><img
+						<td colspan='1' style="padding: 30px;"><img
 							src="https://i.imgur.com/spsVERs.png" alt="Review Image 1"
 							width="200"> <img src="https://i.imgur.com/spsVERs.png"
 							alt="Review Image 1" width="200"></td>
-						<td colspan='3' style="padding: 30px;"><%=r.getReviewContent()%>
+						<td colspan='4' style="padding: 30px;"><%=r.getReviewContent()%>
 						</td>
 					</tr>
 					<%}
@@ -322,8 +323,6 @@ body {
 			<%=pageBar%>
 		</div>
 	</div>
-
-
 <script>
       
         
@@ -391,42 +390,79 @@ body {
     
     <div id="product-qna">
 		<div id="qna-title">Q&A</div>
-		<div id="reviewResult"
+		<div id="qnaResult"
 			style="display: flex; flex-direction: column; align-items: center; width: 60%;">
 			<table class='review-table' width="100%">
 				<thead style="border-bottom: 1px solid blue;">
 					<tr>
-						<th>번호</th>
+						<th>답변상태</th>
 						<th>제목</th>
 						<th>작성자</th>
 						<th>작성일</th>
 					</tr>
 				</thead>
 				<tbody id="ajaxReviewTbody" class="table-group-divider">
-
-					<tr class="review-detail">
-						<td>1</td>
-						<td>제품 문의드립니다.</td>
-
-						<td>user01</td>
-						<td>24.05.26</td>
-					</tr>
-					<tr class="review-content">
-						<td colspan='5' style="padding: 30px;">
-							 <span style="float:left;">상품 언제쯤 재입고될까요?</span>
-							 <br><br><hr><br>
-							<span style="float:left;">상품답변중입니다.</span>
-						</td>
-					</tr>
-
-
+					<%
+						if (!qnas.isEmpty()){
+							for(Qna q : qnas){
+					%>
+						<tr class="qna-detail">
+						<%if(q.getQnaAnswerContent()!=null){ %>
+							<td>답변완료</td>
+							<%}else{%>
+							<td>미답변</td>
+							 <%} %>
+							<td>제품 문의드립니다.</td>
+							<td><%=q.getMemberId() %></td>
+							<td><%=q.getQnaEnrollDate() %></td>
+						</tr>
+						<tr class="qna-content">
+							<td colspan='5' style="padding: 30px;">
+								 <span style="float:left;"><%=q.getQnaContent()%></span>
+								   <br><br><hr><br>
+								   <%if(q.getQnaAnswerContent()!=null){ %>
+								 <span style="float:left;"><%=q.getQnaAnswerContent() %></span>
+								 <%}else{%>
+								 <span style="float:left;">└답변 : 답변 대기중입니다.</span>
+								 <%} %>
+							</td>
+						</tr>
+					<%}
+					}%>
 				</tbody>
 			</table>
 			<!-- 페이지 바 -->
-			<%=pageBar%>
+			<%=qnaPageBar%>
 		</div>
 	</div>
 	</div>
+		<script>
+	      /* ajax 페이지 번호 클릭시 qna페이지 변환 */
+        	$(document).on('click', '.qnacPage', function() {
+        	let cPage = $(this).text();
+        	let productNo = $("#review-productNo").text();
+        	console.log(cPage);
+        	console.log(productNo);
+        	$.get("<%=request.getContextPath()%>/product/qnaall.do?ajaxcPage="+cPage+"&ajaxProductNo="+productNo)
+        	.done(data=>{
+        		document.getElementById("qnaResult").innerHTML=data;
+                $('.qna-content').hide();
+        	});
+        	
+        })
+        
+        /* qna 게시판 클릭시 하단에 내용 나오는 로직 구현 */
+        $(document).ready(function() {
+            $('.qna-content').hide();
+            
+            $(document).on('click', '.qna-detail', function() {
+              let contentRow = $(this).next('.qna-content');
+              $('.qna-content').not(contentRow).slideUp(1);
+                contentRow.slideToggle(1);
+            });
+        });
+		
+		</script>
 </div>
     
 
