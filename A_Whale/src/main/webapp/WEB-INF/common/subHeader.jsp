@@ -1,9 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.nbp.model.DTO.Member" %> 
+<%@ page import="com.nbp.model.DAO.MemberDAO" %>   
+    
+
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="https://webfontworld.github.io/gmarket/GmarketSans.css" rel="stylesheet">
+<link href="https://webfontworld.github.io/kopus/KoPubWorldDotum.css" rel="stylesheet">
 <title>A.Whale Products</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
@@ -215,9 +222,9 @@
               </nav>
             </div>
             <div  class="logo evencenter" style="width: 300px; height: 120px; margin-left: auto;"> 
-              <a class="header-icon" href=""><img src="https://postfiles.pstatic.net/MjAyNDA1MTZfMjU4/MDAxNzE1ODUwMjgwOTU4.Tk8o-0wr5yOJqHcZe2qSyd6Sw5htuKotfTvqpzw3ffsg.m5BvckFSblkDLbIXmjnPS2PwN5ajZOzkXWxbG2S4fkgg.PNG/cart.png?type=w773" width="50px" height="50px"></a>
-              <a class="header-icon" href=""><img src="https://postfiles.pstatic.net/MjAyNDA1MTZfMTY0/MDAxNzE1ODUwMjgwOTU2.uF-0pUqfz5kh9OZ-pV5bnC3W0BfZl04LzzoOjbKmAiUg.fn20oNtHI4PZjHPE9-DQ54fmBRjZ7gEQVfdQRCjDn8Eg.PNG/heart.png?type=w773" width="50px" height="50px"></a>
-              <a class="header-icon" href=""><img src="https://postfiles.pstatic.net/MjAyNDA1MTZfNCAg/MDAxNzE1ODUwMjgxMDgw.TxIrC-5XuT4c-JczAuIocVq_gKcq-TIyIwjUNXLJbIwg.FAvOJXG7cNFKR2QCVGGy8eRzhOJLcAndZXbysBJl1YMg.PNG/person.png?type=w773" width="50px" height="50px"></a>
+              <a class="header-icon" href=""><img src="https://i.imgur.com/Tod2QyI.png" width="50px" height="50px"></a>
+              <a class="header-icon" href=""><img src="https://i.imgur.com/hcPLIWf.png" width="50px" height="50px"></a>
+              <a class="header-icon" href=""><img src="https://i.imgur.com/232RUYS.png" width="50px" height="50px"></a>
           </div>
         </div>
     </header>

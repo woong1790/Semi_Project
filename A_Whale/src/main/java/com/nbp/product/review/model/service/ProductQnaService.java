@@ -1,7 +1,6 @@
 package com.nbp.product.review.model.service;
 
-import static com.nbp.common.JDBCTemplate.getConnection;	
-import static com.nbp.common.JDBCTemplate.close;	
+import static com.nbp.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.List;
@@ -25,5 +24,16 @@ public class ProductQnaService {
 		int result = dao.selectProductQnaAllCount(conn, productName);
 		close(conn);
 		return result;
+	}
+	
+	public int productQnaInsert(String memberId,String qnaTitle,String qnaContent,String productName,int secret) {
+		Connection conn =getConnection();
+		int result = dao.productQnaInsert(conn, memberId,qnaTitle,qnaContent,productName,secret);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+		
+		
 	}
 }

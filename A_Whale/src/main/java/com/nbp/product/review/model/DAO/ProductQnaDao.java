@@ -41,8 +41,8 @@ public class ProductQnaDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			close(pstmt);
 			close(rs);
+			close(pstmt);
 		}
 		return result;
 	}
@@ -59,11 +59,32 @@ public class ProductQnaDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			close(pstmt);
 			close(rs);
+			close(pstmt);
 		}
 		return result;
 	}
+	
+	public int productQnaInsert(Connection conn, String memberId,String qnaTitle,String qnaContent,String productName,int secret) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		try{
+		pstmt=conn.prepareStatement(sql.getProperty("insertProductQna"));
+		pstmt.setString(1, memberId);
+		pstmt.setString(2, qnaTitle);
+		pstmt.setString(3, qnaContent);
+		pstmt.setInt(4, secret);
+		pstmt.setString(5, productName);
+		result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
 	
 	public static Qna getQna(ResultSet rs) throws SQLException {
 		return Qna.builder()

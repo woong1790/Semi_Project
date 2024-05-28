@@ -34,10 +34,9 @@ public class AjaxProductQnaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//상품 qna 자료, 페이지 바 처리
-		
 				int cPage = 1;
 				try {
-					cPage = Integer.parseInt(request.getParameter("cPage"));
+					cPage = Integer.parseInt(request.getParameter("ajaxcPage"));
 				}catch(NumberFormatException e) {}
 				//페이지당 데이터 갯수 지정
 				int numPerpage = 3;
@@ -76,7 +75,7 @@ public class AjaxProductQnaServlet extends HttpServlet {
 				//페이지 숫자 버튼 구현 
 				while(!(pageNo>pageEnd||pageNo>totalPage)) {
 					if(pageNo==cPage) {
-						qnaPageBar+="<div id='cPageNext' style='font-size:20px; color:rgb(125, 125, 125);'>"+pageNo+"</div>";
+						qnaPageBar+="<div id='cPageNext_qna' style='font-size:20px; color:rgb(125, 125, 125);'>"+pageNo+"</div>";
 					}else {
 						qnaPageBar+="<div class='qnacPage' style='cursor:pointer;'>"+pageNo+"</div>";
 					}

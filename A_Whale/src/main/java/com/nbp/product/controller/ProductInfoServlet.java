@@ -123,7 +123,6 @@ public class ProductInfoServlet extends HttpServlet {
 		//qna 게시판의 내용
 		List<Qna> qnas = new ProductQnaService().selectProductQnaAll(cPage, numPerpage, productName);
 		request.setAttribute("qnas", qnas);
-		System.out.println(qnas);
 		
 		
 		
@@ -149,7 +148,7 @@ public class ProductInfoServlet extends HttpServlet {
 		//페이지 숫자 버튼 구현 
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(pageNo==cPage) {
-				qnaPageBar+="<div id='cPageNext' style='font-size:20px; color:rgb(125, 125, 125);'>"+pageNo+"</div>";
+				qnaPageBar+="<div id='cPageNext_qna' style='font-size:20px; color:rgb(125, 125, 125);'>"+pageNo+"</div>";
 			}else {
 				qnaPageBar+="<div class='qnacPage' style='cursor:pointer;'>"+pageNo+"</div>";
 			}
