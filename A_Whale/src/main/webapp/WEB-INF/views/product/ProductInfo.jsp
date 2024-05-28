@@ -489,4 +489,3 @@
     </script>
 </body>
 </html>
-<%@ include file="/WEB-INF/views/product/ProductInfoDetail.jsp"%> 

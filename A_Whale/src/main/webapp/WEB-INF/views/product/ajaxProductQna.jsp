@@ -34,8 +34,8 @@
 							 
 							 <!-- 공개글 혹은 본인 글일때 보이게 처리 -->
 							 
-						<%if(q.getQnaSecretYn()==1 || q.getMemberId().equals(" ")) {%>
-							<td>제품 문의드립니다.</td>
+						<%if(q.getQnaSecretYn()==1 || q.getMemberId().equals(loginMember.getMemberId())) {%>
+							<td><%=q.getQnaTitle() %></td>
 							<td><%=q.getMemberId() %></td>
 							<td><%=q.getQnaEnrollDate() %></td>
 						</tr>

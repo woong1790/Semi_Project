@@ -172,7 +172,7 @@ public class ProductInfoServlet extends HttpServlet {
 		
 		
 		
-		request.getRequestDispatcher("/WEB-INF/views/product/ProductInfo.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/product/ProductInfoDetail.jsp").forward(request, response);
 		
 	
 	

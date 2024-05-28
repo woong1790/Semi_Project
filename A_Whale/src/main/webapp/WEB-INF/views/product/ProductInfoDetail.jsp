@@ -2,12 +2,20 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List,com.nbp.product.review.model.DTO.Review,com.nbp.product.review.model.DTO.Qna,com.nbp.product.model.DTO.Product" %>
 <%@ include file="/WEB-INF/common/sessionInfo.jsp" %>
+<%@ include file="/WEB-INF/views/product/ProductInfo.jsp"%> 
 
 <%
 	String pageBar=(String)request.getAttribute("pageBar"); 
 	String qnaPageBar=(String)request.getAttribute("qnaPageBar"); 
 	List<Review> reviews = (List<Review>)request.getAttribute("reviews");
 	List<Qna> qnas = (List<Qna>)request.getAttribute("qnas");
+	
+	String loginId="";
+	try{
+		loginId=loginMember.getMemberId();
+	}catch(NullPointerException e){
+		loginId="";
+	}
 
 %>
 
@@ -503,7 +511,7 @@ body {
             <form action="<%=request.getContextPath()%>/product/productqna.do">
                 <label for="userId">아이디</label>
                 <% if(loginMember!=null){ %>
-                <input type="text" id="userId" name="userId" value='<%=loginMember.getMemberId()%>' required readOnly><br><br>
+                <input type="text" id="userId" name="userId" value='<%=loginId%>' required readOnly><br><br>
 				<%}else{ %>
 				 <input type="text" id="userId" name="userId" required readOnly><br><br>
 				 <%} %>
@@ -553,8 +561,8 @@ body {
 							 
 							 <!-- 공개글 혹은 본인 글일때 보이게 처리 -->
 							 
-						<%if(q.getQnaSecretYn()==1 || q.getMemberId().equals(" ")) {%>
-							<td>제품 문의드립니다.</td>
+						<%if(q.getQnaSecretYn()==1 || q.getMemberId().equals(loginId)) {%>
+							<td><%=q.getQnaTitle()%></td>
 							<td><%=q.getMemberId() %></td>
 							<td><%=q.getQnaEnrollDate() %></td>
 						</tr>
