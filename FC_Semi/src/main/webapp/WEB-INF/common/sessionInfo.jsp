@@ -6,4 +6,6 @@
     if (session != null) {
         loginMember = (Member) session.getAttribute("loginMember");
     }
+
+    
 %>
