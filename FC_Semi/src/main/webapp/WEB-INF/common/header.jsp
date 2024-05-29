@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
     <%@ page import="com.nbp.model.DTO.Member" %> 
     <%@ page import="com.nbp.model.DAO.MemberDAO" %>   
-    
-
 <%
    Member loginMember=(Member)session.getAttribute("loginMember");
    System.out.println(loginMember);
@@ -31,8 +29,7 @@
 <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
 </head>
-<body>
-       <style>
+<style>
         body{
           background-image: url("https://images.unsplash.com/photo-1629196911514-cfd8d628ba26?q=80&w=1998&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
           background-size: 100%;
@@ -255,6 +252,8 @@
         
 
     </style>
+<body>
+       
     <header>
         <div style="height:215px;"></div>
         <div id="headmain" style="min-width: 1500px;">
@@ -299,7 +298,7 @@
                 <ul id="main-menu">
                   <li><a href="<%=request.getRequestURI() %>" id="menu">home</a>
                     <ul id="sub-menu">
-                      <li><a href="#" aria-label="subemnu">첫차intro</a></li>
+                      <li><a href="#" aria-label="subemnu">첫차</a></li>
                     </ul>
                   </li>
                   <li><a href="<%=request.getContextPath()%>/product/pagebar.do" id="menu">product</a>
@@ -515,9 +514,7 @@ function kakaoLogin() {
   //};
 
   
-</script>
-
-    
+</script> 
   </header> 
 </body>
 </html>
