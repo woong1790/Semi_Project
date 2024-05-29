@@ -3,10 +3,10 @@
   <%@ page import="com.nbp.model.DTO.Member"%>
   <%@ page import="com.nbp.model.DAO.MemberDAO" %>
   <%@ page import="java.util.*,com.nbp.order.model.dto.MyPageOrder" %>
-  <%@ page import="com.nbp.order.model.dao.OrderDAO" %>
+  <%@ page import="com.nbp.order.model.dao.OrderDAO,com.nbp.order.model.dto.MyPageOrder" %>
   <%
 	  Member loginMember=(Member)session.getAttribute("loginMember");
-	
+		System.out.println(loginMember.getMemberId()+"MyOrderList.jsp");
 	  Cookie[] cookies=request.getCookies();
 	  String saveId=null;
 	  if(cookies!=null){
@@ -17,8 +17,14 @@
 	        }
 	     }
 	  }
-	  String orderer=(String)request.getAttribute("MemberId");
-	  //List <MyPageOrder>OrderList=(List<MyPageOrder>)request.getAttribute("OrderList");
+	 /*  String orderer=request.getParameter("MemberId");
+	  String loginId="";
+	  try{
+		  loginId=loginMember.getMemberId();
+	  }catch(NullPointerException e){
+		  loginId="";
+	  } */
+	  List<MyPageOrder> orderList=(List<MyPageOrder>)request.getAttribute("orderList");
   %>
 <!DOCTYPE html>
 <html>
@@ -73,44 +79,45 @@
         <table>
             <thead>
                 <tr>
-                    <th>주문번호</th>
+                    <th>주문 번호</th>
                     <th>제품명+옵션명</th>
-                    <th>주문일자</th>
-                    <th>주문금액(수량)</th>
-                    <th>주문상태</th>
+                    <th>주문 일자</th>
+                    <th>주문 금액(수량)</th>
+                    <th>주문 상태</th>
                 </tr>
             </thead>
             <tbody id="orderList">
+            	<%if(!orderList.isEmpty()){ 
+            		for(MyPageOrder mpo:orderList){ %>
+            			<tr>
+                            <td><%= mpo.getOrderId() %></td>
+                            <td><%= mpo.getProductName() %></td>
+                            <td><%= mpo.getOrderDDay() %></td>
+                            <td><%= mpo.getOrderTPrice() %></td>
+                            <%if(mpo.getOrderCode()==1){ %>
+                            <td>배송 진행중</td>
+                            <%}else if(mpo.getOrderCode()==2){ %>
+                            <td>취소 완료</td>
+                            <%}else if(mpo.getOrderCode()==3){ %>
+                            <td>환불 완료</td>
+                            <%}else if(mpo.getOrderCode()==4){ %>
+                            <td>배송 완료</td>
+                            <%} %>
+                        </tr>	
+            	<%}%>
+            	
+            	<%}else{ %>
+           			<tr>
+                       <td colspan="5">주문 내역이 없습니다.</td>
+                    </tr>
+            	<%} %>
                 <!-- 주문 내역이 여기 표시됩니다 -->
             </tbody>
         </table>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            const memberId = <%= orderer%>; // 서버에서 회원 ID를 전달받아 사용
-
-            // 서버에서 주문 내역을 가져와서 테이블에 표시
-            $.post("<%=request.getContextPath()%>/MyPage/getOrderLists.do", { <%=loginMember%>: memberId })
-                .done(function(data) {
-                    const orderList = $('#orderList');
-                    data.forEach(order => {
-                        const row = `<tr>
-                            <td>${order.orderId}</td>
-                            <td>${order.productName}</td>
-                            <td>${order.orderDate}</td>
-                            <td>${order.orderAmount}</td>
-                            <td>${order.orderStatus}</td>
-                        </tr>`;
-                        orderList.append(row);
-                    });
-                })
-                .fail(function() {
-                    alert('주문 내역을 불러오는 데 실패했습니다.');
-                });
-        });
-    </script>
+   
 
 </body>
 </html>

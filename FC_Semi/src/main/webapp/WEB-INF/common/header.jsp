@@ -264,11 +264,16 @@
                 <div class="logo border" ><img src="https://postfiles.pstatic.net/MjAyNDA1MTZfNjcg/MDAxNzE1ODUwMjgwOTY5.Jv6Kv_HtWZpWqwM47oHMsFPkdaNbnGuLxQcWEOivE3og.C6hmrMJVaBa-vZpvbdWJ47MpvixWDoZYUjALOHNn1ssg.PNG/logo1.png?type=w773" alt="" width="120px" height="90px"></div>
                 <div  class="logo evencenter" style="width: 300px; height: 120px; "> 
 	                <img src="https://i.imgur.com/Tod2QyI.png" id="cartgo" width="50px" height="50px">
-	                <img src="https://i.imgur.com/hcPLIWf.png" id="wishlistgo" width="50px" height="50px">
+	                
+	                <%if(loginMember!=null){ %>
+	                <a href="<%=request.getContextPath()%>/common/wishlist.do"><img src="https://i.imgur.com/hcPLIWf.png" id="wishlistgo" width="50px" height="50px"></a>
+	                <%}else { %>
+	                	<a href="#"><img src="https://i.imgur.com/hcPLIWf.png" id="#" width="50px" height="50px"></a>
+	                <%} %>
 	                <%if(loginMember!=null &&loginMember.getMemberId().equals("ADMIN")){ %>
 	                <a href="<%=request.getContextPath()%>/admin/adminpage.do"><img id="mypage" src="https://i.imgur.com/232RUYS.png"  width="50px" height="50px"></a>
-                	<%}else{ %>
-                	<img id="mypage" src="https://i.imgur.com/232RUYS.png"  width="50px" height="50px">
+                	<%}else if(loginMember!=null){ %>
+                	<a href="<%=request.getContextPath()%>/MyPage/mypagepage.do"><img id="mypage" src="https://i.imgur.com/232RUYS.png"  width="50px" height="50px"></a>
                 <%} %>
                 
                 
@@ -357,7 +362,7 @@
        <%if(loginMember==null){ %>
          <form id="form" action="<%=request.getContextPath() %>/login/login.do" method="post">
       <div id="login-close" style="width: 40px; height: 40px;"><img src="https://i.imgur.com/B3yWAxM.png" width="25px"></div>
-      <div style="border: 1px solid red;">
+
         <!-- 아이디 -->
         <div id="inputs01" class="inputs" style="display: flex; justify-content:center; align-items:center; width:350px; height: 55px;">
           <img src="https://i.imgur.com/jiAGWQk.png" width="20px" style="margin-left: 20px;margin-right: 10px;">
@@ -381,22 +386,17 @@
             <!-- 로그인 버튼 -->
             <br>
             <input type="submit" value="로그인">
+            </div>
             </form>
-            
+          
         <ul>
-	<li onclick="kakaoLogin();">
-      <a href="javascript:void(0)">
-          <span>카카오 회원가입</span>
-      </a>
-	</li>
-	<!--  <li onclick="kakaoLogout();">
-      <a href="javascript:void(0)">
-          <span>카카오 로그아웃</span>
-      </a>
-	</li>-->
-</ul>
+			<li onclick="kakaoLogin();">
+		      <a href="javascript:void(0)"><span>카카오 회원가입</span></a>
+			</li>
+		</ul>
+	</div>
       <%} %>
-      </div>
+      
         
         
         
@@ -429,12 +429,14 @@
     });
 
     //로그인 창 닫기
+
     document.getElementById("login-close").addEventListener("click",e=>{
       const login = document.getElementById("login");
       if(login.style.display="block"){
         login.style.display="none";
       }
     });
+
 
     document.querySelector("#id_input01").addEventListener("focus",e=>{
       const div01=document.getElementById("inputs01");
@@ -457,8 +459,6 @@
       div01.style.opacity="0.5";
       div01.style.outline="0px";
     });
-
-    
   </script>
 
   
