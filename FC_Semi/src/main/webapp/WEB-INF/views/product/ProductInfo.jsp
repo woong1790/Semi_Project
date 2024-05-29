@@ -1,9 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, com.nbp.product.model.DTO.Product" %>
+<%@ include file="/WEB-INF/common/sessionInfo.jsp" %>
 <%
 	Product p = (Product)request.getAttribute("productInfo");
-
+	String loginId = "";
+	try{
+		loginId= loginMember.getMemberId();
+	}catch(NullPointerException e){
+		loginId="";
+	}
 %>
 <%@ include file="/WEB-INF/common/subHeader.jsp" %> 
 <%
@@ -296,7 +302,7 @@
                 <div id="delivery-memo" class="delivery-memo">구매금액 50,000원<br> 이상시 무료배송</div>
               <div style="display: flex; flex-direction: row; justify-content: center; justify-content: space-between; align-items: center; width: 300px; margin-top: 10px;">
                 <div id="cart"><p>cart</p></div>
-                <div id="wish-img"><img src="https://i.imgur.com/VqIZAb3.png" width="30px"></div>
+                <div id="wish-img"><img id="wish-btn" src="https://i.imgur.com/VqIZAb3.png" width="30px"></div>
               </div>
               <!-- 구매 상품 리스트 -->
               <div id="order-list" style="color: white; min-height:20px; width: 340px; margin-top: 20px;">
@@ -310,9 +316,9 @@
               					<th></th>
               				</tr>
               				<tr>
-              					<td><%=p.getProductName()%></td>
+              					<td class="list-name"><%=p.getProductName()%></td>
               					<td id="list-count" class="list-count">(1)</td>
-              					<td id="list-price"><%=String.format("%,d",p.getProductPrice())%></td>
+              					<td id="list-price" class="list-price"><%=String.format("%,d",p.getProductPrice())%></td>
               					<td><img src="https://i.imgur.com/U1LZh3O.png" width=15px style="padding-top:10px; opacity:0;"></td>
               				</tr>
               				
@@ -325,10 +331,83 @@
     
     </section>
     <script>
+    	/* 위시리스트 기능 구현 */
+    	<%-- $(document).ready(function({
+    		<%%> --%>
+    		
+    		
+	    	$("#wish-img").click(e=>{
+				const white='https://i.imgur.com/VqIZAb3.png';
+				const blue='https://i.imgur.com/UboRxyi.png';
+	
+				let changeBtn = $("#wish-btn").attr("src");
+				if(changeBtn===white){
+					$("#wish-btn").attr("src",blue);
+					alert("위시리스트에 등록되었습니다.");
+					location.assign("<%=request.getContextPath()%>/product/wishlist.do?productId=<%=p.getProductNo()%>&memberId=<%=loginId%>);
+					
+					
+				}else{
+					$("#wish-btn").attr("src",white);
+					alert("위시리스트에서 삭제되었습니다.");
+					
+				}
+	    	});
+    	/* }); */
+    
+    
+    
+    
+    
+    
     	/* 장바구니 버튼 구현 */
-    	$("#cart").click(e=>{
-    		alert("장바구니 담기");
-    	})
+    		$(document).on('click', '#cart', function(e) {
+    			<%if(!loginId.equals("")){%>
+    			/* 옵션 이름 배열로 받기 */
+    		let option = $(".list-name");
+    		let optionName = option.map(function(){
+    			let optionNameResult = $(this).text().trim();
+    			if(optionNameResult!==""){
+    				return optionNameResult;
+    			}
+    		}).get();
+    		
+    		/* 옵션 가격 배열로 받기 */
+    		let option1 = $(".list-price");
+    		let optionPrice = option1.map(function(){
+    			let optionPriceResult = $(this).text().trim();
+    			if(optionPriceResult!==""){
+    				return optionPriceResult;
+    			}
+    		}).get();
+    		/* ajax로 보내 값 저장 */
+    		let cartData = {
+    				'memberId':'<%=loginId%>',
+    				'productId':<%=p.getProductNo()%>,
+    				'cartVolume':$("#product-count").text(),
+    				'optionName':optionName,
+    				'optionPrice':optionPrice
+    		};
+    		
+    		/* ajax처리  > post 형식으로 */
+    		$.ajax({
+    			type:'post',
+    			url:"<%=request.getContextPath()%>/product/productcart.do",
+    			data:JSON.stringify(cartData),
+    			contentType:'application/json;charset=utf-8;',
+    			success: function(response){
+    				let cartPageMove = confirm("장바구니에 담겼습니다. 장바구니로 이동 하시겠습니까?");
+    				if(cartPageMove){
+    					location.assign("<%=request.getContextPath()%>/product/productcartpage.do");
+    				}
+    			}
+    		});
+    		<%}else{%>
+    			alert("로그인 후 이용해주세요.");
+    		<%}%>
+    		
+    		
+    	});
     
     
     
@@ -421,12 +500,12 @@
     	    const selectElement = document.getElementById('product');
 
     	    selectElement.addEventListener('change', function() {
-
+				/* console.log(this); */
     	    	const select = document.getElementById("product");
     	    	 const tableResult = select.value.split(':');
     	    	 console.log(tableResult[0]);
 
-    	    	 const subProduct = "<tr><td>"+tableResult[0]+"</td><td class='list-count'>(1)</td><td class='list-price'>"+Number(tableResult[1]).toLocaleString('ko-KR')+"</td><td><img class='list-delete-btn' src='https://i.imgur.com/U1LZh3O.png' width=15px style='padding-top:10px'></td></tr>";
+    	    	 const subProduct = "<tr><td class='list-name'>"+tableResult[0]+"</td><td class='list-count'>(1)</td><td class='list-price'>"+Number(tableResult[1]).toLocaleString('ko-KR')+"</td><td><img class='list-delete-btn' src='https://i.imgur.com/U1LZh3O.png' width=15px style='padding-top:10px'></td></tr>";
     				$(".product-container>table").append(subProduct); 
     	    	
     	    	const selectedOption = this.options[this.selectedIndex];
