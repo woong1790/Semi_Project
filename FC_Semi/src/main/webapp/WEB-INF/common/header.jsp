@@ -255,7 +255,7 @@
 <body>
        
     <header>
-        <div style="height:215px;"></div>
+        <div style="height:215px;">
         <div id="headmain" style="min-width: 1500px;">
             <div id="logo">
                 <div class="logo border" style="width: 300px; height: 120px;">
@@ -263,32 +263,35 @@
                 </div>
                 <div class="logo border" ><img src="https://postfiles.pstatic.net/MjAyNDA1MTZfNjcg/MDAxNzE1ODUwMjgwOTY5.Jv6Kv_HtWZpWqwM47oHMsFPkdaNbnGuLxQcWEOivE3og.C6hmrMJVaBa-vZpvbdWJ47MpvixWDoZYUjALOHNn1ssg.PNG/logo1.png?type=w773" alt="" width="120px" height="90px"></div>
                 <div  class="logo evencenter" style="width: 300px; height: 120px; "> 
-	                <img src="https://i.imgur.com/Tod2QyI.png" id="cartgo" width="50px" height="50px">
-	                
+                	<!--장바구니 아이콘  -->
+					<img src="https://i.imgur.com/Tod2QyI.png" id="cartgo" width="50px" height="50px">		
+	                <!-- 위시리스트 분기처리 -->
 	                <%if(loginMember!=null){ %>
-	                <a href="<%=request.getContextPath()%>/common/wishlist.do"><img src="https://i.imgur.com/hcPLIWf.png" id="wishlistgo" width="50px" height="50px"></a>
+	                <a href="<%=request.getContextPath()%>/wishlist/wishlist.do"><img src="https://i.imgur.com/hcPLIWf.png" id="wishlistgo" width="50px" height="50px"></a>
 	                <%}else { %>
 	                	<a href="#"><img src="https://i.imgur.com/hcPLIWf.png" id="#" width="50px" height="50px"></a>
 	                <%} %>
-	                <%if(loginMember!=null &&loginMember.getMemberId().equals("ADMIN")){ %>
-	                <a href="<%=request.getContextPath()%>/admin/adminpage.do"><img id="mypage" src="https://i.imgur.com/232RUYS.png"  width="50px" height="50px"></a>
+	                <!-- 마이페이지 버튼 분기처리 -->
+	                <%if(loginMember!=null && loginMember.getMemberId().equals("ADMIN")){ %>
+		                <a href="<%=request.getContextPath()%>/admin/adminpage.do">
+		                <img id="mypage" src="https://i.imgur.com/232RUYS.png"  width="50px" height="50px">
+		                </a>
                 	<%}else if(loginMember!=null){ %>
-                	<a href="<%=request.getContextPath()%>/MyPage/mypagepage.do"><img id="mypage" src="https://i.imgur.com/232RUYS.png"  width="50px" height="50px"></a>
-                <%} %>
+	                	<a href="<%=request.getContextPath()%>/MyPage/mypagepage.do">
+	                	<img id="mypage" src="https://i.imgur.com/232RUYS.png"  width="50px" height="50px">
+	                	</a>
+               		 <%}else if(loginMember==null){ %>
+               		 	<img id="mypage" src="https://i.imgur.com/232RUYS.png"  width="50px" height="50px">
+               		 <%} %>
                 
                 
                 
                 <%if(loginMember!=null) {%>
                    <h4><%=loginMember.getMemberId() %>님 어서오세요!</h4>
                    <script>
-                    document.getElementById("wishlistgo").addEventListener("click",function(){
-                        location.assign('<%=request.getContextPath()%>/wishlist/WishListEnterSer.do?memberid=<%=loginMember.getMemberId()%>');
+                   document.getElementById("wishlistgo").addEventListener("click",function(){
+                      location.assign('<%=request.getContextPath()%>/wishlist/WishListEnterSer.do?memberid=<%=loginMember.getMemberId()%>');
                      }); 
-                         
-                    document.getElementById("cartgo").addEventListener("click",function(){
-                       location.assign('<%=request.getContextPath()%>/shoppingbasket/ShoppingBasket.do');
-                  });
-                   
                   </script>
                    <%} %>
                 <%if(loginMember!=null) {%>
@@ -344,6 +347,7 @@
                 </ul>
               </nav>
             </div>
+           </div>
     <script>
        <% if(loginMember!=null){ %>
       document.getElementById("mypage").addEventListener("click",e=>{
@@ -358,8 +362,8 @@
 
 
     <!-- 아이디 입력 박스 -->
-    <div id="login">
-       <%if(loginMember==null){ %>
+     <%if(loginMember==null){ %>
+    <div id="login">   
          <form id="form" action="<%=request.getContextPath() %>/login/login.do" method="post">
       <div id="login-close" style="width: 40px; height: 40px;"><img src="https://i.imgur.com/B3yWAxM.png" width="25px"></div>
 
@@ -378,8 +382,6 @@
             <input type="password" id="id_input02" name="memberPw" placeholder="비밀번호">
           </label>
         </div>
-        
-        
         <!-- 아이디 저장 체크박스 -->
         <div style="margin-top: 20px;">
             <input type="checkbox" name="saveId" id="saveId" <%=saveId!=null?"checked":"" %>>아이디 저장
@@ -394,72 +396,85 @@
 		      <a href="javascript:void(0)"><span>카카오 회원가입</span></a>
 			</li>
 		</ul>
-	</div>
-      <%} %>
-      
-        
-        
-        
+	
         <!-- 비밀번호 찾기, 아이디 찾기, 회원가입 버튼 -->
         <div id="find" style="margin-top: 20px;">
-        <!--	<a id="findId" href="<%=request.getContextPath() %>/common/FindID.do">아이디 찾기</a>-->
         	<a id="findId" href="#">아이디 찾기</a>
         	<a id="findPw" href="#">비밀번호 찾기</a>
 			<a href="<%=request.getContextPath() %>/common/MemberEnroll.do" style="border-right:0px">회원가입</a>
         </div>
-       
+       </div>
+       <%} %>
 
 
-  <script>
-  		//아이디 찾기
-	  document.getElementById("findId").addEventListener("click", e => {
-		  open("<%=request.getContextPath()%>/common/findId.do","_blank","width=600,height=500");
-	  });
-	  	//비밀번호 찾기
-	  document.getElementById("findPw").addEventListener("click", e => {
-		  open("<%=request.getContextPath()%>/common/FindPW.do","_blank","width=600,height=500");
-	  });
-  
-	 // 로그인 창 띄우기
-    document.getElementById("mypage").addEventListener("click",e=>{
-      const login = document.getElementById("login");
-      if(login.style.display="none"){
-        login.style.display="block";
-      }
-    });
-
-    //로그인 창 닫기
-
-    document.getElementById("login-close").addEventListener("click",e=>{
-      const login = document.getElementById("login");
-      if(login.style.display="block"){
-        login.style.display="none";
-      }
-    });
+	<script>
+	document.getElementById("cartgo").addEventListener("click", function(){
+	  <% if(loginMember == null) { %>
+	    if(confirm("회원가입 후 이용하실 수 있습니다. 회원가입 페이지로 이동하시겠습니까?")) {
+	      location.assign("<%= request.getContextPath()%>/common/MemberEnroll.do");
+	    } else {
+	      location.assign("#");
+	    }
+	  <% } else if(loginMember != null && loginMember.getMemberId().equals("ADMIN")) { %>
+	    alert("관리자는 해당 기능을 이용할 필요가 없습니다.");
+	  <% } else if(loginMember != null) { %>
+	    location.assign("<%= request.getContextPath()%>/common/movetocart.do");
+	  <% } %>
+	});
 
 
-    document.querySelector("#id_input01").addEventListener("focus",e=>{
-      const div01=document.getElementById("inputs01");
-      div01.style.opacity="1";
-      div01.style.outline="3px solid rgb(66, 114, 227)";
-    });
-    document.querySelector("#id_input01").addEventListener("blur",e=>{
-      const div01=document.getElementById("inputs01");
-      div01.style.opacity="0.5";
-      div01.style.outline="0px";
-    });
 
-    document.querySelector("#id_input02").addEventListener("focus",e=>{
-      const div01=document.getElementById("inputs02");
-      div01.style.opacity="1";
-      div01.style.outline="3px solid rgb(66, 114, 227)";
-    });
-    document.querySelector("#id_input02").addEventListener("blur",e=>{
-      const div01=document.getElementById("inputs02");
-      div01.style.opacity="0.5";
-      div01.style.outline="0px";
-    });
-  </script>
+  // 아이디 찾기
+  document.getElementById("findId").addEventListener("click", function() {
+	  open("<%=request.getContextPath()%>/common/findId.do","_blank","width=600,height=500");
+  });
+
+  // 비밀번호 찾기
+  document.getElementById("findPw").addEventListener("click", function() {
+	  open("<%=request.getContextPath()%>/common/FindPW.do","_blank","width=600,height=500");
+  });
+
+  // 로그인 창 띄우기
+  document.getElementById("mypage").addEventListener("click", function() {
+    const login = document.getElementById("login");
+    if(login.style.display = "none") {
+      login.style.display = "block";
+    }
+  });
+
+  // 로그인 창 닫기
+  document.getElementById("login-close").addEventListener("click", function() {
+    const login = document.getElementById("login");
+    if(login.style.display = "block") {
+      login.style.display = "none";
+    }
+  });
+
+  document.querySelector("#id_input01").addEventListener("focus", function() {
+    const div01=document.getElementById("inputs01");
+    div01.style.opacity="1";
+    div01.style.outline="3px solid rgb(66, 114, 227)";
+  });
+
+  document.querySelector("#id_input01").addEventListener("blur", function() {
+    const div01=document.getElementById("inputs01");
+    div01.style.opacity="0.5";
+    div01.style.outline="0px";
+  });
+
+  document.querySelector("#id_input02").addEventListener("focus", function() {
+    const div01=document.getElementById("inputs02");
+    div01.style.opacity="1";
+    div01.style.outline="3px solid rgb(66, 114, 227)";
+  });
+
+  document.querySelector("#id_input02").addEventListener("blur", function() {
+    const div01=document.getElementById("inputs02");
+    div01.style.opacity="0.5";
+    div01.style.outline="0px";
+  });
+</script>
+
 
   
 <!-- 카카오 스크립트 -->

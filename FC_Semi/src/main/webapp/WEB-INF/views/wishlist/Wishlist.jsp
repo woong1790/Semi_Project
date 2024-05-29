@@ -123,8 +123,8 @@
             </div>
         </div>
         <div class="wishlist-item">
-            <input type="https://i.imgur.com/EwzxUrT.png" class="wishlist-checkbox">
-            <img src="image3.jpg" alt="상품 이미지">
+            <input type="checkbox" class="wishlist-checkbox">
+            <img src="https://i.imgur.com/EwzxUrT.png" alt="상품 이미지">
             <div class="item-details">
                 <h3>상품 이름 3</h3>
                 <p>찜한 날짜: 2024-05-26</p>
