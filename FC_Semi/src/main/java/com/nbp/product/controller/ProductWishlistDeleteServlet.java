@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.nbp.product.model.service.ProductWishlistService;
 
 /**
- * Servlet implementation class ProductWishlistServlet
+ * Servlet implementation class ProductWishlistDeleteServlet
  */
-@WebServlet("/product/wishlist.do")
-public class ProductWishlistServlet extends HttpServlet {
+@WebServlet("/product/wishlistdelete.do")
+public class ProductWishlistDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductWishlistServlet() {
+    public ProductWishlistDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +32,13 @@ public class ProductWishlistServlet extends HttpServlet {
 
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		String memberId = request.getParameter("memberId");
-		int result = new ProductWishlistService().insertWishlist(productId, memberId);
+		System.out.println("삭제 진행");
+		int result = new ProductWishlistService().deleteWishlist(productId, memberId);
+		
+		System.out.println(result);
+	
+	
+	
 	
 	
 	}

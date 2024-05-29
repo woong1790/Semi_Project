@@ -332,29 +332,63 @@
     </section>
     <script>
     	/* 위시리스트 기능 구현 */
-    	<%-- $(document).ready(function({
-    		<%%> --%>
-    		
-    		
+    	 $(document).ready(function(){
+    		 /* 상세 페이지 로딩시 위시리스트 버튼 조건 활성화 */
+    		 <%if(loginId!=""){%>
+    		$.ajax({
+    			type:'post',
+    			url:"<%=request.getContextPath()%>/product/wishlistcheck.do",
+    			data:{productId:<%=p.getProductNo()%>,memberId:'<%=loginId%>'},
+    			success: function (response){
+    				if(response>0){
+    					$("#wish-btn").attr("src",'https://i.imgur.com/UboRxyi.png');
+    				}
+    			}
+    		});
+    		<%}%>
+    	
 	    	$("#wish-img").click(e=>{
-				const white='https://i.imgur.com/VqIZAb3.png';
-				const blue='https://i.imgur.com/UboRxyi.png';
-	
-				let changeBtn = $("#wish-btn").attr("src");
-				if(changeBtn===white){
-					$("#wish-btn").attr("src",blue);
-					alert("위시리스트에 등록되었습니다.");
-					location.assign("<%=request.getContextPath()%>/product/wishlist.do?productId=<%=p.getProductNo()%>&memberId=<%=loginId%>);
-					
-					
-				}else{
-					$("#wish-btn").attr("src",white);
-					alert("위시리스트에서 삭제되었습니다.");
-					
-				}
+   				/* 로그인 검열 */
+   				<%if(loginId==""){%>
+	   	    		alert("로그인 이후 이용할 수 있습니다.");
+   	    		<%}else{%>
+	    		
+	     		$.ajax({
+	     			type:'post',
+	     			url:"<%=request.getContextPath()%>/product/wishlistcheck.do",
+	     			data:{productId:<%=p.getProductNo()%>,memberId:'<%=loginId%>'},
+	     			success: function (response){
+	     				/* 위시리스트 버튼이 활성화 되어있을때 */
+	     				if(response>0){
+	     					$.ajax({
+	     		    			type:'post',
+	     		    			url:"<%=request.getContextPath()%>/product/wishlistdelete.do",
+	     		    			data:{productId:<%=p.getProductNo()%>,memberId:'<%=loginId%>'},
+	     		    			success: function(response){
+	     		    				alert("위시리스트에서 삭제되었습니다.");
+	     							$("#wish-btn").attr("src",'https://i.imgur.com/VqIZAb3.png');
+	     		    			}
+	     		    		});
+	     					
+	     				/* 위시리스트 버튼이 비활성화 되어있을때 */	
+	     				}else{
+	     					
+	     					$.ajax({
+	     		    			type:'post',
+	     		    			url:"<%=request.getContextPath()%>/product/wishlist.do",
+	     		    			data:{productId:<%=p.getProductNo()%>,memberId:'<%=loginId%>'},
+	     		    			success: function(response){
+	     		    				alert("위시리스트에 등록되었습니다.");
+	     		    				$("#wish-btn").attr("src",'https://i.imgur.com/UboRxyi.png');
+	     		    			}
+	     		    		});
+	     				}
+	     			}
+	     		});
+	    				<%}%>
 	    	});
-    	/* }); */
-    
+    	
+    	 });
     
     
     

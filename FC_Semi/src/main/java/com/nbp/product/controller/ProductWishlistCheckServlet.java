@@ -1,7 +1,6 @@
 package com.nbp.product.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,16 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.nbp.product.model.service.ProductWishlistService;
 
 /**
- * Servlet implementation class ProductWishlistServlet
+ * Servlet implementation class ProductWishlistCheckServlet
  */
-@WebServlet("/product/wishlist.do")
-public class ProductWishlistServlet extends HttpServlet {
+@WebServlet("/product/wishlistcheck.do")
+public class ProductWishlistCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductWishlistServlet() {
+    public ProductWishlistCheckServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,8 +31,11 @@ public class ProductWishlistServlet extends HttpServlet {
 
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		String memberId = request.getParameter("memberId");
-		int result = new ProductWishlistService().insertWishlist(productId, memberId);
-	
+		
+		int result = new ProductWishlistService().checkWishlist(productId, memberId);
+		response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+		response.getWriter().print(result);
 	
 	}
 
