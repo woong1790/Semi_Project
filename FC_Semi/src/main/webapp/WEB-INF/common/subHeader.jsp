@@ -48,7 +48,7 @@
 
         .logo{
             display: flex;
-            justify-content: center;
+            justify-content: left;
             align-items: center;
         }
 
@@ -174,7 +174,7 @@
 <body>
  <header>
         <div id="main">
-            <div class="logo border" style="width: 80px; height: 100px; margin-left:30px"><img src="https://i.imgur.com/y7VKQKZ.png" alt="" width="100px" height="100px"></div>
+            <div class="logo border" style="width: 80px; height: 100px; margin-left:30px"><img src="https://i.imgur.com/rLdAahr.png" alt="" width="200px" height="70px"></div>
             <div id="category" style="min-width: 1100px;margin-top: 20px;">
               <nav role="navigation">
                 <ul id="main-menu">

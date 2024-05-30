@@ -336,9 +336,9 @@ body {
 	<div id="product-info-list" class="border"
 		style="height: 15px; margin-top: 20px; border-bottom: 8px solid rgb(9, 9, 71); border-top: 3px solid rgb(9, 9, 71);"></div>
 	<div id="product-detail-main" class="border">
-		<div>information</div>
-		<div>review</div>
-		<div>Q&A</div>
+		<div id="information-scroll">information</div>
+		<div id="review-scroll">review</div>
+		<div id="qna-scroll">Q&A</div>
 	</div>
 
 	<script>
@@ -350,6 +350,24 @@ body {
       $(e.target).parent().children().css("border-bottom","5px solid rgba(10, 10, 169,0)");
       $(e.target).css("border-bottom","5px solid rgb(8, 8, 136)");
     });
+      
+      //리뷰클릭시 리뷰가있는 곳으로 스크롤
+      $("#review-scroll").click(e=>{
+    	  const reviewScroll = document.getElementById("product-review");
+    	  reviewScroll.scrollIntoView({ behavior: 'smooth' });
+      });
+      
+    //information 클릭시 리뷰가있는 곳으로 스크롤
+      $("#information-scroll").click(e=>{
+    	  const informationScroll = document.getElementById("information-main-container");
+    	  informationScroll.scrollIntoView({ behavior: 'smooth' });
+      });
+    
+    //qna클릭시 리뷰가있는 곳으로 스크롤
+      $("#qna-scroll").click(e=>{
+    	  const qnaScroll = document.getElementById("product-qna");
+    	  qnaScroll.scrollIntoView({ behavior: 'smooth' });
+      });
 
 
     
@@ -557,7 +575,7 @@ body {
 							 <!-- 공개글 혹은 본인 글일때 보이게 처리 -->
 							 
 						<%if(q.getQnaSecretYn()==1 || q.getMemberId().equals(" ")) {%>
-							<td>제품 문의드립니다.</td>
+							<td><%=q.getQnaTitle() %></td>
 							<td><%=q.getMemberId() %></td>
 							<td><%=q.getQnaEnrollDate() %></td>
 						</tr>

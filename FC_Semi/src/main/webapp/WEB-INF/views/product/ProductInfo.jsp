@@ -439,7 +439,7 @@
     			success: function(response){
     				let cartPageMove = confirm("장바구니에 담겼습니다. 장바구니로 이동 하시겠습니까?");
     				if(cartPageMove){
-    					location.assign("<%=request.getContextPath()%>/product/productcartpage.do");
+    					location.assign("<%=request.getContextPath()%>/common/movetocart.do");
     				}
     			}
     		});
