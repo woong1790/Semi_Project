@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.nbp.model.DTO.Member"%>
 <%@ page import="com.nbp.model.DAO.MemberDAO" %>
+<%@ page import="com.nbp.cart.model.DTO.Cart" %>
+<%@ page import="java.util.*,com.nbp.cart.model.DAO.CartDAO" %>
 <%
 	Member loginMember=(Member)session.getAttribute("loginMember");
 	String MemberId=loginMember.getMemberId();
@@ -16,7 +18,11 @@
 	      }
 	   }
 	}
+	
+	List<Cart> carts=(List<Cart>)request.getAttribute("carts");
+	out.print(carts);
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -126,7 +132,9 @@
     <h1>장바구니</h1>
 </header>
 <div class="container">
+
     <div class="empty-cart-message">장바구니에 담긴 물건이 없습니다</div>
+    
     <div class="cart-item">
         <input type="checkbox" class="cart-checkbox" data-price="20000">
         <img src="https://i.imgur.com/RnOgrKc.png" alt="상품 이미지">
@@ -140,40 +148,43 @@
             </div>
         </div>
     </div>
-    <div class="cart-item">
-        <input type="checkbox" class="cart-checkbox" data-price="35000">
-        <img src="https://i.imgur.com/RnOgrKc.png" alt="상품 이미지">
-        <div class="item-details">
-            <h3>상품 이름 2 <span class="option">(옵션 2)</span></h3>
-            <p>장바구니 추가 날짜: 2024-05-27</p>
-            <p class="price">₩35,000</p>
-            <div class="buttons">
-                <button class="delete-btn">삭제</button>
-                <button class="order-btn">주문하기</button>
-            </div>
-        </div>
-    </div>
-    <div class="cart-item">
-        <input type="checkbox" class="cart-checkbox" data-price="15000">
-        <img src="https://i.imgur.com/RnOgrKc.png" alt="상품 이미지">
-        <div class="item-details">
-            <h3>상품 이름 3 <span class="option">(옵션 3)</span></h3>
-            <p>장바구니 추가 날짜: 2024-05-26</p>
-            <p class="price">₩15,000</p>
-            <div class="buttons">
-                <button class="delete-btn">삭제</button>
-                <button class="order-btn">주문하기</button>
-            </div>
-        </div>
-    </div>
+    
     <div class="total-price">
         총 가격: ₩<span id="totalPrice">0</span>
     </div>
+    
     <div class="bulk-order">
         <button onclick="bulkOrder()">전체 주문하기</button>
     </div>
+    
 </div>
+
 <script>
+	
+<%-- window.onload = function() {
+    fetch('/common/AddCart.do', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            memberId: '<%= loginMember.getMemberId() %>'
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // 서블릿에서 반환된 데이터 처리
+        if (data.length > 0) {
+            data.forEach(cart => {
+                addItem(cart.name, cart.option, cart.date, cart.price, cart.imageUrl);
+            });
+        } else {
+            document.querySelector('.empty-cart-message').style.display = 'block';
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}; --%>
+	
     function updateTotalPrice() {
         const checkboxes = document.querySelectorAll('.cart-checkbox:checked');
         let totalPrice = 0;
@@ -189,7 +200,7 @@
 
     function bulkOrder() {
         const checkboxes = document.querySelectorAll('.cart-checkbox:checked');
-        if (checkboxes.length === 0) {
+        if (checkboxes.length = 0) {
             alert('주문할 상품을 선택하세요.');
             return;
         }
@@ -209,12 +220,12 @@
         const newItem = document.createElement('div');
         newItem.className = 'cart-item';
         newItem.innerHTML = `
-            <input type="checkbox" class="cart-checkbox" data-price="${price}">
-            <img src="${imageUrl}" alt="상품 이미지">
+            <input type="checkbox" class="cart-checkbox" data-price="\${price}">
+            <img src="\${imageUrl}" alt="상품 이미지">
             <div class="item-details">
-                <h3>${name} <span class="option">(${option})</span></h3>
-                <p>장바구니 추가 날짜: ${date}</p>
-                <p class="price">₩${price.toLocaleString()}</p>
+                <h3>${name} <span class="option">(\${option})</span></h3>
+                <p>장바구니 추가 날짜: \${date}</p>
+                <p class="price">₩\${price.toLocaleString()}</p>
                 <div class="buttons">
                     <button class="delete-btn">삭제</button>
                     <button class="order-btn">주문하기</button>
@@ -231,6 +242,9 @@
 
     // Example: Add an item to the cart
     // addItem('상품 이름 4', '옵션 4', '2024-05-29', 30000, 'image4.jpg');
+    
+    
 </script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </body>
 </html>
