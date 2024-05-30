@@ -5,8 +5,6 @@
 <%
 	List<Product> p = (List<Product>)request.getAttribute("products");
 %>
-<!DOCTYPE html>
-<html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -149,12 +147,14 @@
             </div>
 <%
 String productName = (String) request.getAttribute("productName");
-String productQuantity = (String) request.getAttribute("productQuantity");
-String options = (String) request.getAttribute("options");
-String totalPrice = (String) request.getAttribute("totalPrice");
-String productImage = (String) request.getAttribute("productImage");
-String productPrice = (String) request.getAttribute("productPrice");
+int productCount = (int) request.getAttribute("productCount");
+int productPrice = (int) request.getAttribute("productPrice");
+int totalPrice = (int) request.getAttribute("totalPrice");
+/* String point2 =  (String)request.getAttribute("point2");
+ */String productImage = (String) request.getAttribute("productImage");
+/* String options = (String) request.getAttribute("options");*/
 
+/* String productPrice = (String) request.getAttribute("productPrice");*/
 %>
             <div class="content " >
                 <div class="product-list">
@@ -169,27 +169,27 @@ String productPrice = (String) request.getAttribute("productPrice");
                     </div>
                     <div class="product"style="display: flex; margin: 20px 0px 0px 0px; font-size: 12px; border-bottom: 0.5px solid black;">
                         <div style="margin: 10px ; width: 10%;">
-                            <img src="  " alt="와인" width="100%" height="100%">
+                            <img src=" <%= productImage %> " alt="와인" width="100%" height="100%">
                         </div>
                         <div style="margin: 10px; width: 50%; font-size: 12px;">
                             <div style="margin-top: 5%;">
                                 <ul style="list-style: none; ">
                                     <li>상품명 : <span><%= productName %></span></li><br>
-                                    <li>수량 : <span><%= productQuantity %></span></li><br>
-                                    <li>옵션목록 :<span><%= options %></span></li>
+                                    <li>수량 : <span><%= productCount %></span></li><br>
+                                    <li>옵션목록 :<span></span></li>
                                 </ul>
                             </div>
                         </div>
                         <div style="margin: 10px; width: 8%; text-align: center; "><%= productPrice %></div>
-                        <div style="margin: 10px; width: 8%; text-align: center;"><%= productQuantity %></div>
-                        <div style="margin: 10px; width: 8%; text-align: center;">400원</div>
+                        <div style="margin: 10px; width: 8%; text-align: center;"><%= productCount %></div>
+                        <div style="margin: 10px; width: 8%; text-align: center;">500원</div>
                         <div style="margin: 10px; width: 8%; text-align: center;">기본</div>
-                        <div style="margin: 10px; width: 8%; text-align: center;"><%=productPrice %></div>
+                        <div style="margin: 10px; width: 8%; text-align: center;"><%=totalPrice %></div>
                      </div>
                     
                     <div class="deliver">
                         <div class="deliver-detail" style="font-size: 15px;">
-                            <h4>배송비</h4><span>2500원</span>
+                            <h4>배송비</h4><span>3500원</span>
                         </div>
                     </div>
                 </div>
@@ -463,9 +463,9 @@ String productPrice = (String) request.getAttribute("productPrice");
           <div>
               <br>
           </div>
-          <%-- <form action="<%=request.getContextPath() %>/pay/payment.do" method="post">
-        	<button type="submit">카카오톡 결제</button>
-   		</form> --%>
+          <form action="<%=request.getContextPath() %>/pay/paymentmethod.do" method="post">
+        	<button type="submit" onclick="requestPay();">결제하기</button>
+   		</form>
       </div>
 
     <div style="height: 120px;">
@@ -555,6 +555,55 @@ String productPrice = (String) request.getAttribute("productPrice");
 	});
 	
 	/* 결제하기버튼  */
+	function requestPay() {
+    var IMP = window.IMP;
+    IMP.init('imp03674174'); // 가맹점 식별코드
+
+	    var merchantUid = 'merchant_' + new Date().getTime();
+	    var orderName = '<%= productName %>';
+	    var amount = parseInt('<%= totalPrice %>'); // 총 결제 금액
+	    var buyerEmail = document.querySelector('input[name="email"]').value || 'buyer@example.com'; // 구매자 이메일
+	    var buyerName = document.querySelector('input[name="mname"]').value || '구매자'; // 구매자 이름
+	    var buyerTel = document.querySelector('input[name="phonenumber"]').value || '010-1234-5678'; // 구매자 전화번호
+	    var buyerAddr = document.getElementById('sample4_roadAddress').value || '서울특별시 강남구 삼성동'; // 구매자 주소
+	    var buyerPostcode = document.getElementById('sample4_postcode').value || '123-456'; // 구매자 우편번호
+
+	    IMP.request_pay({
+	        pg: 'html5_inicis',
+	        pay_method: 'card',
+	        merchant_uid: merchantUid,
+	        name: orderName,
+	        amount: amount,
+	        buyer_email: buyerEmail,
+	        buyer_name: buyerName,
+	        buyer_tel: buyerTel,
+	        buyer_addr: buyerAddr,
+	        buyer_postcode: buyerPostcode
+	    }, function (rsp) {
+	        if (rsp.success) {
+	            $.ajax({
+	                url: '<%=request.getContextPath()%>/pay/paymentcomplete.do',
+	                method: 'POST',
+	                contentType: 'application/json',
+	                data: JSON.stringify({
+	                    imp_uid: rsp.imp_uid,
+	                    merchant_uid: rsp.merchant_uid,
+	                    paid_amount: rsp.paid_amount,
+	                    status: rsp.status
+	                }),
+	                success: function (response) {
+	                    alert('결제 성공: ' + response.message);
+	                    // 결제 성공 후 추가 로직 (예: 주문 완료 페이지로 리다이렉트)
+	                },
+	                error: function (xhr, status, error) {
+	                    alert('결제 검증 실패: ' + xhr.responseText);
+	                }
+	            });
+	        } else {
+	            alert('결제 실패: ' + rsp.error_msg);
+	        }
+	    });
+	}
 	<%-- const pay=()=>{
 		const data = {
                 cid: "TC0ONETIME",
@@ -639,6 +688,8 @@ String productPrice = (String) request.getAttribute("productPrice");
             }
         }).open();
     }
+	
+	
+	
     </script>
 </body>
-</html>

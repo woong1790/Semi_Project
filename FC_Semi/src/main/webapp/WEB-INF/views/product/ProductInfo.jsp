@@ -602,59 +602,28 @@
           $("#delivery").text("");
           }
       });
-      <%-- document.getElementById("parchase").addEventListener("click",e=>{
+      //결제페이지로 정보 보내기
+      document.getElementById("parchase").addEventListener("click",e=>{
   		const xmlRequest=new XMLHttpRequest();
   		xmlRequest.onload=()=>{
   			if(xmlRequest.status==200){
-  				alert("데이터보냄")
+  				document.write(xmlRequest.responseText);
   			}
   		}
-  		const productName=document.querySelector(".list-name").value;
-  		const productCount=document.querySelector("#list-count").value;
-  		const totalprice=document.querySelector("#list-price").value;
+  		const productName=document.querySelector(".list-name").innerText;
+  		const productCount=document.querySelector("#product-count").innerText;
+  		const productPrice=document.querySelector("#price").innerText.replace(",","");
+   		const totalprice=document.querySelector("#totalPrice").innerText.replace(/[^0-9]/g, '');
+
+   		/*const totalprice=document.querySelector("#list-price").innerText.replace(",","");*/  		
 
   		xmlRequest.open("post","<%=request.getContextPath()%>/order/productdetailorder.do");
   		xmlRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
   		
-  		//보낼 것을 키밸류로 보내준다
-  		xmlRequest.send("productName="+productName+"&productCount="+productCount+"&totalprice="+totalprice);
-  	}); --%>
-      $(document).ready(function() {
-  	    $("#parchase").click(function() {
-  	        const productName = "<%= p.getProductName() %>";
-  	        const productQuantity = $("#product-count").text().replace('(', '').replace(')', '');
-  	        const selectedOptions = [];
-  	        $("#product option").each(function() {
-  	            if ($(this).is(":disabled")) {
-  	                selectedOptions.push($(this).text());
-  	            }
-  	        });
-  	        const totalPrice = $("#totalPrice").text().replace("total : ", "").replace("원", "").replace(/,/g, '');
-  	        const productImage = "<%= p.getProductImg() %>"; 
-  	        const productPrice = "<%= p.getProductPrice() %>"; 
-  	
-  	        $.ajax({
-  	            type: "POST",
-  	            url: "<%=request.getContextPath()%>/order/productdetailorder.do",
-  	            data: JSON.stringify({
-  	                'productName': productName,
-  	                'productQuantity': productQuantity,
-  	                'options': selectedOptions.join(', '),
-  	                'totalPrice': totalPrice,
-  	                'productImage': productImage,
-  	                'productPrice': productPrice
-  	            }),
-  	            contentType: "application/json; charset=UTF-8",
-  	            success: function(response) {
-  	                window.location.href = "<%=request.getContextPath()%>/order/productdetailorder.do"; // 리다이렉트
-  	            },
-  	            error: function(xhr, status, error) {
-  	                alert("AJAX Error: " + xhr.responseText);
-  	                console.error("AJAX Error: ", status, error);
-  	            }
-  	        });
-  	    });
+  		
+  		xmlRequest.send("productName="+productName+"&productCount="+productCount+"&productPrice="+productPrice+"&totalprice="+totalprice);
   	});
+      
     </script>
 </body>
 </html>

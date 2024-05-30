@@ -190,7 +190,7 @@
                 <li>
                     <a href="#">주문 관리 </a>
                     <ul class="side-dropdown">
-                        <li ><a href="<%=request.getContextPath()%>/admin/adminsearchorder.do" data-target="orderSection">주문조회</a></li>
+                        <li ><a href="<%=request.getContextPath()%>/admin/adminorder.do" data-target="orderSection">주문관리</a></li>
                     </ul>
                 </li>
                 <li>
