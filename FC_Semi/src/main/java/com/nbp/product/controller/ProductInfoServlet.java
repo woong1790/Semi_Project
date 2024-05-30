@@ -63,6 +63,7 @@ public class ProductInfoServlet extends HttpServlet {
 		//리뷰 게시판의 내용
 		List<Review> reviews = new ProductReviewService().selectProductReviewAll(cPage, numPerpage, productNo);
 		request.setAttribute("reviews", reviews);
+		System.out.println(reviews+"뭐가 문제야");
 		
 		
 		
