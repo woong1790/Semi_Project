@@ -110,11 +110,12 @@
             </div>
             <div class="notice_list" >
                 <a href="<%=request.getContextPath()%>/notice/noticelist.do"><button >목록</button></a>
-            </div>
-            <%if(loginMember!=null &&loginMember.getMemberId().equals("ADMIN")){ %>
+                <%if(loginMember!=null &&loginMember.getMemberId().equals("ADMIN")){ %>
                 <button class="" onclick="location.assign('<%=request.getContextPath()%>/notice/noticedelete.do')">공지글삭제
      		</button>
              <%} %>
+            </div>
+            
             
         </div>
     </section>

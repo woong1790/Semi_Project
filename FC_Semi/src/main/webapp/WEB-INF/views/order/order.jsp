@@ -147,7 +147,15 @@
             <div class="order-product-title" style="height: 50px; align-items: center;" >
                 <h3 >주문상품</h3><span></span><button id="toggle-button">버튼</button>
             </div>
-            <div class="content hidden" >
+         <%
+             String[] productNames = (String[]) request.getAttribute("productNames");
+             String[] productCount = (String[]) request.getAttribute("productCount");
+             String[] productPrices = (String[]) request.getAttribute("productPrices");
+      		 Integer totalPriceObj = (Integer) request.getAttribute("totalPrice");
+             
+
+	    %>
+            <div class="content " >
                 <div class="product-list">
                     <div style="display: flex; margin: 20px 0px 20px 0px; font-size: 13px; text-align: center; background-color: rgb(216, 216, 216);">
                         <div style="margin: 10px; width: 10%; ">이미지 </div>
@@ -165,37 +173,19 @@
                         <div style="margin: 10px; width: 50%; font-size: 12px;">
                             <div style="margin-top: 5%;">
                                 <ul style="list-style: none; ">
-                                    <li>상품명 : <span>  </span></li><br>
-                                    <li>수량 : <span>  </span></li><br>
-                                    <li>옵션 : <span>도수 10도</span></li>
+                                    <li>상품명 : <span><%= productNames %></span></li><br>
+                                    <li>수량 : <span><%= productCount %></span></li><br>
+                                    <li>옵션목록 :<span></span></li>
                                 </ul>
                             </div>
                         </div>
-                        <div style="margin: 10px; width: 8%; text-align: center; ">39,900</div>
-                        <div style="margin: 10px; width: 8%; text-align: center;">1</div>
+                        <div style="margin: 10px; width: 8%; text-align: center; "><%= productCount %></div>
+                        <div style="margin: 10px; width: 8%; text-align: center;"><%= productCount %></div>
                         <div style="margin: 10px; width: 8%; text-align: center;">400원</div>
                         <div style="margin: 10px; width: 8%; text-align: center;">기본</div>
-                        <div style="margin: 10px; width: 8%; text-align: center;">39,900원</div>
-                    </div>
-                    <div class="product" style="display: flex; margin: 20px 0px 0px 0px; font-size: 12px; border-bottom: 0.5px solid black;">
-                        <div style="margin: 10px ; width: 10%;">
-                            <img src="https://dimg.donga.com/wps/NEWS/IMAGE/2020/06/22/101631738.2.jpg" alt="와인" width="100%" height="100%">
-                        </div>
-                        <div style="margin: 10px; width: 50%; font-size: 12px;">
-                            <div style="margin-top: 5%;">
-                                <ul style="list-style: none; ">
-                                    <li>상품명 : <span>가나다라마바</span></li><br>
-                                    <li>수량 : <span>1개</span></li><br>
-                                    <li>옵션 : <span>도수 10도</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div style="margin: 10px; width: 8%; text-align: center; ">39,900</div>
-                        <div style="margin: 10px; width: 8%; text-align: center;">1</div>
-                        <div style="margin: 10px; width: 8%; text-align: center;">400원</div>
-                        <div style="margin: 10px; width: 8%; text-align: center;">기본</div>
-                        <div style="margin: 10px; width: 8%; text-align: center;">39,900원</div>
-                    </div>
+<%--                         <div style="margin: 10px; width: 8%; text-align: center;"><%=totalPrice %></div>
+ --%>                    </div>
+                    
                     <div class="deliver">
                         <div class="deliver-detail" style="font-size: 15px;">
                             <h4>배송비</h4><span>2500원</span>
@@ -472,9 +462,9 @@
           <div>
               <br>
           </div>
-          <form action="<%=request.getContextPath() %>/pay/payment.do" method="post">
+          <%-- <form action="<%=request.getContextPath() %>/pay/payment.do" method="post">
         	<button type="submit">카카오톡 결제</button>
-   		</form>
+   		</form> --%>
       </div>
 
     <div style="height: 120px;">
