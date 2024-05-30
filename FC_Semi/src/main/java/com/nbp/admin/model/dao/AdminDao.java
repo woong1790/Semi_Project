@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.nbp.model.DTO.Member;
+import com.nbp.product.model.DTO.Product;
 import com.nbp.model.DAO.MemberDAO;
 
 
@@ -68,7 +69,91 @@ public class AdminDao {
 		}
 		return result;
 	}
+	public List<Product> adminSelectProductAll(Connection conn) {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<Product> products = new ArrayList<>();
+
+        try {
+            pstmt = conn.prepareStatement(sql.getProperty("adminSelectProductAll"));
+            rs = pstmt.executeQuery();
+            while(rs.next()) {
+            	products.add(getProduct(rs));
+			}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(rs);
+            close(pstmt);
+        }
+
+        return products;
+    }
 	
+	
+	
+	public int insertProduct(Connection conn, Product product) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+        try {
+            pstmt = conn.prepareStatement(sql.getProperty("insertProduct"));
+            
+            pstmt.setString(1, product.getProductName());
+            pstmt.setString(2, product.getProductSubname());
+            pstmt.setString(3, product.getProductBrand());
+            pstmt.setInt(4, product.getProductPrice());
+            pstmt.setString(5, product.getProductDetail());
+            pstmt.setString(6, product.getProductOrigin());
+            pstmt.setInt(7, product.getProductAlcoholLv());         
+            pstmt.setInt(8, product.getProductAge());          
+            pstmt.setInt(9, product.getProductStock());
+            pstmt.setString(10, product.getProductImg());
+
+            pstmt.setInt(11, product.getProductVolume());
+            pstmt.setString(12, product.getCategoryName());
+
+            result = pstmt.executeUpdate();
+        }catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+    }
+	
+	public int deleteProduct(Connection conn, int productNo) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteProduct"));
+			pstmt.setInt(1, productNo);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
+	static public Product getProduct(ResultSet rs) throws SQLException {
+		return Product.builder()
+				.productNo(rs.getInt("product_no"))
+				.productName(rs.getString("product_name"))
+				.productSubname(rs.getString("product_subname"))
+				.productDetail(rs.getString("product_detail"))
+				.productPrice(rs.getInt("product_price"))
+				.productStock(rs.getInt("product_stock"))
+				.productAlcoholLv(rs.getInt("product_alcohol_lv"))
+				.productOrigin(rs.getString("product_origin"))
+				.productVolume(rs.getInt("product_volume"))
+				.productAge(rs.getInt("product_age"))
+				.productBrand(rs.getString("product_brand"))
+				.productEnrollDate(rs.getDate("product_enroll_date"))
+				.productDeleteYn(rs.getInt("product_delete_yn"))
+				.memberId(rs.getString("member_id"))
+				.productImg(rs.getString("product_img"))
+				.categoryName(rs.getString("category_name"))
+				.build();
+	}
 
 //	public List<Member> searchMember(Connection conn, 
 //			String type, String keyword){
