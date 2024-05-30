@@ -3,7 +3,10 @@
 <%@ page import="com.nbp.model.DTO.Member"%>
 <%@ page import="com.nbp.model.DAO.MemberDAO" %>
 <%@ page import="com.nbp.cart.model.DTO.Cart" %>
-<%@ page import="java.util.*,com.nbp.cart.model.DAO.CartDAO" %>
+<%@ page import="java.util.*,com.nbp.cart.model.DAO.CartDAO,com.google.gson.Gson" %>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.text.NumberFormat"%>
+
 <%
 	Member loginMember=(Member)session.getAttribute("loginMember");
 	String MemberId=loginMember.getMemberId();
@@ -20,7 +23,13 @@
 	}
 	
 	List<Cart> carts=(List<Cart>)request.getAttribute("carts");
-	out.print(carts);
+	//out.print(carts);
+	Gson gson=new Gson();
+	Date date = new Date();
+	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+	String strDate = simpleDate.format(date);
+	int totalPrice=0;
+	NumberFormat numberFormat = NumberFormat.getInstance();
 %>
 
 <!DOCTYPE html>
@@ -56,7 +65,7 @@
         background-color: white;
         border-radius: 5px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        display: none; /* Initially hide all cart items */
+       
     }
     .cart-item img {
         width: 150px;
@@ -104,7 +113,7 @@
         color: white;
     }
     .bulk-order {
-        text-align: right;
+        text-align: center;
         margin: 20px 0;
     }
     .bulk-order button {
@@ -117,7 +126,7 @@
         font-size: 1em;
     }
     .total-price {
-        text-align: right;
+        text-align: center;
         margin: 20px 0;
         font-size: 1.5em;
     }
@@ -132,25 +141,51 @@
     <h1>장바구니</h1>
 </header>
 <div class="container">
-
+	<%if(carts.isEmpty()) {%>
     <div class="empty-cart-message">장바구니에 담긴 물건이 없습니다</div>
-    
-    <div class="cart-item">
-        <input type="checkbox" class="cart-checkbox" data-price="20000">
-        <img src="https://i.imgur.com/RnOgrKc.png" alt="상품 이미지">
-        <div class="item-details">
-            <h3>상품 이름 1 <span class="option">(옵션 1)</span></h3>
-            <p>장바구니 추가 날짜: 2024-05-28</p>
-            <p class="price">₩20,000</p>
-            <div class="buttons">
-                <button class="delete-btn">삭제</button>
-                <button class="order-btn">주문하기</button>
-            </div>
-        </div>
-    </div>
+    <%}else{ %>
+    	<%for(Cart c:carts){
+    		String[] option=gson.fromJson(c.getOptionName(),String[].class);
+    		String[] price=gson.fromJson(c.getOptionPrice(),String[].class);
+    		int[] intPrice = new int[price.length];
+    	
+    		for(int i=0;i<price.length; i++){
+    			intPrice[i]=Integer.parseInt(price[i].replace(",",""));
+    		}
+    		%>
+    		<!-- 장바구니에 담긴 각 ROW -->	
+		    <div class="cart-item">
+		        <input type="checkbox" class="cart-checkbox" data-price="<%=totalPrice%>">
+		        <img src="<%=c.getProductImg() %>" alt="상품 이미지">
+		        <div class="item-details">		        
+		            <h3><%=c.getProductName() %>: <%=c.getCartVolume()%>개</h3>
+		            추가된 옵션:
+		            <%for(int i=0;i<option.length;i++){
+		            	if(i!=0){%>
+		            		<span class="option"><%=i>1?",":""%><%=option[i]%></span>
+		            	<%} 
+		            }%>
+		            
+		            <p class="price">결제 금액: 
+		            <% 
+				        for(int i=0; i<intPrice.length; i++) {
+				            totalPrice += intPrice[i]; // 각 상품의 가격을 누적합니다.
+				        %>
+				    <% } %>
+				    <%=totalPrice %>원
+		            </p>
+		            <p>장바구니 추가 날짜: <%=strDate%></p>
+		            <div class="buttons">
+		                <button class="delete-btn">삭제</button>
+		                <button class="order-btn">주문하기</button>
+		            </div>
+		        </div>
+		    </div>
+		    <% }%>
+    <%} %>
     
     <div class="total-price">
-        총 가격: ₩<span id="totalPrice">0</span>
+        총 결제금액: <span id="totalPrice">0</span>원
     </div>
     
     <div class="bulk-order">
@@ -160,38 +195,13 @@
 </div>
 
 <script>
-	
-<%-- window.onload = function() {
-    fetch('/common/AddCart.do', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            memberId: '<%= loginMember.getMemberId() %>'
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        // 서블릿에서 반환된 데이터 처리
-        if (data.length > 0) {
-            data.forEach(cart => {
-                addItem(cart.name, cart.option, cart.date, cart.price, cart.imageUrl);
-            });
-        } else {
-            document.querySelector('.empty-cart-message').style.display = 'block';
-        }
-    })
-    .catch(error => console.error('Error:', error));
-}; --%>
-	
     function updateTotalPrice() {
         const checkboxes = document.querySelectorAll('.cart-checkbox:checked');
-        let totalPrice = 0;
+        let TotalPrice = 0;
         checkboxes.forEach(checkbox => {
-            totalPrice += parseInt(checkbox.getAttribute('data-price'));
+            TotalPrice += <%=totalPrice%>;
         });
-        document.getElementById('totalPrice').innerText = totalPrice.toLocaleString();
+        document.getElementById('totalPrice').innerText = TotalPrice;
     }
 
     document.querySelectorAll('.cart-checkbox').forEach(checkbox => {
@@ -215,35 +225,10 @@
         alert('주문이 완료되었습니다.');
     }
 
-    function addItem(name, option, date, price, imageUrl) {
-        const container = document.querySelector('.container');
-        const newItem = document.createElement('div');
-        newItem.className = 'cart-item';
-        newItem.innerHTML = `
-            <input type="checkbox" class="cart-checkbox" data-price="\${price}">
-            <img src="\${imageUrl}" alt="상품 이미지">
-            <div class="item-details">
-                <h3>${name} <span class="option">(\${option})</span></h3>
-                <p>장바구니 추가 날짜: \${date}</p>
-                <p class="price">₩\${price.toLocaleString()}</p>
-                <div class="buttons">
-                    <button class="delete-btn">삭제</button>
-                    <button class="order-btn">주문하기</button>
-                </div>
-            </div>
-        `;
-        container.insertBefore(newItem, container.querySelector('.total-price'));
-        document.querySelector('.empty-cart-message').style.display = 'none';
-        newItem.style.display = 'flex';
-        
-        // Attach event listener for the new checkbox
-        newItem.querySelector('.cart-checkbox').addEventListener('change', updateTotalPrice);
-    }
-
-    // Example: Add an item to the cart
-    // addItem('상품 이름 4', '옵션 4', '2024-05-29', 30000, 'image4.jpg');
-    
-    
+    	document.querySelectorAll('.cart-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', updateTotalPrice);
+    });
+   
 </script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </body>
