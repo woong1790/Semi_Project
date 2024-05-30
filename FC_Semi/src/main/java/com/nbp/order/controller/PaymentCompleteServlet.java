@@ -42,30 +42,30 @@ public class PaymentCompleteServlet extends HttpServlet {
 	    response.setContentType("application/json;charset=UTF-8");
 
 
-	     
-//      String productNames = request.getParameterValue("productName");
-//      String quantities = request.getParameterValue("productCount");
-//      String totalprice = request.getParameterValue("totalprice");
-//      request.setAttribute("productNames", productNames);
-//      request.setAttribute("quantities", quantities);
-//      request.setAttribute("totalPrice", totalprice);
-//      if (productNames == null || quantities == null || productPrices == null) {
-//          response.sendError(HttpServletResponse.SC_BAD_REQUEST, "필수 데이터가 누락되었습니다.");
-//          return;
-//      }
+        
 
-      
-      
-//      request.setAttribute("productPrices", productPrices);
-//      
-//      
-//      int totalPrice = 0;
-//      for (int i = 0; i < productNames.length; i++) {
-//          int quantity = Integer.parseInt(quantities[i]);
-//          int price = Integer.parseInt(productPrices[i]);
-//          totalPrice += price * quantity;
-//      }
-     
+        String productName = request.getParameter("productName");
+        String productQuantity = request.getParameter("productQuantity");
+        String options = request.getParameter("options");
+        String totalPrice = request.getParameter("totalPrice");
+        String productImage = request.getParameter("productImage");
+        String productPrice = request.getParameter("productPrice");
+
+        // 요청에 속성으로 데이터를 설정
+        request.setAttribute("productName", productName);
+        request.setAttribute("productQuantity", productQuantity);
+        request.setAttribute("options", options);
+        request.setAttribute("totalPrice", totalPrice);
+        request.setAttribute("productImage", productImage);
+        request.setAttribute("productPrice", productPrice);
+	    
+	    
+	 
+      if (productName == null || productQuantity == null || productPrice == null) {
+          response.sendError(HttpServletResponse.SC_BAD_REQUEST, "필수 데이터가 누락되었습니다.");
+          return;
+      }
+  
       request.getRequestDispatcher("/WEB-INF/views/order/order.jsp").forward(request, response);
 	}
 

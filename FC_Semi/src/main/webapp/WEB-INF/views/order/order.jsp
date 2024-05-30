@@ -147,14 +147,15 @@
             <div class="order-product-title" style="height: 50px; align-items: center;" >
                 <h3 >주문상품</h3><span></span><button id="toggle-button">버튼</button>
             </div>
-         <%
-             String[] productNames = (String[]) request.getAttribute("productNames");
-             String[] productCount = (String[]) request.getAttribute("productCount");
-             String[] productPrices = (String[]) request.getAttribute("productPrices");
-      		 Integer totalPriceObj = (Integer) request.getAttribute("totalPrice");
-             
+<%
+String productName = (String) request.getAttribute("productName");
+String productQuantity = (String) request.getAttribute("productQuantity");
+String options = (String) request.getAttribute("options");
+String totalPrice = (String) request.getAttribute("totalPrice");
+String productImage = (String) request.getAttribute("productImage");
+String productPrice = (String) request.getAttribute("productPrice");
 
-	    %>
+%>
             <div class="content " >
                 <div class="product-list">
                     <div style="display: flex; margin: 20px 0px 20px 0px; font-size: 13px; text-align: center; background-color: rgb(216, 216, 216);">
@@ -173,18 +174,18 @@
                         <div style="margin: 10px; width: 50%; font-size: 12px;">
                             <div style="margin-top: 5%;">
                                 <ul style="list-style: none; ">
-                                    <li>상품명 : <span><%= productNames %></span></li><br>
-                                    <li>수량 : <span><%= productCount %></span></li><br>
-                                    <li>옵션목록 :<span></span></li>
+                                    <li>상품명 : <span><%= productName %></span></li><br>
+                                    <li>수량 : <span><%= productQuantity %></span></li><br>
+                                    <li>옵션목록 :<span><%= options %></span></li>
                                 </ul>
                             </div>
                         </div>
-                        <div style="margin: 10px; width: 8%; text-align: center; "><%= productCount %></div>
-                        <div style="margin: 10px; width: 8%; text-align: center;"><%= productCount %></div>
+                        <div style="margin: 10px; width: 8%; text-align: center; "><%= productPrice %></div>
+                        <div style="margin: 10px; width: 8%; text-align: center;"><%= productQuantity %></div>
                         <div style="margin: 10px; width: 8%; text-align: center;">400원</div>
                         <div style="margin: 10px; width: 8%; text-align: center;">기본</div>
-<%--                         <div style="margin: 10px; width: 8%; text-align: center;"><%=totalPrice %></div>
- --%>                    </div>
+                        <div style="margin: 10px; width: 8%; text-align: center;"><%=productPrice %></div>
+                     </div>
                     
                     <div class="deliver">
                         <div class="deliver-detail" style="font-size: 15px;">
