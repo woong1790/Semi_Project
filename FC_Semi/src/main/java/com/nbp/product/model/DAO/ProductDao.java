@@ -112,7 +112,6 @@ public class ProductDao {
 	}
 	
 	public String[] selectProductImg (Connection conn, int productNo) {
-		System.out.println(productNo+"dhoddkdkslklsddssdfa");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String[] result = new String[2];
@@ -120,11 +119,14 @@ public class ProductDao {
 		pstmt = conn.prepareStatement(sql.getProperty("selectProductImg"));
 		pstmt.setInt(1, productNo);
 		rs=pstmt.executeQuery();
-		if(rs.next()) {
-			result[0]=rs.getString(1);
-			result[1]=rs.getString(2);
+		
+		int i = 0;
+		while(rs.next()) {
+			result[i]=rs.getString("P_IMG_URL");
+			i++;
 		}
-		System.out.println(result.toString());
+		System.out.println(result[0]);
+		System.out.println(result[1]);
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
