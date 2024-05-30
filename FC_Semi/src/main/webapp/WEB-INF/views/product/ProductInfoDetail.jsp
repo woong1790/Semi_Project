@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List,com.nbp.product.review.model.DTO.Review,com.nbp.product.review.model.DTO.Qna,com.nbp.product.model.DTO.Product" %>
-<%@ include file="/WEB-INF/common/sessionInfo.jsp" %>
+
 
 <%
 	String pageBar=(String)request.getAttribute("pageBar"); 
 	String qnaPageBar=(String)request.getAttribute("qnaPageBar"); 
 	List<Review> reviews = (List<Review>)request.getAttribute("reviews");
 	List<Qna> qnas = (List<Qna>)request.getAttribute("qnas");
+	
+
 
 %>
 
@@ -503,7 +505,7 @@ body {
             <form action="<%=request.getContextPath()%>/product/productqna.do">
                 <label for="userId">아이디</label>
                 <% if(loginMember!=null){ %>
-                <input type="text" id="userId" name="userId" value='<%=loginMember.getMemberId()%>' required readOnly><br><br>
+                <input type="text" id="userId" name="userId" value='<%=loginId%>' required readOnly><br><br>
 				<%}else{ %>
 				 <input type="text" id="userId" name="userId" required readOnly><br><br>
 				 <%} %>
@@ -682,7 +684,7 @@ body {
 	    var maxBytes = 1000;
 	    // 모달을 여는 이벤트 핸들러
 	    btn.onclick = function() {
-	    <% if(loginMember!=null){ %>
+	   <% if(loginMember!=null){ %>
 	        modal.style.display = "block";
 	    <%}else{%>
 	    	alert("로그인 후 이용해주세요.");

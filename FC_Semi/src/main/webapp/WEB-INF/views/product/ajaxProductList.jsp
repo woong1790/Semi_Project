@@ -9,9 +9,9 @@
 		        	<%for(Product p : products){%>
 		        	<div id="product-result" class="product">
 		        	<div id="productNo" style="display:none"><%=p.getProductNo() %></div>
-		        	<div class="product-info" style="overflow:hidden"><a href="#"><img src="<%=p.getProductImg()%>" style="width:400px; height:420px; "></a></div>
+		        	<div class="product-info" style="overflow:hidden"><a href="#"><img src="<%=request.getContextPath()%>/upload/productList/<%=p.getProductImg()%>" style="width:400px; height:420px; "></a></div>
 		        	<div><p id="product-name"><%=p.getProductName()%></p></div>
-		        	<div><p id="product-price">$<%=p.getProductPrice()%></p></div>
+		        	<div><p id="product-price"><%=p.getProductPrice()%>won</p></div>
 		        	</div>
 		        	<%
 		        	}%>

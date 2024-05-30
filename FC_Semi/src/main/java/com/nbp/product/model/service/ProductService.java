@@ -39,6 +39,12 @@ public class ProductService {
 		List<Product> result = dao.searchProduct(conn, title, subTitle, firstNo, lastNo);
 		close(conn);
 		return result;
-		
+	}
+	
+	public String[] selectProductImg (int productNo) {
+		Connection conn = getConnection();
+		String[] result = dao.selectProductImg(conn, productNo);
+		close(conn);
+		return result;
 	}
 }

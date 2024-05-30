@@ -181,15 +181,19 @@ List<Product> products1=(List<Product>)request.getAttribute("products1");
     }
     
     #product-name{
-		font-size:30px;
-		color:black;
-		font-weight:bolder;
+		font-size:20px;
+		color:#181841;
 		text-align:center;
+		font-weight:900;
+		font-family:KoPubWorldDotum;
     }
     
     #product-price{
-    	font-size:25px;
-    	text-align:center;
+    	font-size:20px;
+		color:#181841;
+		font-weight:bolder;
+		text-align:center;
+		font-family:KoPubWorldDotum;
 
     }
     
@@ -217,17 +221,16 @@ List<Product> products1=(List<Product>)request.getAttribute("products1");
                         <li><p>글렌피틱</p></li>
                         <li><p>로얄살루트</p></li>
                         <li><p>조니워커</p></li>
-                        <li><p>딤플</p></li>
                         <li><p>임페리얼</p></li>
                     </ul>
                 </li>
                 <li id="sub-menu-title"><p>alcohol<span>,PRODUCT_ALCOHOL_LV</span></p>
                     <ul class="sub-menu1">
-                      <li><p>-20</p></li>
-                      <li><p>20-30</p></li>
-                      <li><p>30-40</p></li>
-                      <li><p>40-50</p></li>
-                      <li><p>50-60</p></li>
+                      <li><p>20</p></li>
+                      <li><p>30</p></li>
+                      <li><p>40</p></li>
+                      <li><p>45</p></li>
+                      <li><p>50</p></li>
                     </ul>
                 </li>
                 <li id="sub-menu-title" ><p>origin<span>,PRODUCT_ORIGIN</span></p>
@@ -241,18 +244,17 @@ List<Product> products1=(List<Product>)request.getAttribute("products1");
                 </li>
                 <li id="sub-menu-title" ><p>age<span>,PRODUCT_AGE</span></p>
                     <ul class="sub-menu1">
-                      <li><p>~10</p></li>
-                      <li><p>10~15</p></li>
-                      <li><p>15~20</p></li>
-                      <li><p>20~25</p></li>
-                      <li><p>25~30</p></li>
+                      <li><p>5</p></li>
+                      <li><p>7</p></li>
+                      <li><p>12</p></li>
+                      <li><p>17</p></li>
+                      <li><p>23</p></li>
                     </ul>
                 </li>
                 <li id="sub-menu-title" ><p>type<span>,CATEGORY_NAME</span></p>
                   <ul class="sub-menu1">
                     <li><p>위스키</p></li>
                     <li><p>와인</p></li>
-                    <li><p>증류주</p></li>
                     <li><p>보드카</p></li>
                   </ul>
               </li>
@@ -265,9 +267,9 @@ List<Product> products1=(List<Product>)request.getAttribute("products1");
 		        	<%for(Product p : products1){%>
 		        	<div id="product-result" class="product">
 		        	<div id="productNo" style="display:none"><%=p.getProductNo() %></div>
-		        	<div class="product-info" style="overflow:hidden"><a href="#"><img src="<%=p.getProductImg()%>" style="width:400px; height:420px; "></a></div>
+		        	<div class="product-info" style="overflow:hidden"><a href="#"><img src="<%=request.getContextPath()%>/upload/productList/<%=p.getProductImg()%>" style="width:400px; height:420px;"></a></div>
 		        	<div><p id="product-name"><%=p.getProductName()%></p></div>
-		        	<div><p id="product-price">$<%=p.getProductPrice()%></p></div>
+		        	<div><p id="product-price"><%=p.getProductPrice()%>won</p></div>
 		        	</div>
 		        	<%
 		        	}%>
@@ -286,7 +288,7 @@ List<Product> products1=(List<Product>)request.getAttribute("products1");
         	$.get("<%=request.getContextPath()%>/product/productlist.do?firstNo="+firstNo)
         	.done(data=>{
         		console.log(data);
-        		if(data.includes("TEST")==false){
+        		if(data.includes("won")==false){
         			alert("더이상 제품이 없습니다.");
         			$("#all-read-btn").css('display','none');
         		}else{
@@ -346,7 +348,7 @@ List<Product> products1=(List<Product>)request.getAttribute("products1");
 	   			searchfirstNo=searchfirstNo+6;
 	        	$.get("<%=request.getContextPath()%>/product/searchproductlist.do?searchfirstNo="+searchfirstNo+"&title="+title+"&subtitle="+subtitle)
 	        	.done(data=>{
-	        		if(data.includes("TEST")==false){
+	        		if(data.includes("won")==false){
 	        			alert("더이상 제품이 없습니다.");
 	        			$("#search-read-btn").css('display','none');
 	        		}else{
