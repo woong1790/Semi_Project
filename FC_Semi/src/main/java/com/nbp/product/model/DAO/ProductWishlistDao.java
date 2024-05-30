@@ -24,14 +24,33 @@ public class ProductWishlistDao {
 
 	}
 	
-		public int insertWishlist(Connection conn, String productId, String memberId) {
+		public int insertWishlist(Connection conn, int productId, String memberId) {
+			PreparedStatement pstmt = null; 
+			int result = 0 ;
+			try {
+			pstmt = conn.prepareStatement(sql.getProperty("insertwishlist"));
+			pstmt.setInt(1, productId);
+			pstmt.setString(2, memberId);
+			result = pstmt.executeUpdate();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			return result;
+			
+		}
+		
+		public int checkWishlist(Connection conn, int productId, String memberId) {
 			PreparedStatement pstmt = null; 
 			ResultSet rs = null;
 			int result = 0 ;
 			try {
-			pstmt = conn.prepareStatement(sql.getProperty("insertwishlist"));
-			pstmt.setString(1, productId);
+			pstmt = conn.prepareStatement(sql.getProperty("checkwishlist"));
+			pstmt.setInt(1, productId);
 			pstmt.setString(2, memberId);
+			rs=pstmt.executeQuery();
+			if(rs.next()) result = rs.getInt(1);
 			}catch(SQLException e) {
 				e.printStackTrace();
 			}finally {
@@ -39,7 +58,23 @@ public class ProductWishlistDao {
 				close(pstmt);
 			}
 			return result;
-			
+		}
+		
+		
+		public int deleteWishlist(Connection conn, int productId, String memberId) {
+			PreparedStatement pstmt = null; 
+			int result = 0 ;
+			try {
+			pstmt = conn.prepareStatement(sql.getProperty("deletewishlist"));
+			pstmt.setInt(1, productId);
+			pstmt.setString(2, memberId);
+			result = pstmt.executeUpdate();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			return result;
 		}
 	}
 	

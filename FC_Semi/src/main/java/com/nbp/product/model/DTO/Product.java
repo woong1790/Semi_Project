@@ -28,4 +28,5 @@ public class Product {
 	private String memberId;
 	private String productImg; 
 	private String categoryName;
+	private String[] productImgs;
 }

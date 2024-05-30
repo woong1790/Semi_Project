@@ -10,15 +10,20 @@
 	}catch(NullPointerException e){
 		loginId="";
 	}
+	
+	String productMainImg = (String)request.getAttribute("productMainImg");
+	System.out.print(productMainImg);
 %>
 <%@ include file="/WEB-INF/common/subHeader.jsp" %> 
 <%
 	int productPrice = 0;
 	String delivery="";
-	if(p.getProductPrice()<50000){
+	if(p.getProductPrice()<100000){
 		
 		productPrice=p.getProductPrice()+3500;
 		delivery="(배송비 포함 : 3,500원)";
+	}else if(p.getProductPrice()>=100000){
+		productPrice=p.getProductPrice();
 	}else{
 		delivery="";
 	}
@@ -37,13 +42,14 @@
     justify-content: space-between;
     overflow:hidden;
     align-items: center;
-    background: url("https://i.imgur.com/t1HFAVE.jpeg") no-repeat center center;
+    background: url("<%=request.getContextPath()%>/upload/product/<%=productMainImg%>") no-repeat center center;
+    
 	/* background-size:cover; */
-	background-size: 110% 100%;
+	background-size: 100%;
     transition: background-size 1s ease;
    } 
    #product-main:hover{
-    background-size:130% 120%;
+    background-size:120%;
    }     
 
 
@@ -332,29 +338,63 @@
     </section>
     <script>
     	/* 위시리스트 기능 구현 */
-    	<%-- $(document).ready(function({
-    		<%%> --%>
-    		
-    		
+    	 $(document).ready(function(){
+    		 /* 상세 페이지 로딩시 위시리스트 버튼 조건 활성화 */
+    		 <%if(loginId!=""){%>
+    		$.ajax({
+    			type:'post',
+    			url:"<%=request.getContextPath()%>/product/wishlistcheck.do",
+    			data:{productId:<%=p.getProductNo()%>,memberId:'<%=loginId%>'},
+    			success: function (response){
+    				if(response>0){
+    					$("#wish-btn").attr("src",'https://i.imgur.com/UboRxyi.png');
+    				}
+    			}
+    		});
+    		<%}%>
+    	
 	    	$("#wish-img").click(e=>{
-				const white='https://i.imgur.com/VqIZAb3.png';
-				const blue='https://i.imgur.com/UboRxyi.png';
-	
-				let changeBtn = $("#wish-btn").attr("src");
-				if(changeBtn===white){
-					$("#wish-btn").attr("src",blue);
-					alert("위시리스트에 등록되었습니다.");
-					location.assign("<%=request.getContextPath()%>/product/wishlist.do?productId=<%=p.getProductNo()%>&memberId=<%=loginId%>);
-					
-					
-				}else{
-					$("#wish-btn").attr("src",white);
-					alert("위시리스트에서 삭제되었습니다.");
-					
-				}
+   				/* 로그인 검열 */
+   				<%if(loginId==""){%>
+	   	    		alert("로그인 이후 이용할 수 있습니다.");
+   	    		<%}else{%>
+	    		
+	     		$.ajax({
+	     			type:'post',
+	     			url:"<%=request.getContextPath()%>/product/wishlistcheck.do",
+	     			data:{productId:<%=p.getProductNo()%>,memberId:'<%=loginId%>'},
+	     			success: function (response){
+	     				/* 위시리스트 버튼이 활성화 되어있을때 */
+	     				if(response>0){
+	     					$.ajax({
+	     		    			type:'post',
+	     		    			url:"<%=request.getContextPath()%>/product/wishlistdelete.do",
+	     		    			data:{productId:<%=p.getProductNo()%>,memberId:'<%=loginId%>'},
+	     		    			success: function(response){
+	     		    				alert("위시리스트에서 삭제되었습니다.");
+	     							$("#wish-btn").attr("src",'https://i.imgur.com/VqIZAb3.png');
+	     		    			}
+	     		    		});
+	     					
+	     				/* 위시리스트 버튼이 비활성화 되어있을때 */	
+	     				}else{
+	     					
+	     					$.ajax({
+	     		    			type:'post',
+	     		    			url:"<%=request.getContextPath()%>/product/wishlist.do",
+	     		    			data:{productId:<%=p.getProductNo()%>,memberId:'<%=loginId%>'},
+	     		    			success: function(response){
+	     		    				alert("위시리스트에 등록되었습니다.");
+	     		    				$("#wish-btn").attr("src",'https://i.imgur.com/UboRxyi.png');
+	     		    			}
+	     		    		});
+	     				}
+	     			}
+	     		});
+	    				<%}%>
 	    	});
-    	/* }); */
-    
+    	
+    	 });
     
     
     
@@ -384,6 +424,7 @@
     		let cartData = {
     				'memberId':'<%=loginId%>',
     				'productId':<%=p.getProductNo()%>,
+    				'productPrice':<%=p.getProductPrice()%>,
     				'cartVolume':$("#product-count").text(),
     				'optionName':optionName,
     				'optionPrice':optionPrice
@@ -452,8 +493,8 @@
         	  totalpriceResult+=parseFloat(p.innerText.replace(/,/g, ''));
           }
           productPrice = $("#price").text().replace(/,/g, '');
-          totalpriceResult = parseFloat(productPrice)+totalpriceResult;
-          if(totalpriceResult<50000){
+          /* totalpriceResult = parseFloat(productPrice)+totalpriceResult; */
+          if(totalpriceResult<100000){
         	  totalpriceResult = totalpriceResult+3500;
           $("#totalPrice").text("total : "+(totalpriceResult).toLocaleString('ko-KR')+"원");
           $("#delivery").text("(배송비 포함 : 3,500원)");
@@ -482,8 +523,7 @@
         	totalpriceResult+=parseFloat(p.innerText.replace(/,/g, ''));
         }
         productPrice = $("#price").text().replace(/,/g, '');
-        totalpriceResult = parseFloat(productPrice)+totalpriceResult;
-        if(totalpriceResult<50000){
+        if(totalpriceResult<100000){
       	  totalpriceResult = totalpriceResult+3500;
         $("#totalPrice").text("total : "+(totalpriceResult).toLocaleString('ko-KR')+"원");
         $("#delivery").text("(배송비 포함 : 3,500원)");
@@ -520,8 +560,7 @@
     	          }
     	          productPrice = $("#price").text().replace(/,/g, '');
     	          console.log(productPrice);
-    	          totalpriceResult = parseFloat(productPrice)+totalpriceResult;
-    	          if(totalpriceResult<50000){
+    	          if(totalpriceResult<100000){
     	        	  totalpriceResult = totalpriceResult+3500;
     	          $("#totalPrice").text("total : "+(totalpriceResult).toLocaleString('ko-KR')+"원");
     	          $("#delivery").text("(배송비 포함 : 3,500원)");
@@ -554,8 +593,7 @@
         	  totalpriceResult+=parseFloat(p.innerText.replace(/,/g, ''));
           }
           productPrice = $("#price").text().replace(/,/g, '');
-          totalpriceResult = parseFloat(productPrice)+totalpriceResult;
-          if(totalpriceResult<50000){
+          if(totalpriceResult<100000){
         	  totalpriceResult = totalpriceResult+3500;
           $("#totalPrice").text("total : "+(totalpriceResult).toLocaleString('ko-KR')+"원");
           $("#delivery").text("(배송비 포함 : 3,500원)");

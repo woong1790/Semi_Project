@@ -40,6 +40,8 @@ public class ProductInfoServlet extends HttpServlet {
 		Product p = new ProductService().selectProductInfo(title);
 		request.setAttribute("productInfo", p);
 		
+		
+		
 		//제품상세페이지의 리뷰게시판의 페이징 바 구현 
 		//현재페이지 저장
 		int cPage = 1;
@@ -53,7 +55,10 @@ public class ProductInfoServlet extends HttpServlet {
 		}catch(NumberFormatException e) {}
 		
 		int productNo = Integer.parseInt(request.getParameter("productNo"));
-
+		//상품 상세 이미지 불러오기
+		String[] productImgs = new ProductService().selectProductImg(productNo);
+		request.setAttribute("productMainImg", productImgs[0]);
+		request.setAttribute("productInfoImg", productImgs[1]);
 		
 		//리뷰 게시판의 내용
 		List<Review> reviews = new ProductReviewService().selectProductReviewAll(cPage, numPerpage, productNo);

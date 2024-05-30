@@ -111,6 +111,32 @@ public class ProductDao {
 		
 	}
 	
+	public String[] selectProductImg (Connection conn, int productNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String[] result = new String[2];
+		try {
+		pstmt = conn.prepareStatement(sql.getProperty("selectProductImg"));
+		pstmt.setInt(1, productNo);
+		rs=pstmt.executeQuery();
+		
+		int i = 0;
+		while(rs.next()) {
+			result[i]=rs.getString("P_IMG_URL");
+			i++;
+		}
+		System.out.println(result[0]);
+		System.out.println(result[1]);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
 	static public Product getProduct(ResultSet rs) throws SQLException {
 		return Product.builder()
 				.productNo(rs.getInt("product_no"))

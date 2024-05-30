@@ -8,7 +8,8 @@
 	String qnaPageBar=(String)request.getAttribute("qnaPageBar"); 
 	List<Review> reviews = (List<Review>)request.getAttribute("reviews");
 	List<Qna> qnas = (List<Qna>)request.getAttribute("qnas");
-	
+	String productInfoImg = (String)request.getAttribute("productInfoImg");
+	System.out.println(productInfoImg+"ddd");
 
 
 %>
@@ -358,7 +359,7 @@ body {
 	<div id="information-main-container">
 		<div id="information-container">
 			<div id="information-img" style="height: 1000px; overflow: hidden;">
-				<img class="information-img" src="https://i.imgur.com/VON4Oy9.jpeg">
+				<img class="information-img" src="<%=request.getContextPath()%>/upload/productInfo/<%=productInfoImg%>">
 			</div>
 			<div>
 				<img class="gradation" src="https://i.imgur.com/CwX3HEQ.png">
@@ -684,7 +685,7 @@ body {
 	    var maxBytes = 1000;
 	    // 모달을 여는 이벤트 핸들러
 	    btn.onclick = function() {
-	    <% if(loginMember!=null){ %>
+	   <% if(loginMember!=null){ %>
 	        modal.style.display = "block";
 	    <%}else{%>
 	    	alert("로그인 후 이용해주세요.");

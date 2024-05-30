@@ -9,9 +9,9 @@ public class ProductCartService {
 
 	private ProductCartDao dao = new ProductCartDao();
 	
-	public int insertCart(String memberId, String productId,String cartVolume,String optionName,String optionPrice) {
+	public int insertCart(String memberId, String productId,String productPrice,String cartVolume,String optionName,String optionPrice) {
 		Connection conn = getConnection();
-		int result = dao.insertCart(conn, memberId, productId, cartVolume, optionName, optionPrice);
+		int result = dao.insertCart(conn, memberId, productId,productPrice,cartVolume, optionName, optionPrice);
 		if(result>0) commit(conn);
 		else rollback(conn);
 		close(conn);
