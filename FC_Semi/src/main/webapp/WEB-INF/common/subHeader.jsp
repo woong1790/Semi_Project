@@ -174,7 +174,7 @@
 <body>
  <header>
         <div id="main">
-            <div class="logo border" style="width: 80px; height: 100px; margin-left:30px"><img src="https://postfiles.pstatic.net/MjAyNDA1MTZfNjcg/MDAxNzE1ODUwMjgwOTY5.Jv6Kv_HtWZpWqwM47oHMsFPkdaNbnGuLxQcWEOivE3og.C6hmrMJVaBa-vZpvbdWJ47MpvixWDoZYUjALOHNn1ssg.PNG/logo1.png?type=w773" alt="" width="100px" height="80px"></div>
+            <div class="logo border" style="width: 80px; height: 100px; margin-left:30px"><img src="https://i.imgur.com/y7VKQKZ.png" alt="" width="100px" height="100px"></div>
             <div id="category" style="min-width: 1100px;margin-top: 20px;">
               <nav role="navigation">
                 <ul id="main-menu">
