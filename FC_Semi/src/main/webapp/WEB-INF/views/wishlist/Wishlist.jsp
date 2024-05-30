@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ include file="/WEB-INF/common/subHeader.jsp" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,16 +8,9 @@
 <title>위시리스트</title>
 <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f8f8;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
+            background-image: url("https://images.unsplash.com/photo-1629196911514-cfd8d628ba26?q=80&w=1998&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
         }
         .container {
             max-width: 1200px;
@@ -82,19 +76,28 @@
         }
         .bulk-order button {
             padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 1em;
         }
+        
+        #wishlist-title{
+        	width:100%;
+        	display:flex;
+        	justify-content:center;
+        	align-items:center;
+        	margin-top:50px;
+        	font-size:30px;
+        	color:rgb(24, 24, 74);
+        	font-family:KoPubWorldDotum;
+        	font-weight:bolder;
+        	text-shadow: 1px 1px 1px rgba(18, 14, 87, 0.5);
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>위시리스트</h1>
-    </header>
+	<div id="wishlist-title"><div>WishList</div></div>
     <div class="container">
         <div class="wishlist-item">
             <input type="checkbox" class="wishlist-checkbox">
@@ -136,7 +139,7 @@
             </div>
         </div>
         <div class="bulk-order">
-            <button onclick="bulkOrder()">전체 주문하기</button>
+            <button onclick="bulkOrder()"> <img src="https://i.imgur.com/4dp9pEu.png" width="120px"> </button>
         </div>
     </div>
     <script>
