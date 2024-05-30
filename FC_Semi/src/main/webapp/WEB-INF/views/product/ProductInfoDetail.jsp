@@ -684,7 +684,7 @@ body {
 	    var maxBytes = 1000;
 	    // 모달을 여는 이벤트 핸들러
 	    btn.onclick = function() {
-	    <% if(loginMember!=null){ %>
+	   <% if(loginMember!=null){ %>
 	        modal.style.display = "block";
 	    <%}else{%>
 	    	alert("로그인 후 이용해주세요.");

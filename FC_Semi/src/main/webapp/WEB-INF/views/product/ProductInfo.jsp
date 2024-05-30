@@ -10,15 +10,20 @@
 	}catch(NullPointerException e){
 		loginId="";
 	}
+	
+	String productMainImg = (String)request.getAttribute("productMainImg");
+	System.out.print(productMainImg);
 %>
 <%@ include file="/WEB-INF/common/subHeader.jsp" %> 
 <%
 	int productPrice = 0;
 	String delivery="";
-	if(p.getProductPrice()<50000){
+	if(p.getProductPrice()<100000){
 		
 		productPrice=p.getProductPrice()+3500;
 		delivery="(배송비 포함 : 3,500원)";
+	}else if(p.getProductPrice()>=100000){
+		productPrice=p.getProductPrice();
 	}else{
 		delivery="";
 	}
@@ -37,13 +42,14 @@
     justify-content: space-between;
     overflow:hidden;
     align-items: center;
-    background: url("https://i.imgur.com/t1HFAVE.jpeg") no-repeat center center;
+    background: url("<%=request.getContextPath()%>/upload/product/<%=productMainImg%>") no-repeat center center;
+    
 	/* background-size:cover; */
-	background-size: 110% 100%;
+	background-size: 100%;
     transition: background-size 1s ease;
    } 
    #product-main:hover{
-    background-size:130% 120%;
+    background-size:120%;
    }     
 
 
@@ -418,6 +424,7 @@
     		let cartData = {
     				'memberId':'<%=loginId%>',
     				'productId':<%=p.getProductNo()%>,
+    				'productPrice':<%=p.getProductPrice()%>,
     				'cartVolume':$("#product-count").text(),
     				'optionName':optionName,
     				'optionPrice':optionPrice
@@ -486,8 +493,8 @@
         	  totalpriceResult+=parseFloat(p.innerText.replace(/,/g, ''));
           }
           productPrice = $("#price").text().replace(/,/g, '');
-          totalpriceResult = parseFloat(productPrice)+totalpriceResult;
-          if(totalpriceResult<50000){
+          /* totalpriceResult = parseFloat(productPrice)+totalpriceResult; */
+          if(totalpriceResult<100000){
         	  totalpriceResult = totalpriceResult+3500;
           $("#totalPrice").text("total : "+(totalpriceResult).toLocaleString('ko-KR')+"원");
           $("#delivery").text("(배송비 포함 : 3,500원)");
@@ -516,8 +523,7 @@
         	totalpriceResult+=parseFloat(p.innerText.replace(/,/g, ''));
         }
         productPrice = $("#price").text().replace(/,/g, '');
-        totalpriceResult = parseFloat(productPrice)+totalpriceResult;
-        if(totalpriceResult<50000){
+        if(totalpriceResult<100000){
       	  totalpriceResult = totalpriceResult+3500;
         $("#totalPrice").text("total : "+(totalpriceResult).toLocaleString('ko-KR')+"원");
         $("#delivery").text("(배송비 포함 : 3,500원)");
@@ -554,8 +560,7 @@
     	          }
     	          productPrice = $("#price").text().replace(/,/g, '');
     	          console.log(productPrice);
-    	          totalpriceResult = parseFloat(productPrice)+totalpriceResult;
-    	          if(totalpriceResult<50000){
+    	          if(totalpriceResult<100000){
     	        	  totalpriceResult = totalpriceResult+3500;
     	          $("#totalPrice").text("total : "+(totalpriceResult).toLocaleString('ko-KR')+"원");
     	          $("#delivery").text("(배송비 포함 : 3,500원)");
@@ -588,8 +593,7 @@
         	  totalpriceResult+=parseFloat(p.innerText.replace(/,/g, ''));
           }
           productPrice = $("#price").text().replace(/,/g, '');
-          totalpriceResult = parseFloat(productPrice)+totalpriceResult;
-          if(totalpriceResult<50000){
+          if(totalpriceResult<100000){
         	  totalpriceResult = totalpriceResult+3500;
           $("#totalPrice").text("total : "+(totalpriceResult).toLocaleString('ko-KR')+"원");
           $("#delivery").text("(배송비 포함 : 3,500원)");

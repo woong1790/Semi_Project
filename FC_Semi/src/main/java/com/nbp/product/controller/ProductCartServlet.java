@@ -42,6 +42,8 @@ public class ProductCartServlet extends HttpServlet {
 		String memberId = jsonNode.get("memberId").asText();
 		String productId = jsonNode.get("productId").asText();
 		String cartVolume = jsonNode.get("cartVolume").asText();
+		String productPrice = jsonNode.get("productPrice").asText();
+		
 		
 		JsonNode name = jsonNode.get("optionName");
 		// optionName을 Java 객체로 변환 후 Gson으로 직렬화
@@ -53,7 +55,7 @@ public class ProductCartServlet extends HttpServlet {
         JsonElement optionPriceElement = JsonParser.parseString(jsonNode.get("optionPrice").toString());
         String optionPrice = gson.toJson(optionPriceElement);
 		
-		int result = new ProductCartService().insertCart(memberId, productId, cartVolume, optionName, optionPrice);
+		int result = new ProductCartService().insertCart(memberId, productId, productPrice,cartVolume, optionName, optionPrice);
 		
 		
 	
