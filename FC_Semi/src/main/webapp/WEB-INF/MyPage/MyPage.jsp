@@ -23,9 +23,8 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="/WEB-INF/common/subHeader.jsp" %> 
-<title>Insert title here</title>
+<title>첫차: 마이페이지</title>
 </head>
-<body>
 <style>
     #menubar>ul>li{
         list-style: none;
@@ -135,9 +134,6 @@
    	 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript"> 
     // loginMember 변수를 JavaScript 변수로 할당
-    
-    
-
     $("#editProfileLink").click(e => {
         $.get("<%=request.getContextPath()%>/MyPage/memberupdate.do")
             .done(data => {

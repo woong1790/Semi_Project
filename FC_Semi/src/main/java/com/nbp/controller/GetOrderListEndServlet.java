@@ -32,8 +32,8 @@ public class GetOrderListEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String loginMember=(String)request.getAttribute("loginMember");
-		
+		String loginMember=request.getParameter("loginMember");
+		System.out.println("end서블릿"+loginMember);
 		OrderService os=new OrderService();
 
             
@@ -42,7 +42,7 @@ public class GetOrderListEndServlet extends HttpServlet {
 
             // 조회된 주문 내역을 JSON 형식으로 변환하여 응답
             response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
+            request.setCharacterEncoding("UTF-8");
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.writeValue(response.getWriter(), orderList);
         

@@ -35,9 +35,9 @@ public class GetOrderListServlet extends HttpServlet {
 		System.out.println(MemberId);
 //		OrderService os=new OrderService();
 //		List<MyPageOrder> result=os.getMyOrderList(MemberId);
-//		
-		request.setAttribute("MemberId",MemberId);
-		System.out.println(MemberId);
+		OrderService os=new OrderService();
+		List<MyPageOrder> orderList = os.getMyOrderList(MemberId);
+		request.setAttribute("orderList", orderList);
 		request.getRequestDispatcher("/WEB-INF/MyPage/MyOrderList.jsp").forward(request, response);
 	}
 

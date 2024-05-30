@@ -57,8 +57,6 @@ public class ProductInfoServlet extends HttpServlet {
 		int productNo = Integer.parseInt(request.getParameter("productNo"));
 		//상품 상세 이미지 불러오기
 		String[] productImgs = new ProductService().selectProductImg(productNo);
-		System.out.println(productImgs[0]);
-		System.out.println(productImgs[1]);
 		request.setAttribute("productMainImg", productImgs[0]);
 		request.setAttribute("productInfoImg", productImgs[1]);
 		
