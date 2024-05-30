@@ -602,6 +602,27 @@
           $("#delivery").text("");
           }
       });
+      //결제페이지로 정보 보내기
+      document.getElementById("parchase").addEventListener("click",e=>{
+  		const xmlRequest=new XMLHttpRequest();
+  		xmlRequest.onload=()=>{
+  			if(xmlRequest.status==200){
+  				document.write(xmlRequest.responseText);
+  			}
+  		}
+  		const productName=document.querySelector(".list-name").innerText;
+  		const productCount=document.querySelector("#product-count").innerText;
+  		const productPrice=document.querySelector("#price").innerText.replace(",","");
+   		const totalprice=document.querySelector("#totalPrice").innerText.replace(/[^0-9]/g, '');
+
+   		/*const totalprice=document.querySelector("#list-price").innerText.replace(",","");*/  		
+
+  		xmlRequest.open("post","<%=request.getContextPath()%>/order/productdetailorder.do");
+  		xmlRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+  		
+  		
+  		xmlRequest.send("productName="+productName+"&productCount="+productCount+"&productPrice="+productPrice+"&totalprice="+totalprice);
+  	});
       
     </script>
 </body>

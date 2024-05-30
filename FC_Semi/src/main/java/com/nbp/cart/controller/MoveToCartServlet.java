@@ -39,7 +39,6 @@ public class MoveToCartServlet extends HttpServlet {
 		request.setAttribute("carts", carts);
 		
 		request.getRequestDispatcher("/WEB-INF/views/cart/Cart.jsp").forward(request, response);
-		
 	}
 
 	/**
