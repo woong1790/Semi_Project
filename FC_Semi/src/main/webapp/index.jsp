@@ -15,11 +15,13 @@
 <title>A-Whale</title>
 </head>
 <body>
+	<div style="height:215px;"></div>
 	<!-- <div class="menu1">
       <img src="https://i.pinimg.com/564x/d0/aa/aa/d0aaaa675b2aa1158492d4e698b28655.jpg" alt="동그라미~"> 
          <img class="lettering" src="./image/awhale.png" alt="레터링">
 
    </div> -->
+   <div id="indexMainImg"> </div>
 	<div class="menu2">
 		<div class="menu2-1">
 		</div>
@@ -37,7 +39,7 @@
 			</div>
 			<div class="left-child">
 				<img
-					style="width: 100%; height: 100%; margin-top: 5px; border-radius: 10px;"
+					style="width: 100%; height: 100%; margin-top: 5px; "
 					src="https://dimg.donga.com/ugc/CDB/WEEKLY/Article/5d/bb/ba/e1/5dbbbae119c7d2738de6.jpg"
 					alt="">
 			</div>
@@ -78,8 +80,6 @@
 					alt="zz">
 			</div>
 			<div class="child imagehidden">
-				<p>여기는 주류 설명~</p>
-				<!-- <img style="width: 100%; height: 100%;" src="https://i.pinimg.com/736x/9a/e5/f2/9ae5f2aed5284649c009b7bea3f0b345.jpg" alt="zz"> -->
 			</div>
 		</div>
 		<div class="center3">
@@ -89,8 +89,6 @@
 					alt="zz">
 			</div>
 			<div class="child imagehidden">
-				<p>여기는 주류 설명~</p>
-				<!-- <img style="width: 100%; height: 100%;" src="https://i.pinimg.com/736x/9a/e5/f2/9ae5f2aed5284649c009b7bea3f0b345.jpg" alt="zz"> -->
 			</div>
 		</div>
 		<div class="right3">
@@ -100,16 +98,20 @@
 					alt="zz">
 			</div>
 			<div class="child imagehidden">
-				<p>여기는 주류 설명~</p>
-				<!-- <img style="width: 100%; height: 100%;" src="https://i.pinimg.com/736x/9a/e5/f2/9ae5f2aed5284649c009b7bea3f0b345.jpg" alt="zz"> -->
 			</div>
 		</div>
 	</div>
 	<div class="menu7"></div>
 	<style>
+ 	#indexMainImg{
+		height:900px;
+		background-image:url("https://i.imgur.com/nR4ygfr.jpeg");
+		background-size: 100% 100%;
+	}
+	
+	
 .imagehidden {
 	overflow: hidden;
-	border-radius: 10px;
 }
 
 .child {
@@ -202,7 +204,6 @@
 	/* border: 1px solid black; */
 	box-sizing: border-box;
 	overflow: hidden;
-	border-radius: 10px;
 	margin-right: 10px;
 }
 
@@ -240,7 +241,6 @@
 	display: flex;
 	margin: 0 auto;
 	margin-top: 20px;
-	border-radius: 30px;
 }
 
 .menu3>a {
@@ -282,14 +282,7 @@
 	justify-content: center;
 }
 
-.menu1>img {
-	margin-top: 100px;
-	border-radius: 100%;
-	width: 300px;
-	height: 300px;
-	z-index: 1;
-	position: relative;
-}
+
 
 .menu1 .lettering {
 	z-index: 2;
@@ -301,3 +294,4 @@
 </style>
 </body>
 </html>
+<%@ include file="/WEB-INF/common/footer.jsp"%>
