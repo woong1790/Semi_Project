@@ -1,9 +1,7 @@
 ![](https://i.imgur.com/b9vMFbV.png)
-# 첫차 : 주류 쇼핑몰 브랜딩
+# Semi_Project 주류 쇼핑몰[:첫차]
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/19f14a77-ac2b-40d7-80e8-73aa9a07297e/6483de9f-d16f-4fda-8871-6a086ce755cd/Untitled.png" width="200" height="400"/>
 ## 함께한 우리 팀원들
-|최선웅(팀장)|유승주|윤상빈|
-|------|---|---|
-|<img src="https://i.imgur.com/CkIjdSK.png" width="150" height="200"/>|<img src="https://i.imgur.com/dKmQAi3.png" width="150" height="200"/>|<img src="https://i.imgur.com/HCyyAof.png" width="150" height="200"/>|
 ---
 ---
 ## :wrench: 개발 환경
