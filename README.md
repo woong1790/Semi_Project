@@ -3,7 +3,7 @@
 ## 함께한 우리 팀원들
 |최선웅(팀장)|유승주|윤상빈|
 |------|---|---|
-|<img src="https://i.imgur.com/CkIjdSK.png" width="200" height="300"/>|<img src="https://i.imgur.com/dKmQAi3.png" width="200" height="300"/>|<img src="https://i.imgur.com/HCyyAof.png" width="200" height="300"/>|
+|<img src="https://i.imgur.com/CkIjdSK.png" width="150" height="200"/>|<img src="https://i.imgur.com/dKmQAi3.png" width="150" height="200"/>|<img src="https://i.imgur.com/HCyyAof.png" width="150" height="200"/>|
 ---
 ---
 ## :wrench: 개발 환경
